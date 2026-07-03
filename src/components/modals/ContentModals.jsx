@@ -446,6 +446,8 @@ export function ContactModal({ onClose }) {
           <a
             key={l.label}
             href={l.href}
+            target={l.external ? '_blank' : undefined}
+            rel={l.external ? 'noopener noreferrer' : undefined}
             className="group flex items-center justify-between rounded-xl border border-ink/10 bg-cream px-4 py-3 transition hover:border-coral/50 hover:bg-paper"
           >
             <div>

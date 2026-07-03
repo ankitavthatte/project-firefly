@@ -45,6 +45,8 @@ export default function RecruiterView() {
               <a
                 key={l.label}
                 href={l.href}
+                target={l.external ? '_blank' : undefined}
+                rel={l.external ? 'noopener noreferrer' : undefined}
                 className="rounded-full border border-ink/15 bg-cream px-5 py-2.5 text-sm font-extrabold text-ink transition hover:border-ink/40"
               >
                 {l.label}
