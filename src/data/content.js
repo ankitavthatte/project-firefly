@@ -150,6 +150,7 @@ export const experiments = [
   { name: 'ChowNow', note: 'Food ordering flows, reduced to their happiest path.' },
 ]
 
+// Card-back photos live in public/awards/<id>.jpg — cards render fine without them.
 export const awards = [
   {
     id: 'totq',
@@ -157,13 +158,15 @@ export const awards = [
     detail: 'Q2 2026',
     color: 'coral',
     note: 'Great products are rarely built alone. Proud to have won this with my team.',
+    photo: 'awards/totq.jpg',
   },
   {
     id: 'eotq',
     title: 'Employee of the Quarter',
-    detail: 'Individual recognition',
+    detail: 'Q1 2026',
     color: 'sun',
     note: 'For taking ownership of design end to end — and never leaving a “why” unanswered.',
+    photo: 'awards/eotq.jpg',
   },
   {
     id: 'fnp',
@@ -171,6 +174,7 @@ export const awards = [
     detail: '3rd Place',
     color: 'lavender',
     note: 'Designing under pressure is a sport. This podium finish was a global one.',
+    photo: 'awards/fnp.jpg',
   },
   {
     id: 'summit',
@@ -178,6 +182,7 @@ export const awards = [
     detail: 'Represented Evalix AI',
     color: 'mint',
     note: 'Presented the product I redesigned end to end, in front of the education industry.',
+    photo: 'awards/summit.jpg',
   },
 ]
 
@@ -322,7 +327,7 @@ export const speedRun = [
   'Architect turned UI/UX Product Designer, based in Pune, India.',
   'Sole designer on Evalix AI — 300+ screens, 8 report types, admin + candidate portals, full research-to-handoff ownership.',
   'Designed MoneyMinds (gamified financial literacy) and ShiftCare (healthcare staff scheduling).',
-  'Team of the Quarter Q2 2026 · Employee of the Quarter · FNP Global Designathon 2025, 3rd Place.',
+  'Team of the Quarter Q2 2026 · Employee of the Quarter Q1 2026 · FNP Global Designathon 2025, 3rd Place.',
   'Represented Evalix AI at the Delhi ET Education Summit.',
   'Works AI-first: Figma, Claude Code, ChatGPT, GitHub, design systems, UX research, prototyping.',
   'Asks “why” before designing. Cannot leave a bad experience unredesigned.',

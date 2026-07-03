@@ -85,7 +85,7 @@ function AwardCard({ award, index }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.15 + index * 0.1 }}
-      className="h-48 cursor-pointer [perspective:900px]"
+      className="h-56 cursor-pointer [perspective:900px]"
       aria-label={`${award.title}, ${award.detail}. ${flipped ? award.note : 'Activate to flip and read the note.'}`}
     >
       <motion.div
@@ -102,9 +102,20 @@ function AwardCard({ award, index }) {
           <p className={`text-xs font-bold ${t.text}`}>{award.detail}</p>
           <span className="mt-1 text-[10px] font-semibold tracking-wider text-ink-soft uppercase">flip me</span>
         </div>
-        {/* back */}
-        <div className={`absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl ${t.bg} p-5 [backface-visibility:hidden] [transform:rotateY(180deg)]`}>
-          <p className="text-center font-hand text-xl leading-snug font-semibold text-ink">“{award.note}”</p>
+        {/* back — a photo from the moment (if one exists), with the note beneath */}
+        <div className={`absolute inset-0 flex flex-col items-center justify-center gap-2.5 overflow-hidden rounded-2xl ${t.bg} p-4 [backface-visibility:hidden] [transform:rotateY(180deg)]`}>
+          {award.photo && (
+            <img
+              src={`${import.meta.env.BASE_URL}${award.photo}`}
+              alt={`Photo — ${award.title}, ${award.detail}`}
+              loading="lazy"
+              className="h-28 w-full shrink-0 rounded-xl object-cover shadow-sm"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none'
+              }}
+            />
+          )}
+          <p className="text-center font-hand text-lg leading-snug font-semibold text-ink">“{award.note}”</p>
         </div>
       </motion.div>
     </motion.button>
