@@ -18,6 +18,7 @@ import {
   StickyModal,
   DrawerModal,
   ContactModal,
+  NowModal,
 } from './components/modals/ContentModals.jsx'
 
 function useIsDesktop() {
@@ -42,6 +43,7 @@ const MODALS = {
   bookshelf: BookshelfModal,
   sticky: StickyModal,
   drawer: DrawerModal,
+  calendar: NowModal,
   contact: ContactModal,
   speedrun: SpeedRunModal,
 }

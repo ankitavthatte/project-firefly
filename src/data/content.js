@@ -298,6 +298,24 @@ export const drawer = {
   ],
 }
 
+// The desk calendar — refresh this every month. Freshness is credibility.
+export const nowBoard = {
+  updated: 'July 2026',
+  items: [
+    { label: 'Designing', text: 'Enterprise reporting & analytics patterns — the Evalix AI universe keeps growing.', color: 'coral' },
+    { label: 'Learning', text: 'AI-first workflows — pushing Claude Code and Figma a little further every week.', color: 'lavender' },
+    { label: 'Creating', text: 'Daily doodles and design content at @punedoodlerr', color: 'sun', href: 'https://www.instagram.com/punedoodlerr' },
+    { label: 'Reading', text: 'Between books right now — send a recommendation via the paper plane.', color: 'mint' },
+  ],
+}
+
+// Polaroids pinned under the window. Swap freely: drop images in public/art/ and edit here.
+export const artWall = [
+  { src: 'art/setu.jpg', caption: 'Setu — a mascot for India Post', rotate: -4 },
+  { src: 'art/nook.jpg', caption: 'The Nook — café brand, drawn with love', rotate: 3 },
+  { src: 'art/adoption.jpg', caption: 'Adoption is love — awareness poster', rotate: -2 },
+]
+
 export const contact = {
   headline: 'Want to build something thoughtful, usable, and a little unforgettable?',
   cta: 'Let’s talk',
@@ -320,6 +338,10 @@ export const whyNotes = {
   lamp: 'The lamp actually controls the light — motion with meaning. Also: the site is called Project Firefly. Try it.',
   drawer: 'Every studio has one drawer you’re not sure you should open. Curiosity gaps keep people exploring.',
   night: 'Night mode isn’t a theme toggle — it’s a reward. The fireflies are the site’s name, kept as a discovery.',
+  calendar: 'The calendar shows this month, really. A portfolio that knows what month it is feels alive — freshness is credibility.',
+  artwall: '“I paint and sketch” should be shown, not claimed. Real work, pinned like polaroids.',
+  window: 'The window follows Pune’s real seasons — monsoon rain in July, winter haze in December. The studio lives in the same world you do.',
+  afterHours: 'Arrive late and the studio is already asleep — the site meets you in your own timezone.',
   modal: 'Modals open with anticipation before reveal — a beat of tension makes content land.',
   recruiter: 'Recruiter Mode exists because respecting a reader’s time is also a design decision.',
   progress: 'Progress is shown gently — motivation without nagging.',

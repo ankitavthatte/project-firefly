@@ -474,3 +474,35 @@ export function PaperPlaneSvg({ active }) {
     </svg>
   )
 }
+
+export function CalendarSvg({ active = false }) {
+  const now = new Date()
+  const month = now.toLocaleString('en-US', { month: 'short' }).toUpperCase()
+  const day = now.getDate()
+  return (
+    <svg viewBox="0 0 90 100" className="w-full" aria-hidden="true">
+      <ellipse cx="45" cy="93" rx="34" ry="5" fill="rgba(53,50,45,0.13)" />
+      {/* easel-style stand */}
+      <path d="M14 90 L24 26 h42 L76 90 Z" fill="#c08a4e" />
+      {/* page */}
+      <rect x="16" y="18" width="58" height="70" rx="7" fill="#fffdf8" stroke="#e0d7c5" strokeWidth="1.5" />
+      {/* spiral rings */}
+      {[0, 1, 2, 3, 4].map((i) => (
+        <circle key={i} cx={26 + i * 9.5} cy="18" r="2.6" fill="none" stroke="#6f6a61" strokeWidth="1.8" />
+      ))}
+      {/* month band */}
+      <rect x="16" y="22" width="58" height="16" rx="5" fill="#ff7a59" />
+      <text x="45" y="34" textAnchor="middle" fontSize="11" fontWeight="800" fill="#fff6ea" fontFamily="inherit" letterSpacing="2">
+        {month}
+      </text>
+      {/* today's date */}
+      <text x="45" y="70" textAnchor="middle" fontSize="28" fontWeight="800" fill="#35322d" fontFamily="inherit">
+        {day}
+      </text>
+      {/* scribbled note */}
+      <path d="M28 78 q8 3 16 0 q8 -3 18 1" stroke={active ? '#e85d3d' : '#c9c2b4'} strokeWidth="2" fill="none" strokeLinecap="round" style={{ transition: 'stroke 0.3s' }} />
+      {/* page curl */}
+      <path d="M74 88 L64 88 Q70 83 74 78 Z" fill="#f3ecdd" stroke="#e0d7c5" strokeWidth="1" />
+    </svg>
+  )
+}

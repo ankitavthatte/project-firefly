@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { useStudio, DISCOVERABLES } from '../../context/StudioContext.jsx'
-import { identity, whyNotes, catFacts } from '../../data/content.js'
+import { identity, whyNotes, catFacts, artWall } from '../../data/content.js'
+import { getPuneSeason } from '../../data/season.js'
 import WhyTag from '../shared/WhyTag.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
+import { Polaroid, ArtLightbox } from '../shared/ArtBits.jsx'
 import {
   LaptopSvg,
   NotebookSvg,
@@ -19,6 +21,7 @@ import {
   LampSvg,
   PaperPlaneSvg,
   DrawerSvg,
+  CalendarSvg,
 } from './objectSvgs.jsx'
 
 const NUDGE_LABELS = {
@@ -32,6 +35,7 @@ const NUDGE_LABELS = {
   bookshelf: 'the bookshelf',
   sticky: 'the sticky notes',
   drawer: 'the desk drawer',
+  calendar: 'the desk calendar',
   contact: 'the paper plane',
 }
 
@@ -91,9 +95,36 @@ function StudioObject({ id, label, why, style, onOpen, children, labelSide = 'to
   )
 }
 
-/* The window: day sky with clouds, or a firefly dusk after the lamp clicks.
+/* Monsoon rain streaking down the window glass. */
+export function WindowRain({ heavy = false }) {
+  const drops = Array.from({ length: heavy ? 16 : 11 }, (_, i) => ({
+    left: `${(i * 9 + 4) % 100}%`,
+    delay: `${((i * 0.43) % 1.9).toFixed(2)}s`,
+    dur: `${(1.5 + (i % 5) * 0.22).toFixed(2)}s`,
+  }))
+  return (
+    <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+      {drops.map((d, i) => (
+        <span
+          key={i}
+          className="raindrop absolute top-0 h-[18%] w-[2px]"
+          style={{ left: d.left, animationDelay: d.delay, animationDuration: d.dur }}
+        />
+      ))}
+    </div>
+  )
+}
+
+/* The window: Pune's real season by day, a firefly dusk after the lamp clicks.
    The sun and moon actually rise and set behind the hills on each switch. */
-function StudioWindow({ night }) {
+const SEASON_SKY = {
+  monsoon: 'from-[#8ba7b7] via-[#a7bfc9] to-[#c6d6da]',
+  summer: 'from-[#79c1ec] to-[#cfeaf7]',
+  winter: 'from-[#bcd9ec] to-[#eaf2f5]',
+  clear: 'from-sky to-[#cfeaf7]',
+}
+
+function StudioWindow({ night, season }) {
   const reduce = useReducedMotion()
   // CSS transitions (not JS tweens) so the rise runs on the compositor,
   // stays 60fps, and survives background-tab throttling.
@@ -101,26 +132,46 @@ function StudioWindow({ night }) {
     transform: up ? 'translate(0px, 0px)' : setOffset,
     transition: reduce ? 'none' : 'transform 1.9s cubic-bezier(0.3, 0.6, 0.3, 1)',
   })
+  const monsoon = season === 'monsoon'
   return (
     <div
       className="absolute z-[21] overflow-hidden rounded-2xl border-[10px] border-wood-deep shadow-[inset_0_0_30px_rgba(53,50,45,0.15),0_14px_30px_-12px_rgba(53,50,45,0.3)]"
       style={{ left: '41%', top: '4%', width: '25%', aspectRatio: '1.45' }}
     >
-      {/* day layer */}
-      <div className={`absolute inset-0 bg-gradient-to-b from-sky to-[#cfeaf7] transition-opacity duration-1000 ${night ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
-        {/* the sun rises at dawn, sets at dusk */}
+      {/* day layer — sky, clouds and light follow Pune's season */}
+      <div className={`absolute inset-0 bg-gradient-to-b ${SEASON_SKY[season]} transition-opacity duration-1000 ${night ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
+        {/* the sun rises at dawn, sets at dusk — bolder in summer, hiding in monsoon */}
         <div
-          className="absolute top-[12%] right-[14%] h-[18%] w-[13%] rounded-full bg-sun shadow-[0_0_28px_10px_rgba(255,201,77,0.55)]"
+          className={`absolute top-[12%] right-[14%] h-[18%] w-[13%] rounded-full ${
+            monsoon
+              ? 'bg-[#f3e9cf] opacity-40 shadow-[0_0_16px_4px_rgba(243,233,207,0.3)]'
+              : season === 'summer'
+                ? 'bg-sun shadow-[0_0_38px_16px_rgba(255,201,77,0.7)]'
+                : season === 'winter'
+                  ? 'bg-[#ffe9b3] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
+                  : 'bg-sun shadow-[0_0_28px_10px_rgba(255,201,77,0.55)]'
+          }`}
           style={rise(!night, 'translate(-26px, 230px)')}
         />
-        <div className="cloud absolute top-[16%] left-0 h-[14%] w-[26%] rounded-full bg-white/90" style={{ animationDuration: '38s' }} />
-        <div className="cloud absolute top-[36%] left-0 h-[10%] w-[18%] rounded-full bg-white/70" style={{ animationDuration: '52s', animationDelay: '-18s' }} />
-        <div className="cloud absolute top-[8%] left-0 h-[9%] w-[15%] rounded-full bg-white/80" style={{ animationDuration: '46s', animationDelay: '-32s' }} />
-        <svg className="planefly absolute top-[30%] left-0 h-[12%]" viewBox="0 0 40 24">
-          <path d="M2 14 L38 4 L20 22 Z" fill="#fffdf8" stroke="#c9c2b4" strokeWidth="1" />
-        </svg>
-        <div className="absolute bottom-0 left-[-10%] h-[34%] w-[70%] rounded-t-full bg-mint-deep/70" />
-        <div className="absolute right-[-14%] bottom-0 h-[42%] w-[74%] rounded-t-full bg-mint/80" />
+        <div className={`cloud absolute top-[16%] left-0 h-[14%] w-[26%] rounded-full ${monsoon ? 'bg-[#6e8494]/90' : 'bg-white/90'}`} style={{ animationDuration: monsoon ? '26s' : '38s' }} />
+        <div className={`cloud absolute top-[36%] left-0 h-[10%] w-[18%] rounded-full ${monsoon ? 'bg-[#7d93a1]/80' : 'bg-white/70'}`} style={{ animationDuration: monsoon ? '34s' : '52s', animationDelay: '-18s' }} />
+        <div className={`cloud absolute top-[8%] left-0 h-[9%] w-[15%] rounded-full ${monsoon ? 'bg-[#657c8c]/90' : 'bg-white/80'}`} style={{ animationDuration: monsoon ? '30s' : '46s', animationDelay: '-32s' }} />
+        {monsoon && (
+          <div className="cloud absolute top-[24%] left-0 h-[12%] w-[22%] rounded-full bg-[#5f7686]/80" style={{ animationDuration: '28s', animationDelay: '-10s' }} />
+        )}
+        {/* no paper planes in the rain */}
+        {!monsoon && (
+          <svg className="planefly absolute top-[30%] left-0 h-[12%]" viewBox="0 0 40 24">
+            <path d="M2 14 L38 4 L20 22 Z" fill="#fffdf8" stroke="#c9c2b4" strokeWidth="1" />
+          </svg>
+        )}
+        <div className={`absolute bottom-0 left-[-10%] h-[34%] w-[70%] rounded-t-full ${monsoon ? 'bg-[#2f6e57]/90' : 'bg-mint-deep/70'}`} />
+        <div className={`absolute right-[-14%] bottom-0 h-[42%] w-[74%] rounded-t-full ${monsoon ? 'bg-[#3c8a6e]/90' : 'bg-mint/80'}`} />
+        {/* winter haze over the hills */}
+        {season === 'winter' && (
+          <div className="mist absolute bottom-[16%] left-[-6%] h-[16%] w-[112%] rounded-full bg-white/50 blur-[6px]" aria-hidden="true" />
+        )}
+        {monsoon && <WindowRain heavy />}
         {/* hidden cat on the day hill */}
         <div className="absolute bottom-[22%] left-[8%]">
           <HiddenCat id={2} size={17} color="#2f6e57" />
@@ -164,6 +215,8 @@ function StudioWindow({ night }) {
           ].map(([l, t, d, dur], i) => (
             <span key={i} className="firefly absolute h-1.5 w-1.5" style={{ left: l, top: t, animationDelay: d, animationDuration: dur }} />
           ))}
+        {/* monsoon nights are rainy too — fireflies love them */}
+        {monsoon && night && <WindowRain />}
       </div>
 
       {/* frame cross bars */}
@@ -212,7 +265,7 @@ function RoomFireflies() {
 /* The resident cat: opens an eye when you come close, sometimes stretches,
    sometimes wanders — and gently points out what you haven't explored yet. */
 function DeskCat() {
-  const { findCat, discovered, progress, catsFound, night } = useStudio()
+  const { findCat, discovered, progress, catsFound, night, afterHours } = useStudio()
   const reduce = useReducedMotion()
   const [eyeOpen, setEyeOpen] = useState(false)
   const [stretching, setStretching] = useState(false)
@@ -220,6 +273,17 @@ function DeskCat() {
   const [prints, setPrints] = useState([])
   const [nudge, setNudge] = useState(null)
   const printId = useRef(0)
+
+  // Late visitors get a sleepy welcome: the studio already matched their hour.
+  useEffect(() => {
+    if (!afterHours) return
+    const show = setTimeout(() => setNudge('psst… you caught the studio after hours. the fireflies are out.'), 1800)
+    const hide = setTimeout(() => setNudge(null), 11000)
+    return () => {
+      clearTimeout(show)
+      clearTimeout(hide)
+    }
+  }, [afterHours])
 
   // Ambient behavior loop
   useEffect(() => {
@@ -433,6 +497,8 @@ function MagneticLaptop({ onOpen }) {
 export default function StudioScene() {
   const { openModal, night, setNight, finale } = useStudio()
   const reduce = useReducedMotion()
+  const [season] = useState(() => getPuneSeason())
+  const [artZoom, setArtZoom] = useState(null)
   // The room feels freshly left for the first few seconds: steam still rising.
   const [justArrived, setJustArrived] = useState(true)
   useEffect(() => {
@@ -506,6 +572,22 @@ export default function StudioScene() {
       </div>
 
       <DustMotes />
+
+      {/* polaroids of real work, pinned under the window */}
+      <motion.div
+        className="absolute z-10"
+        style={{ left: '42.5%', top: '34%', width: '22%' }}
+        initial={reduce ? false : { opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.15, type: 'spring', stiffness: 120, damping: 14 }}
+      >
+        <WhyTag className="absolute -top-2 left-1/2 w-max -translate-x-1/2 -translate-y-full">{whyNotes.artwall}</WhyTag>
+        <div className="flex items-start justify-center gap-[5%]">
+          {artWall.map((a) => (
+            <Polaroid key={a.src} art={a} onZoom={setArtZoom} className="w-[30%]" />
+          ))}
+        </div>
+      </motion.div>
 
       {/* wall pieces */}
       <StudioObject
@@ -639,6 +721,18 @@ export default function StudioScene() {
         {(a) => <ControllerSvg active={a} />}
       </StudioObject>
 
+      {/* the desk calendar — always on this month's page */}
+      <StudioObject
+        id="calendar"
+        label="This Month in the Studio"
+        why={whyNotes.calendar}
+        style={{ left: '71.5%', top: '60%', width: '5.5%' }}
+        onOpen={(e) => openModal('calendar', e)}
+        settleDelay={1.0}
+      >
+        {(a) => <CalendarSvg active={a} />}
+      </StudioObject>
+
       <StudioObject
         id="contact"
         label="Send a Message"
@@ -676,8 +770,12 @@ export default function StudioScene() {
         }`}
         aria-hidden="true"
       />
-      <StudioWindow night={night} />
+      <StudioWindow night={night} season={season} />
+      {/* the window's why-note lives just below the frame */}
+      <WhyTag className="absolute left-[53.5%] top-[33%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
       {night && <RoomFireflies />}
+
+      <ArtLightbox art={artZoom} onClose={() => setArtZoom(null)} />
     </motion.div>
   )
 }

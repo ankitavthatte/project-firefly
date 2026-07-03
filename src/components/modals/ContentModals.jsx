@@ -14,7 +14,10 @@ import {
   palette,
   drawer,
   contact,
+  nowBoard,
+  artWall,
 } from '../../data/content.js'
+import { Polaroid, ArtLightbox } from '../shared/ArtBits.jsx'
 
 const tone = {
   coral: { bg: 'bg-coral', soft: 'bg-coral/15', text: 'text-coral-deep', border: 'border-coral/40' },
@@ -255,11 +258,68 @@ export function ControllerModal({ onClose }) {
   )
 }
 
+/* ---------- Calendar: this month in the studio ---------- */
+export function NowModal({ onClose }) {
+  const monthYear = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })
+  return (
+    <ModalShell title={`This Month · ${monthYear}`} accent="sky" onClose={onClose}>
+      <p className="text-[15px] leading-relaxed text-ink-soft">
+        The page the calendar is actually open to. What&rsquo;s on the desk right now:
+      </p>
+      <ul className="mt-5 space-y-3">
+        {nowBoard.items.map((item, i) => {
+          const t = tone[item.color]
+          return (
+            <motion.li
+              key={item.label}
+              initial={{ opacity: 0, x: -14 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.15 + i * 0.1 }}
+              className="flex items-start gap-3.5 rounded-xl bg-cream p-4"
+            >
+              <span className={`mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full text-[10px] font-extrabold tracking-wide uppercase ${t.bg} text-ink`} aria-hidden="true">
+                {item.label.slice(0, 2)}
+              </span>
+              <div className="min-w-0">
+                <h3 className="text-sm font-extrabold">{item.label}</h3>
+                <p className="mt-0.5 text-sm leading-relaxed text-ink-soft">
+                  {item.href ? (
+                    <>
+                      {item.text.split('@')[0]}
+                      <a href={item.href} target="_blank" rel="noopener noreferrer" className="font-bold text-coral-deep underline-offset-2 hover:underline">
+                        @{item.text.split('@')[1]}
+                      </a>
+                    </>
+                  ) : (
+                    item.text
+                  )}
+                </p>
+              </div>
+            </motion.li>
+          )
+        })}
+      </ul>
+      <p className="mt-5 font-hand text-xl text-sky-deep">
+        This page turns every month. If it looks stale, tell me — that&rsquo;s a design bug.
+      </p>
+    </ModalShell>
+  )
+}
+
 /* ---------- Palette: visual creativity ---------- */
 export function PaletteModal({ onClose }) {
+  const [zoom, setZoom] = useState(null)
   return (
     <ModalShell title="Paint & Pixels" accent="coral" onClose={onClose}>
       <p className="text-[15px] leading-relaxed text-ink">{palette.intro}</p>
+
+      {/* the work itself, pinned like polaroids */}
+      <div className="mt-5 flex items-start justify-center gap-4">
+        {artWall.map((a) => (
+          <Polaroid key={a.src} art={a} onZoom={setZoom} className="w-[30%] max-w-36" />
+        ))}
+      </div>
+      <ArtLightbox art={zoom} onClose={() => setZoom(null)} />
       <div className="mt-5 space-y-3">
         {palette.loves.map((l, i) => (
           <motion.div

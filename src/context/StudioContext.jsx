@@ -12,8 +12,15 @@ export const DISCOVERABLES = [
   'bookshelf',
   'sticky',
   'drawer',
+  'calendar',
   'contact',
 ]
+
+// The studio keeps the visitor's hours: arrive late and the lights are already low.
+export function isAfterHours() {
+  const h = new Date().getHours()
+  return h >= 19 || h < 6
+}
 
 export const TOTAL_CATS = 11
 
@@ -33,7 +40,8 @@ export function StudioProvider({ children }) {
   const [catsFound, setCatsFound] = useState(() => new Set(load('ff-cats', [])))
   const [recruiterMode, setRecruiterMode] = useState(false)
   const [whyMode, setWhyMode] = useState(false)
-  const [night, setNight] = useState(false)
+  const [night, setNight] = useState(isAfterHours)
+  const [afterHours] = useState(isAfterHours)
   const [activeModal, setActiveModal] = useState(null)
   const [modalOrigin, setModalOrigin] = useState(null) // viewport {x, y} the modal grows from
   const [catToast, setCatToast] = useState(null) // { index, fact, all }
@@ -108,6 +116,7 @@ export function StudioProvider({ children }) {
       setWhyMode,
       night,
       setNight,
+      afterHours,
       activeModal,
       openModal,
       closeModal,
@@ -117,7 +126,7 @@ export function StudioProvider({ children }) {
       finale,
       setFinale,
     }),
-    [discovered, progress, catsFound, findCat, catToast, recruiterMode, whyMode, night, activeModal, openModal, closeModal, modalOrigin, goodbyeSeen, finale],
+    [discovered, progress, catsFound, findCat, catToast, recruiterMode, whyMode, night, afterHours, activeModal, openModal, closeModal, modalOrigin, goodbyeSeen, finale],
   )
 
   return <StudioContext.Provider value={value}>{children}</StudioContext.Provider>

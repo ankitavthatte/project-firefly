@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStudio } from '../../context/StudioContext.jsx'
 import { identity, catFacts } from '../../data/content.js'
+import { getPuneSeason } from '../../data/season.js'
+import { WindowRain } from './StudioScene.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
 import {
   LaptopSvg,
@@ -16,6 +18,7 @@ import {
   StickyNotesSvg,
   PaperPlaneSvg,
   DrawerSvg,
+  CalendarSvg,
 } from './objectSvgs.jsx'
 
 const cards = [
@@ -28,24 +31,53 @@ const cards = [
   { id: 'controller', label: 'Play Mode', sub: 'What games taught me', Svg: ControllerSvg },
   { id: 'palette', label: 'Paint & Pixels', sub: 'Made by hand first', Svg: PaletteSvg },
   { id: 'passport', label: 'Travel', sub: 'Field research', Svg: PassportSvg },
+  { id: 'calendar', label: 'This Month', sub: 'The page it’s really on', Svg: CalendarSvg },
   { id: 'drawer', label: 'What’s in the drawer?', sub: 'Probably nothing. Probably.', Svg: DrawerSvg },
   { id: 'contact', label: 'Send a Message', sub: 'Paper plane, ready', Svg: PaperPlaneSvg, big: true },
 ]
 
 /* The studio, restacked for thumbs: same objects, same doors, vertical room. */
 export default function MobileStudio() {
-  const { openModal, discovered, findCat } = useStudio()
+  const { openModal, discovered, findCat, night } = useStudio()
   const [eyeOpen, setEyeOpen] = useState(false)
+  const [season] = useState(() => getPuneSeason())
+  const monsoon = season === 'monsoon'
 
   return (
     <main className="mx-auto max-w-md px-4 pt-24 pb-24">
-      {/* mini window */}
-      <div className="relative h-28 overflow-hidden rounded-2xl border-8 border-wood-deep bg-gradient-to-b from-sky to-[#cfeaf7]" aria-hidden="true">
-        <div className="absolute top-3 right-5 h-8 w-8 rounded-full bg-sun shadow-[0_0_20px_8px_rgba(255,201,77,0.5)]" />
-        <div className="cloud absolute top-4 left-0 h-4 w-16 rounded-full bg-white/90" style={{ animationDuration: '30s' }} />
-        <div className="cloud absolute top-10 left-0 h-3 w-10 rounded-full bg-white/70" style={{ animationDuration: '44s', animationDelay: '-20s' }} />
-        <div className="absolute -bottom-2 left-[-10%] h-10 w-[70%] rounded-t-full bg-mint-deep/70" />
-        <div className="absolute right-[-10%] -bottom-2 h-12 w-[70%] rounded-t-full bg-mint/80" />
+      {/* mini window — follows Pune's season, and the visitor's hour */}
+      <div
+        className={`relative h-28 overflow-hidden rounded-2xl border-8 border-wood-deep bg-gradient-to-b ${
+          night
+            ? 'from-[#2b2850] via-[#4a3b6b] to-[#8a5a7a]'
+            : monsoon
+              ? 'from-[#8ba7b7] to-[#c6d6da]'
+              : 'from-sky to-[#cfeaf7]'
+        }`}
+        aria-hidden="true"
+      >
+        {night ? (
+          <>
+            <div className="absolute top-3 right-5 h-7 w-7 rounded-full bg-[#fff3d6] shadow-[0_0_16px_6px_rgba(255,243,214,0.4)]" />
+            {[['22%', '20%', '0s'], ['48%', '35%', '1.2s'], ['64%', '15%', '2.1s']].map(([l, t, d], i) => (
+              <span key={i} className="twinkle absolute h-1 w-1 rounded-full bg-white/90" style={{ left: l, top: t, animationDelay: d }} />
+            ))}
+            {[['20%', '60%', '0s'], ['55%', '68%', '1.4s'], ['75%', '58%', '2.6s']].map(([l, t, d], i) => (
+              <span key={i} className="firefly absolute h-1.5 w-1.5" style={{ left: l, top: t, animationDelay: d }} />
+            ))}
+            <div className="absolute -bottom-2 left-[-10%] h-10 w-[70%] rounded-t-full bg-[#1f3a33]" />
+            <div className="absolute right-[-10%] -bottom-2 h-12 w-[70%] rounded-t-full bg-[#28473d]" />
+          </>
+        ) : (
+          <>
+            <div className={`absolute top-3 right-5 h-8 w-8 rounded-full ${monsoon ? 'bg-[#f3e9cf] opacity-40' : 'bg-sun shadow-[0_0_20px_8px_rgba(255,201,77,0.5)]'}`} />
+            <div className={`cloud absolute top-4 left-0 h-4 w-16 rounded-full ${monsoon ? 'bg-[#6e8494]/90' : 'bg-white/90'}`} style={{ animationDuration: '30s' }} />
+            <div className={`cloud absolute top-10 left-0 h-3 w-10 rounded-full ${monsoon ? 'bg-[#7d93a1]/80' : 'bg-white/70'}`} style={{ animationDuration: '44s', animationDelay: '-20s' }} />
+            <div className={`absolute -bottom-2 left-[-10%] h-10 w-[70%] rounded-t-full ${monsoon ? 'bg-[#2f6e57]/90' : 'bg-mint-deep/70'}`} />
+            <div className={`absolute right-[-10%] -bottom-2 h-12 w-[70%] rounded-t-full ${monsoon ? 'bg-[#3c8a6e]/90' : 'bg-mint/80'}`} />
+            {monsoon && <WindowRain />}
+          </>
+        )}
       </div>
       <div className="mt-1 flex justify-end pr-2">
         <HiddenCat id={2} size={18} color="#2f6e57" />
