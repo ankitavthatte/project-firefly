@@ -280,7 +280,16 @@ export function PaletteModal({ onClose }) {
           </motion.div>
         ))}
       </div>
-      <div className="mt-4 flex justify-end">
+      <div className="mt-4 flex items-center justify-between gap-3">
+        <a
+          href="https://www.instagram.com/punedoodlerr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-2 rounded-full border border-coral/40 bg-coral/10 px-4 py-2 text-xs font-extrabold text-coral-deep transition hover:bg-coral hover:text-white"
+        >
+          See the doodles — @punedoodlerr
+          <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+        </a>
         <HiddenCat id={9} size={22} color="#e85d3d" />
       </div>
     </ModalShell>

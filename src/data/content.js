@@ -29,6 +29,8 @@ export const identity = {
     { label: 'Email', href: 'mailto:ankitavthatte@gmail.com', note: 'ankitavthatte@gmail.com' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ankita-thatte', note: 'linkedin.com/in/ankita-thatte', external: true },
     { label: 'Behance', href: 'https://www.behance.net/ankitathatte', note: 'behance.net/ankitathatte', external: true },
+    { label: 'Instagram', href: 'https://www.instagram.com/ankitathatte', note: '@ankitathatte', external: true },
+    { label: 'Doodles & Content', href: 'https://www.instagram.com/punedoodlerr', note: '@punedoodlerr', external: true },
     { label: 'Resume', href: 'mailto:ankitavthatte@gmail.com?subject=Résumé%20request', note: 'One email away' },
   ],
 }
