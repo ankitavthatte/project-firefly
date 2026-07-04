@@ -4,6 +4,8 @@ import ModalShell from '../shared/ModalShell.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
 import { projects, experiments } from '../../data/content.js'
 
+const base = import.meta.env.BASE_URL
+
 const folderColors = {
   evalix: 'bg-lavender',
   moneyminds: 'bg-sun',
@@ -49,6 +51,59 @@ function Folder({ color, label, sub, onClick, big = false }) {
       <span className="text-sm font-extrabold text-ink">{label}</span>
       <span className="text-xs leading-snug text-ink-soft">{sub}</span>
     </motion.button>
+  )
+}
+
+function MediaBlock({ item, name }) {
+  if (item.type === 'video') {
+    return (
+      <figure>
+        {item.caption && (
+          <figcaption className="mb-2 text-sm font-extrabold tracking-wider uppercase">{item.caption}</figcaption>
+        )}
+        <video controls playsInline preload="metadata" className="block w-full rounded-xl bg-ink" src={`${base}${item.src}`} />
+      </figure>
+    )
+  }
+  if (item.type === 'image') {
+    return (
+      <figure>
+        {item.caption && (
+          <figcaption className="mb-2 text-sm font-extrabold tracking-wider uppercase">{item.caption}</figcaption>
+        )}
+        <img src={`${base}${item.src}`} alt={`${name} — design work`} loading="lazy" className="block w-full rounded-xl" />
+      </figure>
+    )
+  }
+  // 'board' — a tall case-study board delivered as stacked slices. Seamless unless
+  // deck: true, where each src is a separate slide/mockup and gets its own frame.
+  return (
+    <figure>
+      {item.label && (
+        <figcaption className="mb-2 text-sm font-extrabold tracking-wider uppercase">{item.label}</figcaption>
+      )}
+      <div className={item.deck ? 'space-y-2' : 'overflow-hidden rounded-xl'}>
+        {item.srcs.map((src, i) => (
+          <img
+            key={src}
+            src={`${base}${src}`}
+            alt={i === 0 ? `${name} — ${item.label ?? 'case study'}` : ''}
+            loading="lazy"
+            className={item.deck ? 'block w-full rounded-xl' : 'block w-full'}
+          />
+        ))}
+      </div>
+    </figure>
+  )
+}
+
+function MediaGallery({ media, name }) {
+  return (
+    <div className="mt-6 space-y-6">
+      {media.map((item, i) => (
+        <MediaBlock key={i} item={item} name={name} />
+      ))}
+    </div>
   )
 }
 
@@ -118,6 +173,19 @@ function CaseStudy({ project, onBack }) {
         ))}
       </div>
 
+      {project.media && <MediaGallery media={project.media} name={project.name} />}
+
+      {project.pdfHref && (
+        <a
+          href={`${base}${project.pdfHref}`}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-cream-deep px-4 py-2 text-xs font-bold text-ink transition hover:bg-cream"
+        >
+          📄 Open the full case study (PDF)
+        </a>
+      )}
+
       {project.highlight && (
         <div className="mt-6 flex items-center gap-3 rounded-2xl bg-ink p-4 text-cream">
           <span className="text-xl" aria-hidden="true">🎤</span>
@@ -141,6 +209,7 @@ export default function ProjectsModal({ onClose }) {
   }, [booted])
 
   const openProject = projects.find((p) => p.id === view)
+  const openExperiment = experiments.find((e) => e.id && view === `exp-${e.id}`)
 
   return (
     <ModalShell title="Ankita’s Laptop" accent="lavender" onClose={onClose} wide>
@@ -236,18 +305,59 @@ export default function ProjectsModal({ onClose }) {
                 Side quests. Every one started the same way: “this experience bothers me, and I can’t leave it alone.”
               </p>
               <ul className="mt-4 space-y-3">
-                {experiments.map((e) => (
-                  <li key={e.name} className="flex items-start gap-3 rounded-xl bg-cream p-3.5">
-                    <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-sky/40 text-sm" aria-hidden="true">
-                      ✎
-                    </span>
-                    <div>
-                      <div className="text-sm font-extrabold">{e.name}</div>
-                      <div className="text-xs leading-relaxed text-ink-soft">{e.note}</div>
-                    </div>
-                  </li>
-                ))}
+                {experiments.map((e) =>
+                  e.media ? (
+                    <li key={e.name}>
+                      <button
+                        type="button"
+                        onClick={() => setView(`exp-${e.id}`)}
+                        className="flex w-full cursor-pointer items-start gap-3 rounded-xl border-2 border-transparent bg-cream p-3.5 text-left transition-colors hover:border-ink/10"
+                        aria-label={`Open ${e.name}`}
+                      >
+                        <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-sky/40 text-sm" aria-hidden="true">
+                          🖼️
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block text-sm font-extrabold">
+                            {e.name} <span className="font-hand text-sky-deep">— see the work →</span>
+                          </span>
+                          <span className="block text-xs leading-relaxed text-ink-soft">{e.note}</span>
+                        </span>
+                      </button>
+                    </li>
+                  ) : (
+                    <li key={e.name} className="flex items-start gap-3 rounded-xl bg-cream p-3.5">
+                      <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-sky/40 text-sm" aria-hidden="true">
+                        ✎
+                      </span>
+                      <div>
+                        <div className="text-sm font-extrabold">{e.name}</div>
+                        <div className="text-xs leading-relaxed text-ink-soft">{e.note}</div>
+                      </div>
+                    </li>
+                  ),
+                )}
               </ul>
+            </motion.div>
+          )}
+
+          {openExperiment && (
+            <motion.div
+              key={`exp-${openExperiment.id}`}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 40 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+            >
+              <button
+                onClick={() => setView('experiments')}
+                className="mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-cream-deep px-4 py-2 text-xs font-bold text-ink transition hover:bg-cream"
+              >
+                ← Back to experiments
+              </button>
+              <h3 className="text-xl font-extrabold">{openExperiment.name}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-ink-soft">{openExperiment.intro ?? openExperiment.note}</p>
+              <MediaGallery media={openExperiment.media} name={openExperiment.name} />
             </motion.div>
           )}
         </AnimatePresence>

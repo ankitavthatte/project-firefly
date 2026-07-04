@@ -111,6 +111,15 @@ export const projects = [
         body: 'Courses became journeys with a mascot guide, XP, streaks and unlockable rewards. Each module is small enough to finish in a coffee break, and celebrations are tuned to support learning — not distract from it.',
       },
     ],
+    media: [
+      { type: 'image', src: 'projects/moneyminds/intro.jpg' },
+      { type: 'video', src: 'projects/moneyminds/demo.mp4', caption: 'App walkthrough' },
+      {
+        type: 'board',
+        label: 'Research to screens — the full board',
+        srcs: Array.from({ length: 7 }, (_, i) => `projects/moneyminds/board-${i + 1}.jpg`),
+      },
+    ],
   },
   {
     id: 'shiftcare',
@@ -141,15 +150,83 @@ export const projects = [
         body: 'A shift board designed for scanning: coverage states you can read from across the room, conflict warnings before they become problems, and workflows that respect how chaotic a hospital day actually is.',
       },
     ],
+    media: [
+      {
+        type: 'board',
+        label: 'The full case study',
+        srcs: Array.from({ length: 35 }, (_, i) => `projects/shiftcare/slide-${String(i + 1).padStart(2, '0')}.jpg`),
+        deck: true,
+      },
+    ],
+    pdfHref: 'projects/shiftcare/shiftcare-case-study.pdf',
   },
 ]
 
+// Media shapes: { type: 'board', srcs: [slices] } renders a seamless tall case-study
+// board (deck: true adds gaps between separate slides); { type: 'image' | 'video', src }.
 export const experiments = [
-  { name: 'IRCTC Redesign', note: 'Reimagining India’s busiest booking flow with calm defaults.' },
+  {
+    id: 'irctc',
+    name: 'IRCTC Connect',
+    note: 'Reimagining India’s busiest booking flow with calm defaults.',
+    intro:
+      'India’s train booking app, redesigned end to end — starting with a heuristic evaluation of the existing experience, then rebuilding the flows for the millions who book in a hurry.',
+    media: [
+      { type: 'board', label: 'The redesign', srcs: Array.from({ length: 6 }, (_, i) => `projects/irctc/redesign-${i + 1}.jpg`) },
+      { type: 'board', label: 'The heuristic evaluation', srcs: Array.from({ length: 3 }, (_, i) => `projects/irctc/heuristic-${i + 1}.jpg`) },
+    ],
+  },
+  {
+    id: 'chownow',
+    name: 'ChowNow',
+    note: 'Food ordering flows, reduced to their happiest path.',
+    intro:
+      'A food delivery app crafted around one promise: order from different restaurants in one seamless flow. Branding, user flows, onboarding, and UI — the whole meal.',
+    media: [
+      { type: 'video', src: 'projects/chownow/demo.mp4', caption: 'App walkthrough' },
+      { type: 'board', label: 'The case study', srcs: Array.from({ length: 6 }, (_, i) => `projects/chownow/board-${i + 1}.jpg`) },
+    ],
+  },
+  {
+    id: 'nook',
+    name: 'The Nook',
+    note: 'Café & co-working brand identity, drawn with love.',
+    intro:
+      'A full brand identity for a café and co-working space — logo, illustration style, signage, packaging and merch. The same Nook that hangs on the studio art wall.',
+    media: [
+      {
+        type: 'board',
+        label: 'Brand identity',
+        srcs: [
+          'projects/nook/nook-01.jpg',
+          'projects/nook/nook-02.jpg',
+          'projects/nook/nook-03.jpg',
+          'projects/nook/nook-04.jpg',
+          'projects/nook/nook-05.jpg',
+          'projects/nook/nook-06.gif',
+          'projects/nook/nook-07.jpg',
+          'projects/nook/nook-08.jpg',
+          'projects/nook/nook-09.jpg',
+          'projects/nook/nook-10.jpg',
+          'projects/nook/nook-11.jpg',
+        ],
+        deck: true,
+      },
+    ],
+  },
+  {
+    id: 'logofolio',
+    name: 'Logofolio',
+    note: 'Eight brands, eight personalities — a logo collection.',
+    intro:
+      'Selected logo and identity work: cosmetics, cycling, legal, wellness, audio, tech, coffee and craft. Every mark starts with the brand’s one true sentence.',
+    media: [
+      { type: 'board', label: 'The collection', srcs: Array.from({ length: 5 }, (_, i) => `projects/logofolio/board-${i + 1}.jpg`) },
+    ],
+  },
   { name: 'Vfort', note: 'Security product exploration — trust as a visual language.' },
   { name: 'Niyantrac', note: 'Control-and-monitoring dashboard concepts.' },
   { name: 'Luma', note: 'Light, ambient interface experiments.' },
-  { name: 'ChowNow', note: 'Food ordering flows, reduced to their happiest path.' },
 ]
 
 // Card-back photos live in public/awards/<id>.jpg — cards render fine without them.
