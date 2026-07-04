@@ -2,11 +2,14 @@
 
 export const identity = {
   name: 'Ankita Thatte',
-  role: 'UI/UX Designer · Product Designer · Architect turned UX Designer',
+  role: 'Product Designer',
   location: 'Pune, India',
+  experience:
+    '10+ years across architecture and digital product design — currently the sole designer behind a live enterprise AI SaaS platform.',
   positioning: 'I turn confusing products into clear, thoughtful, and delightful experiences.',
-  heroLine: 'Welcome. I was just here. Feel free to look around.',
-  heroSub: 'I design digital products that turn messy experiences into clear, delightful journeys.',
+  heroLine: 'I turn complex products into clear, delightful experiences.',
+  heroSub:
+    'Most recently: sole designer across 300+ screens of an enterprise AI platform. This studio is my portfolio — everything on the desk opens, so feel free to look around.',
   about:
     'I’m Ankita, an architect turned UI/UX Product Designer who loves turning confusing products into clear, thoughtful, and delightful experiences. I design digital products because they can create faster impact, larger impact, and better everyday experiences for people.',
   aboutExtra:
@@ -25,13 +28,15 @@ export const identity = {
     'AI-first workflows',
   ],
   email: 'ankitavthatte@gmail.com',
+  // The resume PDF lives in public/ — renderers prefix it with BASE_URL.
+  resumeFile: 'Ankita_Thatte_CV.pdf',
+  // Primary links stay professional: LinkedIn, Behance, resume. The doodle
+  // account lives where it has context — inside Paint & Pixels.
   links: [
     { label: 'Email', href: 'mailto:ankitavthatte@gmail.com', note: 'ankitavthatte@gmail.com' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ankita-thatte', note: 'linkedin.com/in/ankita-thatte', external: true },
     { label: 'Behance', href: 'https://www.behance.net/ankitathatte', note: 'behance.net/ankitathatte', external: true },
-    { label: 'Instagram', href: 'https://www.instagram.com/ankitathatte', note: '@ankitathatte', external: true },
-    { label: 'Doodles & Content', href: 'https://www.instagram.com/punedoodlerr', note: '@punedoodlerr', external: true },
-    { label: 'Resume', href: 'mailto:ankitavthatte@gmail.com?subject=Résumé%20request', note: 'One email away' },
+    { label: 'Resume', file: 'Ankita_Thatte_CV.pdf', note: 'PDF · view, download or share the link' },
   ],
 }
 
@@ -91,10 +96,10 @@ export const projects = [
     summary:
       'A gamified financial literacy experience designed to make money concepts approachable, engaging, and rewarding.',
     stats: [
-      { value: 'Mascot', label: 'led learning journey' },
-      { value: 'Modules', label: 'bite-sized courses' },
-      { value: 'Rewards', label: 'streaks & collectibles' },
-      { value: 'Fun', label: 'without losing rigor' },
+      { value: 'End-to-end', label: 'research to visual design' },
+      { value: 'XP & streaks', label: 'reward system design' },
+      { value: 'Mascot', label: 'character & brand design' },
+      { value: '7 boards', label: 'documented case study' },
     ],
     chips: ['Gamification', 'Learning modules', 'Reward loops', 'Mascot design', 'Education UX'],
     story: [
@@ -130,10 +135,10 @@ export const projects = [
     summary:
       'A healthcare scheduling product focused on simplifying staff planning, shift visibility, and operational workflows.',
     stats: [
-      { value: 'Staff', label: 'scheduling for hospitals' },
-      { value: 'Shifts', label: 'planned at a glance' },
-      { value: 'Ops', label: 'clarity for coordinators' },
-      { value: 'Calm', label: 'UX for stressful work' },
+      { value: 'End-to-end', label: 'UX case study' },
+      { value: 'Shift board', label: 'coverage readable at a glance' },
+      { value: 'Conflict alerts', label: 'gaps flagged before they happen' },
+      { value: '35 pages', label: 'of documented process' },
     ],
     chips: ['Healthcare workflows', 'Shift planning', 'Operational UX', 'Scheduling systems', 'Clarity under pressure'],
     story: [
@@ -258,7 +263,7 @@ export const awards = [
   {
     id: 'totq',
     title: 'Team of the Quarter',
-    detail: 'Q2 2026',
+    detail: 'Q2 2026 · Cloud.in',
     color: 'coral',
     note: 'Great products are rarely built alone. Proud to have won this with my team.',
     photo: 'awards/totq.jpg',
@@ -266,7 +271,7 @@ export const awards = [
   {
     id: 'eotq',
     title: 'Employee of the Quarter',
-    detail: 'Q1 2026',
+    detail: 'Q1 2026 · Cloud.in',
     color: 'sun',
     note: 'For taking ownership of design end to end — and never leaving a “why” unanswered.',
     photo: 'awards/eotq.jpg',
@@ -274,7 +279,7 @@ export const awards = [
   {
     id: 'fnp',
     title: 'FNP Global Designathon 2025',
-    detail: '3rd Place',
+    detail: '3rd Place, international',
     color: 'lavender',
     note: 'Designing under pressure is a sport. This podium finish was a global one.',
     photo: 'awards/fnp.jpg',
@@ -330,21 +335,26 @@ export const principles = [
   { text: 'Design is what people remember feeling.', color: 'lavender' },
 ]
 
+// detail = employer · dates, straight from the CV, so reviewers can place
+// each chapter in time without leaving the page.
 export const chapters = [
   {
     title: 'Architecture',
+    detail: 'Venkatramanan Associates & other firms · 2017–2024',
     color: 'wood',
-    body: 'Trained as an architect. Learned that every structure is really a set of human decisions — circulation, light, hierarchy. Buildings taught me systems thinking before I knew the term.',
+    body: 'Trained as an architect (BArch, 2015). Learned that every structure is really a set of human decisions — circulation, light, hierarchy. Buildings taught me systems thinking before I knew the term.',
   },
   {
     title: 'The Turn to UX',
+    detail: 'Tamarind Design Studio, Pune · 2024–2025',
     color: 'coral',
-    body: 'Realized a building changes one street; a digital product can change millions of days. Traded concrete for components — the craft transferred, the impact multiplied.',
+    body: 'Realized a building changes one street; a digital product can change millions of days. Led research and usability testing across EdTech and SaaS products — the craft transferred, the impact multiplied.',
   },
   {
     title: 'Product Design',
+    detail: 'Hostin Services (Cloud.in), Pune · 2025–present',
     color: 'sky',
-    body: 'From screens to systems. Owning research, flows, IA, visual language and hand-off — most recently across an entire enterprise platform as sole designer.',
+    body: 'From screens to systems. Sole designer on Evalix AI, a live enterprise assessment platform — owning research, flows, IA, visual language, a full design system and hand-off.',
   },
   {
     title: 'AI-first Workflows',
@@ -392,16 +402,16 @@ export const palette = {
 export const drawer = {
   intro: 'Every studio has one drawer of almost-finished things. You found mine.',
   items: [
-    { emoji: '📄', title: 'Résumé', note: 'The real one is an email away — this drawer copy has coffee on it.', cta: true },
+    { emoji: '📄', title: 'Résumé', note: 'This drawer copy has coffee on it — take the clean PDF instead.', cta: true },
     { emoji: '✏️', title: 'Three dried-out pens', note: 'Kept for sentimental reasons. They sketched the first Evalix flows.' },
     { emoji: '🧵', title: 'One very important sketch', note: 'Folded four times. Every good product starts as a bad drawing.' },
     { emoji: '🍬', title: 'Emergency toffees', note: 'For user interviews that run long.' },
   ],
 }
 
-// The desk calendar — refresh this every month. Freshness is credibility.
+// The desk calendar — refresh the items every month; the month itself is
+// derived from the real date in NowModal, so it can never go stale.
 export const nowBoard = {
-  updated: 'July 2026',
   items: [
     { label: 'Designing', text: 'Enterprise reporting & analytics patterns — the Evalix AI universe keeps growing.', color: 'coral' },
     { label: 'Learning', text: 'AI-first workflows — pushing Claude Code and Figma a little further every week.', color: 'lavender' },

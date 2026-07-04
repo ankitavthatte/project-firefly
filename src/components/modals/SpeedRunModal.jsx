@@ -26,9 +26,17 @@ export default function SpeedRunModal({ onClose }) {
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <a
           href={`mailto:${identity.email}`}
-          className="rounded-full bg-coral px-6 py-3 text-sm font-extrabold text-white shadow-md transition hover:bg-coral-deep"
+          className="rounded-full bg-coral px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-coral-deep"
         >
           {contact.cta} ✈
+        </a>
+        <a
+          href={`${import.meta.env.BASE_URL}${identity.resumeFile}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-full border border-ink bg-paper px-6 py-3 text-sm font-bold text-ink transition hover:bg-cream-deep"
+        >
+          Resume ↗
         </a>
         <span className="text-xs font-semibold text-ink-soft">{identity.email}</span>
       </div>

@@ -10,7 +10,7 @@ function Toggle({ pressed, onToggle, label, children }) {
       aria-pressed={pressed}
       aria-label={label}
       onClick={onToggle}
-      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-extrabold shadow-sm transition-all ${
+      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-bold shadow-sm transition-all ${
         pressed
           ? 'border-ink bg-ink text-cream'
           : 'border-ink/15 bg-paper/90 text-ink backdrop-blur-sm hover:border-ink/40'
@@ -53,7 +53,7 @@ export default function ControlDock() {
             type="button"
             onClick={() => setRecruiterMode(false)}
             aria-pressed={!recruiterMode}
-            className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-extrabold transition-all ${
+            className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
               !recruiterMode ? 'bg-coral text-white shadow' : 'text-ink-soft hover:text-ink'
             }`}
           >
@@ -63,7 +63,7 @@ export default function ControlDock() {
             type="button"
             onClick={() => setRecruiterMode(true)}
             aria-pressed={recruiterMode}
-            className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-extrabold transition-all ${
+            className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
               recruiterMode ? 'bg-ink text-cream shadow' : 'text-ink-soft hover:text-ink'
             }`}
           >
@@ -78,7 +78,7 @@ export default function ControlDock() {
         <button
           type="button"
           onClick={(e) => openModal('speedrun', e)}
-          className="cursor-pointer rounded-full border border-ink/15 bg-paper/90 px-3.5 py-2 text-xs font-extrabold text-ink shadow-sm backdrop-blur-sm transition hover:border-sun-deep hover:bg-sun/30"
+          className="cursor-pointer rounded-full border border-ink/15 bg-paper/90 px-3.5 py-2 text-xs font-bold text-ink shadow-sm backdrop-blur-sm transition hover:border-sun-deep hover:bg-sun/30"
         >
           ⚡ View in 2 minutes
         </button>
@@ -98,16 +98,16 @@ export default function ControlDock() {
               style={{ width: `${progress}%` }}
             />
           </span>
-          <span className="text-[11px] font-extrabold text-ink">{progress}%</span>
+          <span className="text-[11px] font-bold text-ink">{progress}%</span>
           {catsFound.size > 0 && (
-            <span className="text-[11px] font-extrabold text-coral-deep">🐾 {catsFound.size}/{TOTAL_CATS}</span>
+            <span className="text-[11px] font-bold text-coral-deep">🐾 {catsFound.size}/{TOTAL_CATS}</span>
           )}
         </div>
       )}
       {!recruiterMode && (
         <div className="fixed bottom-4 left-4 z-40 hidden w-56 rounded-2xl border border-ink/10 bg-paper/90 p-3 shadow-sm backdrop-blur-sm lg:block">
           <div className="flex items-baseline justify-between">
-            <span className="text-[11px] font-extrabold text-ink">
+            <span className="text-[11px] font-bold text-ink">
               You’ve discovered {progress}% of Ankita’s world
             </span>
           </div>
@@ -123,7 +123,7 @@ export default function ControlDock() {
           </div>
           {catsFound.size > 0 && (
             <div className="mt-1.5 flex items-center justify-between">
-              <span className="text-[10px] font-extrabold text-coral-deep">🐾 rescue squad</span>
+              <span className="text-[10px] font-bold text-coral-deep">🐾 rescue squad</span>
               <PawSlots found={catsFound.size} />
             </div>
           )}
@@ -157,14 +157,14 @@ export default function ControlDock() {
                   setFinale(false)
                   openModal('contact', e)
                 }}
-                className="cursor-pointer rounded-full bg-coral px-6 py-2.5 text-sm font-extrabold text-white shadow-md transition hover:bg-coral-deep"
+                className="cursor-pointer rounded-full bg-coral px-6 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-coral-deep"
               >
                 Let’s talk ✈
               </button>
               <button
                 type="button"
                 onClick={() => setFinale(false)}
-                className="cursor-pointer rounded-full border border-ink/15 bg-cream px-5 py-2.5 text-sm font-extrabold text-ink transition hover:border-ink/40"
+                className="cursor-pointer rounded-full border border-ink/15 bg-cream px-5 py-2.5 text-sm font-bold text-ink transition hover:border-ink/40"
               >
                 Keep wandering
               </button>
@@ -196,7 +196,7 @@ export default function ControlDock() {
               <div className="flex items-start gap-3">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-coral/15 text-xl" aria-hidden="true">🐾</span>
                 <div>
-                  <p className="text-sm font-extrabold text-ink">Cat found {catToast.index}/{TOTAL_CATS}</p>
+                  <p className="text-sm font-bold text-ink">Cat found {catToast.index}/{TOTAL_CATS}</p>
                   <p className="mt-0.5 text-xs leading-relaxed text-ink-soft">{catToast.fact}</p>
                 </div>
               </div>

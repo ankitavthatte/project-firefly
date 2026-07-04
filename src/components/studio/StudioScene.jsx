@@ -592,15 +592,13 @@ export default function StudioScene() {
           transition={{ delay: 0.35, duration: 0.7 }}
           className="mt-1 text-[clamp(1.5rem,2.5vw,2.3rem)] leading-tight font-extrabold tracking-tight text-ink"
         >
-          Welcome. I was just here.
-          <br />
-          Feel free to look around.
+          {identity.heroLine}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.7 }}
-          className="mt-3 max-w-sm text-[15px] leading-relaxed text-ink-soft"
+          className="mt-3 max-w-sm text-base leading-relaxed text-ink-soft"
         >
           {identity.heroSub}
         </motion.p>

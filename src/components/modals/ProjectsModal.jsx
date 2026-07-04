@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import ModalShell from '../shared/ModalShell.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
+import { useStudio } from '../../context/StudioContext.jsx'
 import { projects, experiments, archive } from '../../data/content.js'
 
 const base = import.meta.env.BASE_URL
@@ -43,12 +44,12 @@ function Folder({ color, label, sub, onClick, big = false }) {
         <span className={`block h-4 w-8 rounded-t-md ${color}`} />
         <span className={`block h-9 w-14 rounded-md rounded-tl-none ${color} shadow-sm transition-transform group-hover:-rotate-2`} />
         {big && (
-          <span className="absolute -top-1 -right-2 rounded-full bg-coral px-1.5 py-0.5 text-[9px] font-extrabold text-white shadow">
+          <span className="absolute -top-1 -right-2 rounded-full bg-coral px-1.5 py-0.5 text-[9px] font-bold text-white shadow">
             ★
           </span>
         )}
       </span>
-      <span className="text-sm font-extrabold text-ink">{label}</span>
+      <span className="text-sm font-bold text-ink">{label}</span>
       <span className="text-xs leading-snug text-ink-soft">{sub}</span>
     </motion.button>
   )
@@ -59,7 +60,7 @@ function MediaBlock({ item, name }) {
     return (
       <figure>
         {item.caption && (
-          <figcaption className="mb-2 text-sm font-extrabold tracking-wider uppercase">{item.caption}</figcaption>
+          <figcaption className="mb-2 text-sm font-bold tracking-wider uppercase">{item.caption}</figcaption>
         )}
         <video controls playsInline preload="metadata" className="block w-full rounded-xl bg-ink" src={`${base}${item.src}`} />
       </figure>
@@ -69,7 +70,7 @@ function MediaBlock({ item, name }) {
     return (
       <figure>
         {item.caption && (
-          <figcaption className="mb-2 text-sm font-extrabold tracking-wider uppercase">{item.caption}</figcaption>
+          <figcaption className="mb-2 text-sm font-bold tracking-wider uppercase">{item.caption}</figcaption>
         )}
         <img src={`${base}${item.src}`} alt={`${name} — design work`} loading="lazy" className="block w-full rounded-xl" />
       </figure>
@@ -80,7 +81,7 @@ function MediaBlock({ item, name }) {
   return (
     <figure>
       {item.label && (
-        <figcaption className="mb-2 text-sm font-extrabold tracking-wider uppercase">{item.label}</figcaption>
+        <figcaption className="mb-2 text-sm font-bold tracking-wider uppercase">{item.label}</figcaption>
       )}
       <div className={item.deck ? 'space-y-2' : 'overflow-hidden rounded-xl'}>
         {item.srcs.map((src, i) => (
@@ -127,13 +128,13 @@ function CaseStudy({ project, onBack }) {
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h3 className="text-2xl font-extrabold tracking-tight">{project.name}</h3>
           {project.flagship && (
-            <span className="rounded-full bg-ink px-3 py-1 text-[10px] font-extrabold tracking-wider text-cream uppercase">
+            <span className="rounded-full bg-ink px-3 py-1 text-[10px] font-bold tracking-wider text-cream uppercase">
               Flagship case study
             </span>
           )}
         </div>
         <p className={`mt-1 font-hand text-xl ${accentText[project.color]}`}>{project.metaphor}</p>
-        <p className="mt-3 text-[15px] leading-relaxed text-ink">{project.summary}</p>
+        <p className="mt-3 text-base leading-relaxed text-ink">{project.summary}</p>
       </div>
 
       {/* stats */}
@@ -164,11 +165,11 @@ function CaseStudy({ project, onBack }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 + i * 0.08 }}
           >
-            <h4 className="flex items-center gap-2 text-sm font-extrabold tracking-wider uppercase">
+            <h4 className="flex items-center gap-2 text-sm font-bold tracking-wider uppercase">
               <span className={`inline-block h-2 w-2 rounded-full ${folderColors[project.id] ?? 'bg-coral'}`} />
               {s.title}
             </h4>
-            <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">{s.body}</p>
+            <p className="mt-1.5 text-base leading-relaxed text-ink-soft">{s.body}</p>
           </motion.section>
         ))}
       </div>
@@ -200,7 +201,9 @@ function CaseStudy({ project, onBack }) {
 export default function ProjectsModal({ onClose }) {
   const reduce = useReducedMotion()
   const [booted, setBooted] = useState(reduce)
-  const [view, setView] = useState('desktop') // 'desktop' | project id | 'experiments'
+  // The laptop's screen lives in context so the URL can deep-link into it
+  // ('desktop' | project id | 'experiments' | 'archive' | 'exp-<id>').
+  const { laptopView: view, setLaptopView: setView } = useStudio()
 
   useEffect(() => {
     if (booted) return
@@ -319,7 +322,7 @@ export default function ProjectsModal({ onClose }) {
                           🖼️
                         </span>
                         <span className="min-w-0">
-                          <span className="block text-sm font-extrabold">
+                          <span className="block text-sm font-bold">
                             {e.name} <span className="font-hand text-sky-deep">— see the work →</span>
                           </span>
                           <span className="block text-xs leading-relaxed text-ink-soft">{e.note}</span>
@@ -332,7 +335,7 @@ export default function ProjectsModal({ onClose }) {
                         ✎
                       </span>
                       <div>
-                        <div className="text-sm font-extrabold">{e.name}</div>
+                        <div className="text-sm font-bold">{e.name}</div>
                         <div className="text-xs leading-relaxed text-ink-soft">{e.note}</div>
                       </div>
                     </li>
@@ -366,7 +369,7 @@ export default function ProjectsModal({ onClose }) {
                           🖼️
                         </span>
                         <span className="min-w-0">
-                          <span className="block text-sm font-extrabold">
+                          <span className="block text-sm font-bold">
                             {e.name} <span className="font-hand text-coral">— see the work →</span>
                           </span>
                           <span className="block text-xs leading-relaxed text-ink-soft">{e.note}</span>
@@ -379,7 +382,7 @@ export default function ProjectsModal({ onClose }) {
                         📐
                       </span>
                       <div className="min-w-0">
-                        <div className="text-sm font-extrabold">
+                        <div className="text-sm font-bold">
                           {e.name} <span className="font-hand font-normal text-ink-soft">— photos being dusted off</span>
                         </div>
                         <div className="text-xs leading-relaxed text-ink-soft">{e.note}</div>

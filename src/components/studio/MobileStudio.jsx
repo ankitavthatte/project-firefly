@@ -116,10 +116,8 @@ export default function MobileStudio() {
 
       <header className="mt-4">
         <p className="font-hand text-2xl text-coral-deep">Ankita Thatte · Product Designer · Pune</p>
-        <h1 className="mt-1 text-3xl leading-tight font-extrabold tracking-tight">
-          Welcome. I was just here. Feel free to look around.
-        </h1>
-        <p className="mt-2.5 text-[15px] leading-relaxed text-ink-soft">{identity.heroSub}</p>
+        <h1 className="mt-1 text-3xl leading-tight font-extrabold tracking-tight">{identity.heroLine}</h1>
+        <p className="mt-2.5 text-base leading-relaxed text-ink-soft">{identity.heroSub}</p>
       </header>
 
       {/* the cat, front and center on the rug */}
@@ -159,7 +157,7 @@ export default function MobileStudio() {
               <div className={`mx-auto ${big ? 'w-40' : 'w-24'}`}>
                 <Svg active={false} />
               </div>
-              <div className="mt-2 text-sm font-extrabold">{label}</div>
+              <div className="mt-2 text-sm font-bold">{label}</div>
               <div className="text-xs text-ink-soft">{sub}</div>
             </motion.button>
           )
