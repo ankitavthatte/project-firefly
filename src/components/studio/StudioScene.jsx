@@ -539,12 +539,14 @@ export default function StudioScene() {
   return (
     <motion.div
       ref={sceneRef}
-      className={`relative h-full min-h-[640px] w-full overflow-hidden ${night ? 'torch-zone' : ''}`}
+      // cursor hides only while the torch is actually rendered — never strand
+      // the visitor pointer-less (e.g. arriving after hours, mouse at rest)
+      className={`relative h-full min-h-[640px] w-full overflow-hidden ${torch ? 'torch-zone' : ''}`}
       role="region"
       aria-label="Ankita’s interactive studio. Every object opens a part of the portfolio."
       animate={finale && !reduce ? { scale: [1, 1.015, 1] } : {}}
       transition={{ duration: 1.4, ease: 'easeInOut' }}
-      onPointerMove={night ? onTorchMove : undefined}
+      onPointerMove={onTorchMove}
       onPointerEnter={() => setTorchOn(true)}
       onPointerLeave={() => setTorchOn(false)}
     >

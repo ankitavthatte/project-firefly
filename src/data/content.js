@@ -192,7 +192,7 @@ export const experiments = [
     name: 'The Nook',
     note: 'Café & co-working brand identity, drawn with love.',
     intro:
-      'A full brand identity for a café and co-working space — logo, illustration style, signage, packaging and merch. The same Nook that hangs on the studio art wall.',
+      'A full brand identity for a café and co-working space — logo, illustration style, signage, packaging and merch, all drawn by hand first.',
     media: [
       {
         type: 'board',
@@ -410,13 +410,6 @@ export const nowBoard = {
   ],
 }
 
-// Polaroids pinned under the window. Swap freely: drop images in public/art/ and edit here.
-export const artWall = [
-  { src: 'art/setu.jpg', caption: 'Setu — a mascot for India Post', rotate: -4 },
-  { src: 'art/nook.jpg', caption: 'The Nook — café brand, drawn with love', rotate: 3 },
-  { src: 'art/adoption.jpg', caption: 'Adoption is love — awareness poster', rotate: -2 },
-]
-
 export const contact = {
   headline: 'Want to build something thoughtful, usable, and a little unforgettable?',
   cta: 'Let’s talk',
@@ -440,7 +433,6 @@ export const whyNotes = {
   drawer: 'Every studio has one drawer you’re not sure you should open. Curiosity gaps keep people exploring.',
   night: 'Night mode isn’t a theme toggle — it’s a reward. The fireflies are the site’s name, kept as a discovery.',
   calendar: 'The calendar shows this month, really. A portfolio that knows what month it is feels alive — freshness is credibility.',
-  artwall: '“I paint and sketch” should be shown, not claimed. Real work, pinned like polaroids.',
   window: 'The window follows Pune’s real seasons — monsoon rain in July, winter haze in December. The studio lives in the same world you do.',
   afterHours: 'Arrive late and the studio is already asleep — the site meets you in your own timezone.',
   modal: 'Modals open with anticipation before reveal — a beat of tension makes content land.',

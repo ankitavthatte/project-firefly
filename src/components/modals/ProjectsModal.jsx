@@ -307,7 +307,7 @@ export default function ProjectsModal({ onClose }) {
               </p>
               <ul className="mt-4 space-y-3">
                 {experiments.map((e) =>
-                  e.media ? (
+                  e.id && e.media ? (
                     <li key={e.name}>
                       <button
                         type="button"
@@ -354,7 +354,7 @@ export default function ProjectsModal({ onClose }) {
               <p className="mt-1 text-sm text-ink-soft">{archive.intro}</p>
               <ul className="mt-4 space-y-3">
                 {archive.items.map((e) =>
-                  e.media ? (
+                  e.id && e.media ? (
                     <li key={e.name}>
                       <button
                         type="button"
