@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { useStudio, DISCOVERABLES } from '../../context/StudioContext.jsx'
-import { identity, whyNotes, catFacts, artWall } from '../../data/content.js'
+import { identity, whyNotes, catFacts } from '../../data/content.js'
 import { getPuneSeason } from '../../data/season.js'
 import WhyTag from '../shared/WhyTag.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
-import { Polaroid, ArtLightbox } from '../shared/ArtBits.jsx'
 import {
   LaptopSvg,
   NotebookSvg,
@@ -498,7 +497,6 @@ export default function StudioScene() {
   const { openModal, night, setNight, finale } = useStudio()
   const reduce = useReducedMotion()
   const [season] = useState(() => getPuneSeason())
-  const [artZoom, setArtZoom] = useState(null)
   // The room feels freshly left for the first few seconds: steam still rising.
   const [justArrived, setJustArrived] = useState(true)
   useEffect(() => {
@@ -572,22 +570,6 @@ export default function StudioScene() {
       </div>
 
       <DustMotes />
-
-      {/* polaroids of real work, pinned under the window */}
-      <motion.div
-        className="absolute z-10"
-        style={{ left: '42.5%', top: '34%', width: '22%' }}
-        initial={reduce ? false : { opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.15, type: 'spring', stiffness: 120, damping: 14 }}
-      >
-        <WhyTag className="absolute -top-2 left-1/2 w-max -translate-x-1/2 -translate-y-full">{whyNotes.artwall}</WhyTag>
-        <div className="flex items-start justify-center gap-[5%]">
-          {artWall.map((a) => (
-            <Polaroid key={a.src} art={a} onZoom={setArtZoom} className="w-[30%]" />
-          ))}
-        </div>
-      </motion.div>
 
       {/* wall pieces */}
       <StudioObject
@@ -775,7 +757,6 @@ export default function StudioScene() {
       <WhyTag className="absolute left-[53.5%] top-[33%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
       {night && <RoomFireflies />}
 
-      <ArtLightbox art={artZoom} onClose={() => setArtZoom(null)} />
     </motion.div>
   )
 }
