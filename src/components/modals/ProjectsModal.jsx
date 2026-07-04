@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import ModalShell from '../shared/ModalShell.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
-import { projects, experiments } from '../../data/content.js'
+import { projects, experiments, archive } from '../../data/content.js'
 
 const base = import.meta.env.BASE_URL
 
@@ -209,7 +209,8 @@ export default function ProjectsModal({ onClose }) {
   }, [booted])
 
   const openProject = projects.find((p) => p.id === view)
-  const openExperiment = experiments.find((e) => e.id && view === `exp-${e.id}`)
+  const openExperiment = [...experiments, ...archive.items].find((e) => e.id && e.media && view === `exp-${e.id}`)
+  const galleryBack = openExperiment && experiments.includes(openExperiment) ? 'experiments' : 'archive'
 
   return (
     <ModalShell title="Ankita’s Laptop" accent="lavender" onClose={onClose} wide>
@@ -280,7 +281,7 @@ export default function ProjectsModal({ onClose }) {
                   color={folderColors.archive}
                   label="Archive"
                   sub="The architecture years."
-                  onClick={() => setView('experiments')}
+                  onClick={() => setView('archive')}
                 />
               </div>
               <div className="mt-4 flex items-center justify-between rounded-xl bg-cream px-4 py-2">
@@ -300,7 +301,7 @@ export default function ProjectsModal({ onClose }) {
               >
                 ← Back to desktop
               </button>
-              <h3 className="text-xl font-extrabold">Experiments & Archive</h3>
+              <h3 className="text-xl font-extrabold">Experiments</h3>
               <p className="mt-1 text-sm text-ink-soft">
                 Side quests. Every one started the same way: “this experience bothers me, and I can’t leave it alone.”
               </p>
@@ -341,6 +342,55 @@ export default function ProjectsModal({ onClose }) {
             </motion.div>
           )}
 
+          {view === 'archive' && (
+            <motion.div key="archive" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }}>
+              <button
+                onClick={() => setView('desktop')}
+                className="mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-cream-deep px-4 py-2 text-xs font-bold text-ink transition hover:bg-cream"
+              >
+                ← Back to desktop
+              </button>
+              <h3 className="text-xl font-extrabold">Archive — the architecture years</h3>
+              <p className="mt-1 text-sm text-ink-soft">{archive.intro}</p>
+              <ul className="mt-4 space-y-3">
+                {archive.items.map((e) =>
+                  e.media ? (
+                    <li key={e.name}>
+                      <button
+                        type="button"
+                        onClick={() => setView(`exp-${e.id}`)}
+                        className="flex w-full cursor-pointer items-start gap-3 rounded-xl border-2 border-transparent bg-cream p-3.5 text-left transition-colors hover:border-ink/10"
+                        aria-label={`Open ${e.name}`}
+                      >
+                        <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-coral/30 text-sm" aria-hidden="true">
+                          🖼️
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block text-sm font-extrabold">
+                            {e.name} <span className="font-hand text-coral">— see the work →</span>
+                          </span>
+                          <span className="block text-xs leading-relaxed text-ink-soft">{e.note}</span>
+                        </span>
+                      </button>
+                    </li>
+                  ) : (
+                    <li key={e.name} className="flex items-start gap-3 rounded-xl bg-cream p-3.5">
+                      <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-coral/30 text-sm" aria-hidden="true">
+                        📐
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-sm font-extrabold">
+                          {e.name} <span className="font-hand font-normal text-ink-soft">— photos being dusted off</span>
+                        </div>
+                        <div className="text-xs leading-relaxed text-ink-soft">{e.note}</div>
+                      </div>
+                    </li>
+                  ),
+                )}
+              </ul>
+            </motion.div>
+          )}
+
           {openExperiment && (
             <motion.div
               key={`exp-${openExperiment.id}`}
@@ -350,10 +400,10 @@ export default function ProjectsModal({ onClose }) {
               transition={{ type: 'spring', stiffness: 260, damping: 26 }}
             >
               <button
-                onClick={() => setView('experiments')}
+                onClick={() => setView(galleryBack)}
                 className="mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-cream-deep px-4 py-2 text-xs font-bold text-ink transition hover:bg-cream"
               >
-                ← Back to experiments
+                ← Back to {galleryBack === 'experiments' ? 'experiments' : 'the archive'}
               </button>
               <h3 className="text-xl font-extrabold">{openExperiment.name}</h3>
               <p className="mt-1 text-sm leading-relaxed text-ink-soft">{openExperiment.intro ?? openExperiment.note}</p>

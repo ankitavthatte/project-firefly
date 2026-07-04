@@ -229,6 +229,30 @@ export const experiments = [
   { name: 'Luma', note: 'Light, ambient interface experiments.' },
 ]
 
+// The architecture years. Items use the same media shapes as experiments —
+// add a media array to an item and it becomes a clickable gallery.
+export const archive = {
+  intro:
+    'Before pixels, there were buildings. This folder is being unpacked — the drawings are real, the scanner is slow.',
+  items: [
+    {
+      id: 'sketches',
+      name: 'Live Sketches',
+      note: 'Drawn on location — streets, facades, and people who wouldn’t sit still.',
+    },
+    {
+      id: 'auroville',
+      name: 'Time at Auroville',
+      note: 'Living and learning in the experimental township — architecture at human scale.',
+    },
+    {
+      id: 'architecture',
+      name: 'Architecture Work',
+      note: 'The studio years — plans, models and buildings that taught me systems thinking.',
+    },
+  ],
+}
+
 // Card-back photos live in public/awards/<id>.jpg — cards render fine without them.
 export const awards = [
   {
