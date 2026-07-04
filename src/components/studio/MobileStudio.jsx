@@ -19,6 +19,7 @@ import {
   PaperPlaneSvg,
   DrawerSvg,
   CalendarSvg,
+  LampSvg,
 } from './objectSvgs.jsx'
 
 const cards = [
@@ -38,13 +39,29 @@ const cards = [
 
 /* The studio, restacked for thumbs: same objects, same doors, vertical room. */
 export default function MobileStudio() {
-  const { openModal, discovered, findCat, night } = useStudio()
+  const { openModal, discovered, findCat, night, setNight } = useStudio()
   const [eyeOpen, setEyeOpen] = useState(false)
   const [season] = useState(() => getPuneSeason())
   const monsoon = season === 'monsoon'
 
   return (
     <main className="mx-auto max-w-md px-4 pt-24 pb-24">
+      {/* dusk falls over the whole room — same lamp trick as the desktop studio.
+          z-30 keeps it under the dock (z-40) and modals (z-50). */}
+      <div
+        className={`pointer-events-none fixed inset-0 z-30 bg-[#2b2547] mix-blend-multiply transition-opacity duration-1000 ${
+          night ? 'opacity-60' : 'opacity-0'
+        }`}
+        aria-hidden="true"
+      />
+      {night && (
+        <div className="pointer-events-none fixed inset-0 z-30" aria-hidden="true">
+          {[['15%', '28%', '0.5s', '9s'], ['80%', '20%', '2s', '8s'], ['62%', '52%', '3.5s', '10s'], ['28%', '70%', '1.2s', '7.5s'], ['85%', '82%', '2.6s', '8.5s']].map(([l, t, d, dur], i) => (
+            <span key={i} className="firefly absolute h-1.5 w-1.5" style={{ left: l, top: t, animationDelay: d, animationDuration: dur }} />
+          ))}
+        </div>
+      )}
+
       {/* mini window — follows Pune's season, and the visitor's hour */}
       <div
         className={`relative h-28 overflow-hidden rounded-2xl border-8 border-wood-deep bg-gradient-to-b ${
@@ -79,8 +96,22 @@ export default function MobileStudio() {
           </>
         )}
       </div>
-      <div className="mt-1 flex justify-end pr-2">
-        <HiddenCat id={2} size={18} color="#2f6e57" />
+      {/* the lamp works on mobile too — Project Firefly keeps its light switch */}
+      <div className="mt-1 flex items-center justify-between pl-2">
+        <div className="flex items-center gap-2">
+          <p className="font-hand text-lg text-ink-soft">{night ? 'the fireflies are out' : 'try the lamp →'}</p>
+          <HiddenCat id={2} size={18} color="#2f6e57" />
+        </div>
+        <motion.button
+          type="button"
+          aria-pressed={night}
+          aria-label={night ? 'Desk lamp — switch the studio back to daytime' : 'Desk lamp — dim the studio to evening'}
+          onClick={() => setNight(!night)}
+          whileTap={{ scale: 0.92, rotate: -3 }}
+          className="relative z-[31] -mt-3 w-16 cursor-pointer border-none bg-transparent p-0"
+        >
+          <LampSvg night={night} />
+        </motion.button>
       </div>
 
       <header className="mt-4">
