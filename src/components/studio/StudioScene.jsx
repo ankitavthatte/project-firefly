@@ -530,6 +530,9 @@ export default function StudioScene() {
     const r = el.getBoundingClientRect()
     el.style.setProperty('--torch-x', `${e.clientX - r.left}px`)
     el.style.setProperty('--torch-y', `${e.clientY - r.top}px`)
+    // Relight on movement, not just on entry: closing a modal steals the
+    // pointerenter/leave pair, so entry alone would leave the torch off.
+    setTorchOn(true)
   }
   const torch = night && torchOn
 
