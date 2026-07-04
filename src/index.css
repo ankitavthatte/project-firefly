@@ -157,6 +157,13 @@ body {
   border-radius: 9999px;
 }
 
+/* After dark the pointer becomes a torch — hide the real cursor everywhere
+   in the scene so the light does the pointing. */
+.torch-zone,
+.torch-zone * {
+  cursor: none !important;
+}
+
 /* Monsoon rain on the window — Pune, June through September */
 @keyframes rainfall {
   from { transform: translate3d(6px, -130%, 0); }

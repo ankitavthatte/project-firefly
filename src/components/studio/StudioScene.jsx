@@ -41,18 +41,26 @@ const NUDGE_LABELS = {
 /* One interactive object in the room. The object IS the navigation. */
 function StudioObject({ id, label, why, style, onOpen, children, labelSide = 'top', settleDelay = 0 }) {
   const [active, setActive] = useState(false)
-  const { discovered } = useStudio()
+  const { discovered, night } = useStudio()
   const seen = discovered.has(id)
   const reduce = useReducedMotion()
+  const lit = night && active // the torch found this object — it steps out of the dusk
 
   return (
     <motion.div
-      className="absolute"
+      className={`absolute ${lit ? 'z-[21]' : ''}`}
       style={style}
       initial={reduce ? false : { opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: settleDelay, type: 'spring', stiffness: 120, damping: 14 }}
     >
+      {lit && (
+        <div
+          className="pointer-events-none absolute -inset-8 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(255,233,179,0.55), rgba(255,233,179,0.18) 55%, transparent 75%)', filter: 'blur(6px)' }}
+          aria-hidden="true"
+        />
+      )}
       <WhyTag className={`absolute -top-2 left-1/2 w-max -translate-x-1/2 -translate-y-full`}>{why}</WhyTag>
       <motion.button
         type="button"
@@ -412,10 +420,11 @@ function DeskCat() {
 
 /* The laptop: magnetic pull, then a real boot ON the object before the modal. */
 function MagneticLaptop({ onOpen }) {
-  const { discovered } = useStudio()
+  const { discovered, night } = useStudio()
   const reduce = useReducedMotion()
   const [active, setActive] = useState(false)
   const [booting, setBooting] = useState(false)
+  const lit = night && active
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
   const sx = useSpring(mx, { stiffness: 140, damping: 16 })
@@ -450,12 +459,19 @@ function MagneticLaptop({ onOpen }) {
 
   return (
     <motion.div
-      className="absolute"
+      className={`absolute ${lit ? 'z-[21]' : ''}`}
       style={{ left: '38.5%', top: '52%', width: '21%' }}
       initial={reduce ? false : { opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.55, type: 'spring', stiffness: 120, damping: 14 }}
     >
+      {lit && (
+        <div
+          className="pointer-events-none absolute -inset-8 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(255,233,179,0.55), rgba(255,233,179,0.18) 55%, transparent 75%)', filter: 'blur(6px)' }}
+          aria-hidden="true"
+        />
+      )}
       <WhyTag className="absolute -top-2 left-1/2 w-max -translate-x-1/2 -translate-y-full">{whyNotes.laptop}</WhyTag>
       <motion.button
         ref={ref}
@@ -504,13 +520,30 @@ export default function StudioScene() {
     return () => clearTimeout(t)
   }, [])
 
+  // After dark the pointer carries a torch. Position rides on CSS variables so
+  // mousemove never re-renders React — the mask and glow read them directly.
+  const sceneRef = useRef(null)
+  const [torchOn, setTorchOn] = useState(false)
+  const onTorchMove = (e) => {
+    const el = sceneRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    el.style.setProperty('--torch-x', `${e.clientX - r.left}px`)
+    el.style.setProperty('--torch-y', `${e.clientY - r.top}px`)
+  }
+  const torch = night && torchOn
+
   return (
     <motion.div
-      className="relative h-full min-h-[640px] w-full overflow-hidden"
+      ref={sceneRef}
+      className={`relative h-full min-h-[640px] w-full overflow-hidden ${night ? 'torch-zone' : ''}`}
       role="region"
       aria-label="Ankita’s interactive studio. Every object opens a part of the portfolio."
       animate={finale && !reduce ? { scale: [1, 1.015, 1] } : {}}
       transition={{ duration: 1.4, ease: 'easeInOut' }}
+      onPointerMove={night ? onTorchMove : undefined}
+      onPointerEnter={() => setTorchOn(true)}
+      onPointerLeave={() => setTorchOn(false)}
     >
       {/* wall */}
       <div className="absolute inset-0 bg-gradient-to-b from-cream via-cream to-cream-deep" aria-hidden="true" />
@@ -745,13 +778,53 @@ export default function StudioScene() {
         <HiddenCat id={3} size={22} color="#7c5427" />
       </div>
 
-      {/* dusk falls over everything below this line */}
+      {/* dusk falls over everything below this line — the torch burns a hole in it */}
       <div
         className={`pointer-events-none absolute inset-0 z-20 bg-[#2b2547] mix-blend-multiply transition-opacity duration-1000 ${
           night ? 'opacity-60' : 'opacity-0'
         }`}
+        style={
+          torch
+            ? {
+                WebkitMaskImage:
+                  'radial-gradient(circle 170px at var(--torch-x, 50%) var(--torch-y, 45%), rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,1) 100%)',
+                maskImage:
+                  'radial-gradient(circle 170px at var(--torch-x, 50%) var(--torch-y, 45%), rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,1) 100%)',
+              }
+            : undefined
+        }
         aria-hidden="true"
       />
+      {/* the torch itself: a warm pool of light, and the little light that casts it */}
+      {torch && (
+        <>
+          <div
+            className="pointer-events-none absolute inset-0 z-[22]"
+            style={{
+              background:
+                'radial-gradient(circle 170px at var(--torch-x, 50%) var(--torch-y, 45%), rgba(255,233,179,0.22), rgba(255,233,179,0.07) 55%, transparent 75%)',
+            }}
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute z-[40] w-12"
+            style={{ left: 'var(--torch-x, 50%)', top: 'var(--torch-y, 45%)', transform: 'translate(-10px, -10px)' }}
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 48 48" className="w-full overflow-visible">
+              {/* body, held from the bottom-right corner of the screen-verse */}
+              <g transform="rotate(45 10 10)">
+                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#ff7a59" />
+                <rect x="6.5" y="19.5" width="7" height="17" rx="3.2" fill="#524e47" />
+                <rect x="6.5" y="23" width="7" height="2.4" fill="#35322d" />
+              </g>
+              {/* lens, glowing right at the pointer tip */}
+              <circle cx="10" cy="10" r="6" fill="#ffe9b3" />
+              <circle cx="10" cy="10" r="9" fill="none" stroke="#ffe9b3" strokeOpacity="0.45" strokeWidth="2" />
+            </svg>
+          </div>
+        </>
+      )}
       <StudioWindow night={night} season={season} />
       {/* the window's why-note lives just below the frame */}
       <WhyTag className="absolute left-[53.5%] top-[33%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
