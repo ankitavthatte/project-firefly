@@ -15,9 +15,7 @@ import {
   drawer,
   contact,
   nowBoard,
-  artWall,
 } from '../../data/content.js'
-import { Polaroid, ArtLightbox } from '../shared/ArtBits.jsx'
 
 const tone = {
   coral: { bg: 'bg-coral', soft: 'bg-coral/15', text: 'text-coral-deep', border: 'border-coral/40' },
@@ -308,18 +306,9 @@ export function NowModal({ onClose }) {
 
 /* ---------- Palette: visual creativity ---------- */
 export function PaletteModal({ onClose }) {
-  const [zoom, setZoom] = useState(null)
   return (
     <ModalShell title="Paint & Pixels" accent="coral" onClose={onClose}>
       <p className="text-[15px] leading-relaxed text-ink">{palette.intro}</p>
-
-      {/* the work itself, pinned like polaroids */}
-      <div className="mt-5 flex items-start justify-center gap-4">
-        {artWall.map((a) => (
-          <Polaroid key={a.src} art={a} onZoom={setZoom} className="w-[30%] max-w-36" />
-        ))}
-      </div>
-      <ArtLightbox art={zoom} onClose={() => setZoom(null)} />
       <div className="mt-5 space-y-3">
         {palette.loves.map((l, i) => (
           <motion.div
