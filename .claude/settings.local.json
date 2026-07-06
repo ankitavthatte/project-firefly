@@ -3,7 +3,28 @@
     "allow": [
       "Bash(npm install *)",
       "Bash(npm run *)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(~/.local/bin/gh auth *)",
+      "Bash(git push *)",
+      "Bash(~/.local/bin/gh api *)",
+      "Bash(~/.local/bin/gh run *)",
+      "Bash(gh auth *)",
+      "Bash(dig +short ankitathatte.com A)",
+      "Bash(dig +short www.ankitathatte.com CNAME)",
+      "Bash(dig +short www.ankitathatte.com A)",
+      "Bash(curl -sIL http://ankitathatte.com -o /dev/null -w 'http://ankitathatte.com → %{url_effective} \\(%{http_code}\\)\\\\n')",
+      "Bash(curl -sIL http://www.ankitathatte.com -o /dev/null -w 'http://www.ankitathatte.com → %{url_effective} \\(%{http_code}\\)\\\\n')",
+      "Bash(curl -sIL https://ankitavthatte.github.io/project-firefly/ -o /dev/null -w 'github.io URL → %{url_effective} \\(%{http_code}\\)\\\\n')",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Fix placeholder social links, add Open Graph preview image *)",
+      "Bash(/usr/bin/python3 -c \"import Quartz; print\\('quartz ok'\\)\")",
+      "Bash(avconvert --help)",
+      "Bash(sips -Z 400 /tmp/pv/nook01.jpg --out /tmp/pv/croptest.jpg)",
+      "Bash(sips -c 100 200 --cropOffset 50 0 /tmp/pv/croptest.jpg --out /tmp/pv/croptest2.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight /tmp/pv/croptest2.jpg)",
+      "Bash(grep -rEo '#[0-9a-fA-F]{3,8}' src/components/studio src/components/modals --include='*.jsx')",
+      "Bash(grep -nEo '#[0-9a-fA-F]{3,8}' index.html)",
+      "Bash(grep -rEo '#[0-9a-fA-F]{3,8}' src index.html)"
     ]
   }
 }

@@ -216,7 +216,7 @@ export default function ProjectsModal({ onClose }) {
   const galleryBack = openExperiment && experiments.includes(openExperiment) ? 'experiments' : 'archive'
 
   return (
-    <ModalShell title="Ankita’s Laptop" accent="lavender" onClose={onClose} wide>
+    <ModalShell title="Ankita’s Laptop" accent="lavender" onClose={onClose} xl>
       {!booted ? (
         <div className="grid h-72 place-items-center rounded-2xl bg-ink" role="status" aria-label="Laptop booting">
           <div className="text-center">

@@ -189,7 +189,7 @@ export default function ControlDock() {
                 <div className="text-2xl" aria-hidden="true">🐈🐈‍⬛🐈🐈‍⬛🐈</div>
                 <p className="mt-1 font-hand text-2xl font-bold text-coral-deep">You met the whole rescue squad.</p>
                 <p className="mt-1 text-xs font-semibold text-ink-soft">
-                  All 11 cats found. Ankita would hire <em>you</em> for this level of thoroughness.
+                  All 11 cats found — that’s the kind of thoroughness this studio was built for.
                 </p>
               </div>
             ) : (

@@ -6,7 +6,8 @@ import { whyNotes } from '../../data/content.js'
 
 // Shared modal chrome: warm paper card, anticipation-then-reveal motion,
 // focus trap entry, Escape to close, scrollable body.
-export default function ModalShell({ title, accent = 'coral', onClose, children, wide = false }) {
+// wide → max-w-4xl; xl → max-w-6xl (case-study reading needs the room).
+export default function ModalShell({ title, accent = 'coral', onClose, children, wide = false, xl = false }) {
   const shellRef = useRef(null)
   const reduce = useReducedMotion()
   const { modalOrigin } = useStudio()
@@ -59,7 +60,7 @@ export default function ModalShell({ title, accent = 'coral', onClose, children,
         aria-modal="true"
         aria-label={title}
         className={`relative flex max-h-[92vh] w-full flex-col overflow-hidden rounded-3xl bg-paper shadow-[0_30px_80px_-20px_rgba(53,50,45,0.45)] ${
-          wide ? 'max-w-4xl' : 'max-w-2xl'
+          xl ? 'max-w-6xl' : wide ? 'max-w-4xl' : 'max-w-2xl'
         }`}
         initial={reduce ? { opacity: 0 } : { opacity: 0, x: from.x, y: from.y, scale: 0.35 }}
         animate={reduce ? { opacity: 1 } : { opacity: 1, x: 0, y: 0, scale: 1 }}
