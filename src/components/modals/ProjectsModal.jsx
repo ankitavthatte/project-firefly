@@ -198,7 +198,7 @@ function CaseStudy({ project, onBack }) {
         <div className="mt-6 flex items-center gap-3 rounded-2xl bg-ink p-4 text-cream">
           <span className="text-xl" aria-hidden="true">🎤</span>
           <p className="text-sm leading-relaxed font-semibold">{project.highlight}</p>
-          {project.id === 'evalix' && <HiddenCat id={5} size={22} color="#faf6ee" className="ml-auto shrink-0" />}
+          {project.id === 'evalix' && <HiddenCat id={5} size={22} color="#fdf6ec" className="ml-auto shrink-0" />}
         </div>
       )}
     </motion.div>
@@ -296,7 +296,7 @@ export default function ProjectsModal({ onClose }) {
               </div>
               <div className="mt-4 flex items-center justify-between rounded-xl bg-cream px-4 py-2">
                 <span className="text-[11px] font-semibold text-ink-soft">ankitaOS · all files designed with love (and Figma)</span>
-                <HiddenCat id={4} size={20} color="#4a69a8" />
+                <HiddenCat id={4} size={20} color="#5f63ad" />
               </div>
             </motion.div>
           )}

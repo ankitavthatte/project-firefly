@@ -155,7 +155,7 @@ function StudioWindow({ night, season }) {
               : season === 'summer'
                 ? 'bg-sun shadow-[0_0_38px_16px_rgba(255,201,77,0.7)]'
                 : season === 'winter'
-                  ? 'bg-[#f3e3b8] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
+                  ? 'bg-[#f9e8b4] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
                   : 'bg-sun shadow-[0_0_28px_10px_rgba(255,201,77,0.55)]'
           }`}
           style={rise(!night, 'translate(-26px, 230px)')}
@@ -189,7 +189,7 @@ function StudioWindow({ night, season }) {
       <div className={`absolute inset-0 bg-gradient-to-b from-[#2b2850] via-[#4a3b6b] to-[#8a5a7a] transition-opacity duration-1000 ${night ? 'opacity-100' : 'opacity-0'} ${night ? '' : 'pointer-events-none'}`}>
         {/* the moon rises at dusk, sets at dawn */}
         <div
-          className="absolute top-[14%] right-[16%] h-[15%] w-[11%] rounded-full bg-[#f6efdc] shadow-[0_0_22px_8px_rgba(255,243,214,0.4)]"
+          className="absolute top-[14%] right-[16%] h-[15%] w-[11%] rounded-full bg-[#faf0d9] shadow-[0_0_22px_8px_rgba(255,243,214,0.4)]"
           style={rise(night, 'translate(24px, 230px)')}
         />
         {/* stars */}
@@ -817,13 +817,13 @@ export default function StudioScene() {
             <svg viewBox="0 0 48 48" className="w-full overflow-visible">
               {/* body, held from the bottom-right corner of the screen-verse */}
               <g transform="rotate(45 10 10)">
-                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#0a66c2" />
+                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#ea6a4b" />
                 <rect x="6.5" y="19.5" width="7" height="17" rx="3.2" fill="#524e47" />
-                <rect x="6.5" y="23" width="7" height="2.4" fill="#2b2a27" />
+                <rect x="6.5" y="23" width="7" height="2.4" fill="#322f2a" />
               </g>
               {/* lens, glowing right at the pointer tip */}
-              <circle cx="10" cy="10" r="6" fill="#f3e3b8" />
-              <circle cx="10" cy="10" r="9" fill="none" stroke="#f3e3b8" strokeOpacity="0.45" strokeWidth="2" />
+              <circle cx="10" cy="10" r="6" fill="#f9e8b4" />
+              <circle cx="10" cy="10" r="9" fill="none" stroke="#f9e8b4" strokeOpacity="0.45" strokeWidth="2" />
             </svg>
           </div>
         </>

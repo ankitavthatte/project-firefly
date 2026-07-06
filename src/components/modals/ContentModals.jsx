@@ -135,7 +135,7 @@ export function TrophyModal({ onClose }) {
         ))}
       </div>
       <div className="mt-4 flex justify-end">
-        <HiddenCat id={7} size={22} color="#a06f14" />
+        <HiddenCat id={7} size={22} color="#b5811c" />
       </div>
     </ModalShell>
   )
@@ -212,7 +212,7 @@ export function PassportModal({ onClose }) {
       </div>
       <div className="mt-4 flex items-center justify-between">
         <p className="text-xs font-semibold text-ink-soft">Observation is a designer’s raw material — travel is how I stock up.</p>
-        <HiddenCat id={8} size={22} color="#3f8a68" />
+        <HiddenCat id={8} size={22} color="#3f9a78" />
       </div>
     </ModalShell>
   )
@@ -339,7 +339,7 @@ export function PaletteModal({ onClose }) {
           See the doodles — @punedoodlerr
           <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
         </a>
-        <HiddenCat id={9} size={22} color="#004182" />
+        <HiddenCat id={9} size={22} color="#c74e2f" />
       </div>
     </ModalShell>
   )
@@ -597,7 +597,7 @@ export function ContactModal({ onClose }) {
             : 'The studio will be right here whenever you want to keep exploring.'}
         </p>
         <div className="mt-2 flex justify-center">
-          <HiddenCat id={11} size={24} color="#6b6760" />
+          <HiddenCat id={11} size={24} color="#6d675e" />
         </div>
       </motion.div>
     </ModalShell>
