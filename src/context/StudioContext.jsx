@@ -82,8 +82,28 @@ export function StudioProvider({ children }) {
   const [route] = useState(() => parseHash(window.location.hash))
   const [recruiterMode, setRecruiterMode] = useState(route.recruiter)
   const [whyMode, setWhyMode] = useState(false)
-  const [night, setNight] = useState(isAfterHours)
-  const [afterHours] = useState(isAfterHours)
+  // A first-ever visit always opens in daylight — night is a lovely second
+  // impression but a confusing first one. The clock takes over from visit two,
+  // and the lamp works either way.
+  // Read-only here — the flag is written in a mount effect below, because a
+  // side effect in an initializer runs twice under StrictMode and would make
+  // the second mount read its own footprint as a previous visit.
+  const [firstVisit] = useState(() => {
+    try {
+      return localStorage.getItem('ff-visited') !== '1'
+    } catch {
+      return false
+    }
+  })
+  const [night, setNight] = useState(() => !firstVisit && isAfterHours())
+  const [afterHours] = useState(() => !firstVisit && isAfterHours())
+  useEffect(() => {
+    try {
+      localStorage.setItem('ff-visited', '1')
+    } catch {
+      /* private mode — every visit stays a first visit, which errs kindly */
+    }
+  }, [])
   const [activeModal, setActiveModal] = useState(route.modal)
   const [laptopView, setLaptopView] = useState(route.view) // which screen the laptop shows
   const [modalOrigin, setModalOrigin] = useState(null) // viewport {x, y} the modal grows from
