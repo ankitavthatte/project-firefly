@@ -5,6 +5,7 @@ import StudioScene from './components/studio/StudioScene.jsx'
 import MobileStudio from './components/studio/MobileStudio.jsx'
 import RecruiterView from './components/RecruiterView.jsx'
 import ControlDock from './components/ControlDock.jsx'
+import NavDock from './components/NavDock.jsx'
 import ProjectsModal from './components/modals/ProjectsModal.jsx'
 import SpeedRunModal from './components/modals/SpeedRunModal.jsx'
 import {
@@ -56,6 +57,7 @@ function Studio() {
   return (
     <div className="grain relative min-h-dvh">
       <ControlDock />
+      <NavDock />
       {recruiterMode ? (
         <RecruiterView />
       ) : isDesktop ? (

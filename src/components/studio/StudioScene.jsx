@@ -591,7 +591,7 @@ export default function StudioScene() {
       </div>
 
       {/* hero copy */}
-      <div className="absolute left-[5%] top-[7%] z-10 w-[33%] max-w-xl">
+      <div className="absolute left-[5%] top-[11%] z-10 w-[33%] max-w-xl">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
