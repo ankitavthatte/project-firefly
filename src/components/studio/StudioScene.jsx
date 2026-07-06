@@ -126,9 +126,9 @@ export function WindowRain({ heavy = false }) {
    The sun and moon actually rise and set behind the hills on each switch. */
 const SEASON_SKY = {
   monsoon: 'from-[#8ba7b7] via-[#a7bfc9] to-[#c6d6da]',
-  summer: 'from-[#79c1ec] to-[#cfeaf7]',
-  winter: 'from-[#bcd9ec] to-[#eaf2f5]',
-  clear: 'from-sky to-[#cfeaf7]',
+  summer: 'from-[#8dafc5] to-[#d9e4ea]',
+  winter: 'from-[#c3d4de] to-[#eaf2f5]',
+  clear: 'from-sky to-[#d9e4ea]',
 }
 
 function StudioWindow({ night, season }) {
@@ -155,7 +155,7 @@ function StudioWindow({ night, season }) {
               : season === 'summer'
                 ? 'bg-sun shadow-[0_0_38px_16px_rgba(255,201,77,0.7)]'
                 : season === 'winter'
-                  ? 'bg-[#ffe9b3] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
+                  ? 'bg-[#f0dfba] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
                   : 'bg-sun shadow-[0_0_28px_10px_rgba(255,201,77,0.55)]'
           }`}
           style={rise(!night, 'translate(-26px, 230px)')}
@@ -169,7 +169,7 @@ function StudioWindow({ night, season }) {
         {/* no paper planes in the rain */}
         {!monsoon && (
           <svg className="planefly absolute top-[30%] left-0 h-[12%]" viewBox="0 0 40 24">
-            <path d="M2 14 L38 4 L20 22 Z" fill="#fffdf8" stroke="#c9c2b4" strokeWidth="1" />
+            <path d="M2 14 L38 4 L20 22 Z" fill="#fdfbf6" stroke="#c9c2b4" strokeWidth="1" />
           </svg>
         )}
         <div className={`absolute bottom-0 left-[-10%] h-[34%] w-[70%] rounded-t-full ${monsoon ? 'bg-[#2f6e57]/90' : 'bg-mint-deep/70'}`} />
@@ -189,7 +189,7 @@ function StudioWindow({ night, season }) {
       <div className={`absolute inset-0 bg-gradient-to-b from-[#2b2850] via-[#4a3b6b] to-[#8a5a7a] transition-opacity duration-1000 ${night ? 'opacity-100' : 'opacity-0'} ${night ? '' : 'pointer-events-none'}`}>
         {/* the moon rises at dusk, sets at dawn */}
         <div
-          className="absolute top-[14%] right-[16%] h-[15%] w-[11%] rounded-full bg-[#fff3d6] shadow-[0_0_22px_8px_rgba(255,243,214,0.4)]"
+          className="absolute top-[14%] right-[16%] h-[15%] w-[11%] rounded-full bg-[#f5ecd8] shadow-[0_0_22px_8px_rgba(255,243,214,0.4)]"
           style={rise(night, 'translate(24px, 230px)')}
         />
         {/* stars */}
@@ -817,13 +817,13 @@ export default function StudioScene() {
             <svg viewBox="0 0 48 48" className="w-full overflow-visible">
               {/* body, held from the bottom-right corner of the screen-verse */}
               <g transform="rotate(45 10 10)">
-                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#ff7a59" />
+                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#c26d52" />
                 <rect x="6.5" y="19.5" width="7" height="17" rx="3.2" fill="#524e47" />
                 <rect x="6.5" y="23" width="7" height="2.4" fill="#35322d" />
               </g>
               {/* lens, glowing right at the pointer tip */}
-              <circle cx="10" cy="10" r="6" fill="#ffe9b3" />
-              <circle cx="10" cy="10" r="9" fill="none" stroke="#ffe9b3" strokeOpacity="0.45" strokeWidth="2" />
+              <circle cx="10" cy="10" r="6" fill="#f0dfba" />
+              <circle cx="10" cy="10" r="9" fill="none" stroke="#f0dfba" strokeOpacity="0.45" strokeWidth="2" />
             </svg>
           </div>
         </>
