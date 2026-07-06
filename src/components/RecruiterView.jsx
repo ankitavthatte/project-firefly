@@ -83,6 +83,11 @@ export default function RecruiterView() {
                   </span>
                 ))}
               </div>
+              {p.nda && (
+                <p className="mt-3 text-xs leading-relaxed font-semibold text-ink-soft">
+                  <span aria-hidden="true">🔒 </span>{p.nda}
+                </p>
+              )}
             </article>
           ))}
         </div>

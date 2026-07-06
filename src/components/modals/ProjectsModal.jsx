@@ -174,6 +174,13 @@ function CaseStudy({ project, onBack }) {
         ))}
       </div>
 
+      {project.nda && (
+        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-ink/10 bg-cream p-4">
+          <span className="text-xl" aria-hidden="true">🔒</span>
+          <p className="text-sm leading-relaxed font-semibold text-ink-soft">{project.nda}</p>
+        </div>
+      )}
+
       {project.media && <MediaGallery media={project.media} name={project.name} />}
 
       {project.pdfHref && (

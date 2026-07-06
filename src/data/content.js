@@ -86,6 +86,8 @@ export const projects = [
       },
     ],
     highlight: 'Represented Evalix AI at the Delhi ET Education Summit.',
+    // No public screens by design — the product is live and enterprise-facing.
+    nda: 'Evalix is a live enterprise product, so its screens stay off the public site. I’m happy to walk you through the full platform — both portals, reports and all — in a conversation.',
   },
   {
     id: 'moneyminds',
