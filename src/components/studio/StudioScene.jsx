@@ -126,9 +126,9 @@ export function WindowRain({ heavy = false }) {
    The sun and moon actually rise and set behind the hills on each switch. */
 const SEASON_SKY = {
   monsoon: 'from-[#8ba7b7] via-[#a7bfc9] to-[#c6d6da]',
-  summer: 'from-[#82a8cc] to-[#dce6f0]',
-  winter: 'from-[#c6d6e8] to-[#eaf2f5]',
-  clear: 'from-sky to-[#dce6f0]',
+  summer: 'from-[#79aad9] to-[#e2ecf7]',
+  winter: 'from-[#cbdcf0] to-[#eaf2f5]',
+  clear: 'from-sky to-[#e2ecf7]',
 }
 
 function StudioWindow({ night, season }) {
@@ -155,7 +155,7 @@ function StudioWindow({ night, season }) {
               : season === 'summer'
                 ? 'bg-sun shadow-[0_0_38px_16px_rgba(255,201,77,0.7)]'
                 : season === 'winter'
-                  ? 'bg-[#ead9b5] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
+                  ? 'bg-[#f3e3b8] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
                   : 'bg-sun shadow-[0_0_28px_10px_rgba(255,201,77,0.55)]'
           }`}
           style={rise(!night, 'translate(-26px, 230px)')}
@@ -189,7 +189,7 @@ function StudioWindow({ night, season }) {
       <div className={`absolute inset-0 bg-gradient-to-b from-[#2b2850] via-[#4a3b6b] to-[#8a5a7a] transition-opacity duration-1000 ${night ? 'opacity-100' : 'opacity-0'} ${night ? '' : 'pointer-events-none'}`}>
         {/* the moon rises at dusk, sets at dawn */}
         <div
-          className="absolute top-[14%] right-[16%] h-[15%] w-[11%] rounded-full bg-[#f0ebdd] shadow-[0_0_22px_8px_rgba(255,243,214,0.4)]"
+          className="absolute top-[14%] right-[16%] h-[15%] w-[11%] rounded-full bg-[#f6efdc] shadow-[0_0_22px_8px_rgba(255,243,214,0.4)]"
           style={rise(night, 'translate(24px, 230px)')}
         />
         {/* stars */}
@@ -822,8 +822,8 @@ export default function StudioScene() {
                 <rect x="6.5" y="23" width="7" height="2.4" fill="#2b2a27" />
               </g>
               {/* lens, glowing right at the pointer tip */}
-              <circle cx="10" cy="10" r="6" fill="#ead9b5" />
-              <circle cx="10" cy="10" r="9" fill="none" stroke="#ead9b5" strokeOpacity="0.45" strokeWidth="2" />
+              <circle cx="10" cy="10" r="6" fill="#f3e3b8" />
+              <circle cx="10" cy="10" r="9" fill="none" stroke="#f3e3b8" strokeOpacity="0.45" strokeWidth="2" />
             </svg>
           </div>
         </>

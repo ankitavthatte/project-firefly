@@ -24,7 +24,8 @@
       "Bash(sips -g pixelWidth -g pixelHeight /tmp/pv/croptest2.jpg)",
       "Bash(grep -rEo '#[0-9a-fA-F]{3,8}' src/components/studio src/components/modals --include='*.jsx')",
       "Bash(grep -nEo '#[0-9a-fA-F]{3,8}' index.html)",
-      "Bash(grep -rEo '#[0-9a-fA-F]{3,8}' src index.html)"
+      "Bash(grep -rEo '#[0-9a-fA-F]{3,8}' src index.html)",
+      "Bash(/usr/bin/python3 -)"
     ]
   }
 }

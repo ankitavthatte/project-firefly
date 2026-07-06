@@ -69,13 +69,13 @@ export default function MobileStudio() {
             ? 'from-[#2b2850] via-[#4a3b6b] to-[#8a5a7a]'
             : monsoon
               ? 'from-[#8ba7b7] to-[#c6d6da]'
-              : 'from-sky to-[#dce6f0]'
+              : 'from-sky to-[#e2ecf7]'
         }`}
         aria-hidden="true"
       >
         {night ? (
           <>
-            <div className="absolute top-3 right-5 h-7 w-7 rounded-full bg-[#f0ebdd] shadow-[0_0_16px_6px_rgba(255,243,214,0.4)]" />
+            <div className="absolute top-3 right-5 h-7 w-7 rounded-full bg-[#f6efdc] shadow-[0_0_16px_6px_rgba(255,243,214,0.4)]" />
             {[['22%', '20%', '0s'], ['48%', '35%', '1.2s'], ['64%', '15%', '2.1s']].map(([l, t, d], i) => (
               <span key={i} className="twinkle absolute h-1 w-1 rounded-full bg-white/90" style={{ left: l, top: t, animationDelay: d }} />
             ))}
