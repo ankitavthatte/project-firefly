@@ -525,6 +525,18 @@ export default function StudioScene() {
   // mousemove never re-renders React — the mask and glow read them directly.
   const sceneRef = useRef(null)
   const [torchOn, setTorchOn] = useState(false)
+
+  // The scene is one fixed viewport — scrolling does nothing, silently. The
+  // first wheel attempt gets a gentle answer instead of dead air. Once per
+  // visit; wheel over an open modal never reaches this handler (siblings).
+  const [scrollNudge, setScrollNudge] = useState(false)
+  const scrollNudged = useRef(false)
+  const onScrollAttempt = (e) => {
+    if (scrollNudged.current || Math.abs(e.deltaY) < 15) return
+    scrollNudged.current = true
+    setScrollNudge(true)
+    setTimeout(() => setScrollNudge(false), 4500)
+  }
   const onTorchMove = (e) => {
     const el = sceneRef.current
     if (!el) return
@@ -550,6 +562,7 @@ export default function StudioScene() {
       onPointerMove={onTorchMove}
       onPointerEnter={() => setTorchOn(true)}
       onPointerLeave={() => setTorchOn(false)}
+      onWheel={onScrollAttempt}
     >
       {/* wall */}
       <div className="absolute inset-0 bg-gradient-to-b from-cream via-cream to-cream-deep" aria-hidden="true" />
@@ -835,6 +848,18 @@ export default function StudioScene() {
       <WhyTag className="absolute left-[53.5%] top-[33%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
       {night && <RoomFireflies />}
 
+      {/* answer the first scroll attempt — the page isn't broken, it's a room.
+          Plain CSS fade (not framer): always mounted so the transition runs
+          both ways, and -translate-x-1/2 stays intact for true centering. */}
+      <p
+        role="status"
+        aria-hidden={!scrollNudge}
+        className={`pointer-events-none absolute bottom-6 left-1/2 z-40 -translate-x-1/2 rounded-full bg-ink/90 px-5 py-2.5 font-hand text-xl text-cream shadow-lg transition-opacity duration-300 ${
+          scrollNudge ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        no scrolling needed — the whole portfolio fits on this desk
+      </p>
     </motion.div>
   )
 }
