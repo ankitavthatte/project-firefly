@@ -5,6 +5,7 @@ import { identity, catFacts } from '../../data/content.js'
 import { getPuneSeason } from '../../data/season.js'
 import { WindowRain } from './StudioScene.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
+import JourneyGuide from '../JourneyGuide.jsx'
 import {
   LaptopSvg,
   NotebookSvg,
@@ -119,6 +120,8 @@ export default function MobileStudio() {
         <h1 className="mt-1 text-3xl leading-tight font-extrabold tracking-tight">{identity.heroLine}</h1>
         <p className="mt-2.5 text-base leading-relaxed text-ink-soft">{identity.heroSub}</p>
       </header>
+
+      <JourneyGuide className="relative z-[31] mt-4" />
 
       {/* the cat, front and center on the rug */}
       <motion.button

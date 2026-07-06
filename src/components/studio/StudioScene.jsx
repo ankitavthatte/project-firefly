@@ -5,6 +5,7 @@ import { identity, whyNotes, catFacts } from '../../data/content.js'
 import { getPuneSeason } from '../../data/season.js'
 import WhyTag from '../shared/WhyTag.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
+import JourneyGuide from '../JourneyGuide.jsx'
 import {
   LaptopSvg,
   NotebookSvg,
@@ -602,6 +603,7 @@ export default function StudioScene() {
         >
           {identity.heroSub}
         </motion.p>
+        <JourneyGuide className="mt-4" />
         <WhyTag className="mt-3">{whyNotes.studio}</WhyTag>
       </div>
 
