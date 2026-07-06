@@ -20,7 +20,7 @@ RIGHT_W = PAGE_W - RIGHT_X - MARGIN
 
 INK = HexColor("#2b2a27")
 SOFT = HexColor("#666666")
-ACCENT = HexColor("#0a66c2")  # matches the site's palette
+ACCENT = HexColor("#c74e2f")  # matches the site's palette
 RULE = HexColor("#d9d6cf")
 
 OUT = "public/Ankita_Thatte_CV.pdf"
