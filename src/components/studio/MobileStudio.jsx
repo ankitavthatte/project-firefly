@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStudio } from '../../context/StudioContext.jsx'
 import { identity, catFacts } from '../../data/content.js'
-import { getPuneSeason } from '../../data/season.js'
+import { getPuneSeason, SEASON_WORD, puneTime } from '../../data/season.js'
 import { WindowRain } from './StudioScene.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
 import JourneyGuide from '../JourneyGuide.jsx'
@@ -46,6 +46,12 @@ export default function MobileStudio() {
   const [eyeOpen, setEyeOpen] = useState(false)
   const [season] = useState(() => getPuneSeason())
   const monsoon = season === 'monsoon'
+  // live Pune (IST) clock, so the mini-window reads as Pune's weather right now
+  const [now, setNow] = useState(puneTime)
+  useEffect(() => {
+    const t = setInterval(() => setNow(puneTime()), 30000)
+    return () => clearInterval(t)
+  }, [])
 
   return (
     <main className="mx-auto max-w-md px-4 pt-24 pb-24">
@@ -99,6 +105,10 @@ export default function MobileStudio() {
           </>
         )}
       </div>
+      {/* names the live Pune weather the mini-window is showing */}
+      <p className="mt-1.5 flex items-center gap-1 pl-2 font-hand text-base text-ink-soft" role="status">
+        <span aria-hidden="true">📍</span> Pune, right now{now ? ` · ${now}` : ''} · {SEASON_WORD[season]}
+      </p>
       {/* The one persistent line points at the work, not the light switch —
           the lamp stays a real toggle, just captioned as the small delight it is. */}
       <div className="mt-1 flex items-center justify-between pl-2">

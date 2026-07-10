@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { useStudio, DISCOVERABLES } from '../../context/StudioContext.jsx'
 import { identity, whyNotes, catFacts } from '../../data/content.js'
-import { getPuneSeason } from '../../data/season.js'
+import { getPuneSeason, SEASON_WORD, puneTime } from '../../data/season.js'
 import WhyTag from '../shared/WhyTag.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
 import JourneyGuide from '../JourneyGuide.jsx'
@@ -249,6 +249,30 @@ function StudioWindow({ night, season }) {
       {/* frame cross bars */}
       <div className="absolute top-0 left-1/2 h-full w-[7px] -translate-x-1/2 bg-wood-deep" />
       <div className="absolute top-1/2 left-0 h-[7px] w-full -translate-y-1/2 bg-wood-deep" />
+    </div>
+  )
+}
+
+/* A small placard under the window: proof it's Pune's real weather, right now.
+   The window quietly follows Pune's season (and rains in monsoon); without a
+   label there's no way to know it's live. The clock is Pune's own (IST), so it
+   reads as "there", not the visitor's timezone. */
+function PuneClimateTag({ season }) {
+  const [time, setTime] = useState(puneTime)
+  useEffect(() => {
+    const t = setInterval(() => setTime(puneTime()), 30000)
+    return () => clearInterval(t)
+  }, [])
+  return (
+    <div
+      className="pointer-events-none absolute left-[53.5%] top-[32.5%] z-[24] -translate-x-1/2"
+      role="status"
+      aria-label={`The window shows Pune, India right now — ${SEASON_WORD[season]}, local time ${time}`}
+    >
+      <span className="flex items-center gap-1.5 rounded-full border border-ink/10 bg-paper/85 px-3 py-1 font-hand text-lg whitespace-nowrap text-ink-soft shadow-sm backdrop-blur-sm">
+        <span aria-hidden="true">📍</span>
+        Pune, right now{time ? ` · ${time}` : ''} · {SEASON_WORD[season]}
+      </span>
     </div>
   )
 }
@@ -900,8 +924,10 @@ export default function StudioScene() {
         </>
       )}
       <StudioWindow night={night} season={season} />
-      {/* the window's why-note lives just below the frame */}
-      <WhyTag className="absolute left-[53.5%] top-[33%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
+      {/* always-on: names the live Pune weather the window is showing */}
+      <PuneClimateTag season={season} />
+      {/* the window's why-note lives just below the placard */}
+      <WhyTag className="absolute left-[53.5%] top-[38%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
       {night && <RoomFireflies />}
 
       {/* answer the first scroll attempt — the page isn't broken, it's a room.

@@ -6,3 +6,26 @@ export function getPuneSeason(month = new Date().getMonth()) {
   if (month === 11 || month <= 1) return 'winter'
   return 'clear'
 }
+
+// A short human word for each season, for the "Pune, right now" caption.
+export const SEASON_WORD = {
+  monsoon: 'monsoon rain',
+  summer: 'summer',
+  winter: 'winter',
+  clear: 'clear skies',
+}
+
+// Pune's wall-clock time (IST), regardless of where the visitor is — the point
+// is to show it's *Pune* right now, not the viewer's timezone.
+export function puneTime() {
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Asia/Kolkata',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    }).format(new Date())
+  } catch {
+    return ''
+  }
+}
