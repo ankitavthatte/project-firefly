@@ -10,10 +10,10 @@ function Toggle({ pressed, onToggle, label, children }) {
       aria-pressed={pressed}
       aria-label={label}
       onClick={onToggle}
-      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-bold shadow-sm transition-all ${
+      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-bold transition-all ${
         pressed
-          ? 'border-ink bg-ink text-cream'
-          : 'border-ink/15 bg-paper/90 text-ink backdrop-blur-sm hover:border-ink/40'
+          ? 'border-ink bg-ink text-cream shadow-sm'
+          : 'border-ink/10 bg-paper/70 text-ink-soft backdrop-blur-sm hover:border-ink/30 hover:text-ink'
       }`}
     >
       {children}
@@ -48,19 +48,31 @@ export default function ControlDock() {
 
   return (
     <>
-      {/* top-right controls */}
+      {/* top-right controls — one clear primary (the 2-minute tour), then a
+          plain-language format switch and a quiet design-notes toggle. The
+          coral is spent on the single best action, so it can't read as decor. */}
       <div className="fixed top-4 right-4 z-40 flex flex-wrap items-center justify-end gap-2">
+        {/* PRIMARY — the fastest way through the whole portfolio */}
+        <button
+          type="button"
+          onClick={(e) => openModal('speedrun', e)}
+          className="flex cursor-pointer items-center gap-1.5 rounded-full bg-coral px-4 py-2 text-xs font-bold text-white shadow-md transition hover:bg-coral-deep"
+        >
+          <span aria-hidden="true">⚡</span> See it in 2 minutes
+        </button>
+
+        {/* SECONDARY — how you'd rather read it; no self-identification required */}
         <div
           className="flex items-center rounded-full border border-ink/15 bg-paper/90 p-1 shadow-sm backdrop-blur-sm"
           role="group"
-          aria-label="Viewing mode"
+          aria-label="How to view the portfolio"
         >
           <button
             type="button"
             onClick={() => setRecruiterMode(false)}
             aria-pressed={!recruiterMode}
             className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
-              !recruiterMode ? 'bg-coral text-white shadow' : 'text-ink-soft hover:text-ink'
+              !recruiterMode ? 'bg-ink text-cream shadow' : 'text-ink-soft hover:text-ink'
             }`}
           >
             Explore
@@ -69,25 +81,19 @@ export default function ControlDock() {
             type="button"
             onClick={() => setRecruiterMode(true)}
             aria-pressed={recruiterMode}
+            title="A plain, one-page version — everything important in a single scroll"
             className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
               recruiterMode ? 'bg-ink text-cream shadow' : 'text-ink-soft hover:text-ink'
             }`}
           >
-            Recruiter Mode
+            Summary
           </button>
         </div>
 
-        <Toggle pressed={whyMode} onToggle={() => setWhyMode(!whyMode)} label="Toggle Why Mode — annotations explaining design decisions">
-          <span aria-hidden="true">?</span> Why Mode
+        {/* TERTIARY — reveal the reasoning behind each choice */}
+        <Toggle pressed={whyMode} onToggle={() => setWhyMode(!whyMode)} label="Toggle design notes — annotations explaining the thinking behind each design choice">
+          <span aria-hidden="true">✎</span> Design notes
         </Toggle>
-
-        <button
-          type="button"
-          onClick={(e) => openModal('speedrun', e)}
-          className="cursor-pointer rounded-full border border-ink/15 bg-paper/90 px-3.5 py-2 text-xs font-bold text-ink shadow-sm backdrop-blur-sm transition hover:border-sun-deep hover:bg-sun/30"
-        >
-          ⚡ View in 2 minutes
-        </button>
       </div>
       <WhyTag className="fixed top-16 right-4 z-40">{whyNotes.recruiter}</WhyTag>
 

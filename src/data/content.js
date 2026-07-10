@@ -453,7 +453,7 @@ export const whyNotes = {
   window: 'The window follows Pune’s real seasons — monsoon rain in July, winter haze in December. The studio lives in the same world you do.',
   afterHours: 'Arrive late and the studio is already asleep — the site meets you in your own timezone.',
   modal: 'Modals open with anticipation before reveal — a beat of tension makes content land.',
-  recruiter: 'Recruiter Mode exists because respecting a reader’s time is also a design decision.',
+  recruiter: 'The summary view exists because respecting a reader’s time is also a design decision.',
   progress: 'Progress is shown gently — motivation without nagging.',
 }
 
