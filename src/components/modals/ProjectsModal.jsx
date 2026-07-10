@@ -7,6 +7,13 @@ import { projects, experiments, archive } from '../../data/content.js'
 
 const base = import.meta.env.BASE_URL
 
+// Retina wiring: a board/image item flagged `hidpi: true` opts into 2× assets.
+// Export each board at double resolution, name it `foo@2x.jpg` beside `foo.jpg`,
+// and high-DPI screens load the crisp one while everyone else keeps the light
+// 1× file. No 2× file referenced unless the item opts in, so no 404s meanwhile.
+const at2x = (p) => p.replace(/\.(jpe?g|png)$/i, '@2x.$1')
+const srcSetFor = (item, src) => (item.hidpi ? `${base}${src} 1x, ${base}${at2x(src)} 2x` : undefined)
+
 const folderColors = {
   evalix: 'bg-lavender',
   moneyminds: 'bg-sun',
@@ -72,7 +79,7 @@ function MediaBlock({ item, name }) {
         {item.caption && (
           <figcaption className="mb-2 text-sm font-bold tracking-wider uppercase">{item.caption}</figcaption>
         )}
-        <img src={`${base}${item.src}`} alt={`${name} — design work`} loading="lazy" className="block w-full rounded-xl" />
+        <img src={`${base}${item.src}`} srcSet={srcSetFor(item, item.src)} alt={`${name} — design work`} loading="lazy" className="block w-full rounded-xl" />
       </figure>
     )
   }
@@ -88,6 +95,7 @@ function MediaBlock({ item, name }) {
           <img
             key={src}
             src={`${base}${src}`}
+            srcSet={srcSetFor(item, src)}
             alt={i === 0 ? `${name} — ${item.label ?? 'case study'}` : ''}
             loading="lazy"
             className={item.deck ? 'block w-full rounded-xl' : 'block w-full'}
