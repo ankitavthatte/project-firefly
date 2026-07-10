@@ -685,7 +685,6 @@ export default function StudioScene() {
         onOpen={(e) => openModal('sticky', e)}
         labelSide="bottom"
         settleDelay={0.9}
-        peek={peek}
       >
         {(a, s) => <StickyNotesSvg active={a} seen={s} />}
       </StudioObject>
@@ -698,7 +697,6 @@ export default function StudioScene() {
         onOpen={(e) => openModal('bookshelf', e)}
         labelSide="bottom"
         settleDelay={0.7}
-        peek={peek}
       >
         {() => <BookshelfSvg />}
       </StudioObject>
@@ -711,7 +709,6 @@ export default function StudioScene() {
         onOpen={(e) => openModal('trophy', e)}
         labelSide="bottom"
         settleDelay={0.8}
-        peek={peek}
       >
         {(a, s) => <TrophyShelfSvg active={a} seen={s} />}
       </StudioObject>
@@ -761,7 +758,6 @@ export default function StudioScene() {
         style={{ left: '12%', top: '58%', width: '13.5%' }}
         onOpen={(e) => openModal('notebook', e)}
         settleDelay={0.65}
-        peek={peek}
       >
         {(a, s) => <NotebookSvg active={a} seen={s} />}
       </StudioObject>
@@ -773,7 +769,6 @@ export default function StudioScene() {
         style={{ left: '25%', top: '76%', width: '11%' }}
         onOpen={(e) => openModal('passport', e)}
         settleDelay={0.85}
-        peek={peek}
       >
         {(a) => <PassportSvg active={a} />}
       </StudioObject>
@@ -785,7 +780,6 @@ export default function StudioScene() {
         style={{ left: '4%', top: '79%', width: '12%' }}
         onOpen={(e) => openModal('palette', e)}
         settleDelay={0.95}
-        peek={peek}
       >
         {(a) => <PaletteSvg active={a} />}
       </StudioObject>
@@ -799,7 +793,6 @@ export default function StudioScene() {
         style={{ left: '62.5%', top: '61%', width: '6.5%' }}
         onOpen={(e) => openModal('mug', e)}
         settleDelay={0.75}
-        peek={peek}
       >
         {(a, s) => <MugSvg active={a || justArrived} seen={s} />}
       </StudioObject>
@@ -811,7 +804,6 @@ export default function StudioScene() {
         style={{ left: '70.5%', top: '79%', width: '10.5%' }}
         onOpen={(e) => openModal('controller', e)}
         settleDelay={1.05}
-        peek={peek}
       >
         {(a) => <ControllerSvg active={a} />}
       </StudioObject>
@@ -824,7 +816,6 @@ export default function StudioScene() {
         style={{ left: '71.5%', top: '60%', width: '5.5%' }}
         onOpen={(e) => openModal('calendar', e)}
         settleDelay={1.0}
-        peek={peek}
       >
         {(a) => <CalendarSvg active={a} />}
       </StudioObject>
