@@ -120,6 +120,17 @@ body {
   animation: eartwitch 8s ease-in-out infinite;
 }
 
+/* Interactive objects breathe at rest, so they read as doors — not scenery —
+   before anyone hovers. Applied to an inner wrapper so it never fights the
+   hover-lift transform framer sets on the button itself. */
+@keyframes breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.breathe {
+  animation: breathe 4.5s ease-in-out infinite;
+}
+
 /* Lamp glow breathing */
 @keyframes glowpulse {
   0%, 100% { opacity: 0.55; }
@@ -208,7 +219,7 @@ body {
 
 /* Respect reduced motion for every ambient animation */
 @media (prefers-reduced-motion: reduce) {
-  .cloud, .mote, .sway, .steam, .tailflick, .eartwitch, .glowpulse, .planefly, .firefly, .twinkle, .shoot, .raindrop, .mist {
+  .cloud, .mote, .sway, .steam, .tailflick, .eartwitch, .glowpulse, .planefly, .firefly, .twinkle, .shoot, .raindrop, .mist, .breathe {
     animation: none !important;
   }
   .firefly { opacity: 0.8; }

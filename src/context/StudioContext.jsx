@@ -17,6 +17,18 @@ export const DISCOVERABLES = [
   'contact',
 ]
 
+// The recommended path through the room, in reading order. Not everything —
+// just the five stops that actually matter, each with the reason to open it.
+// Both the first-visit JourneyGuide and the progress meter point here so the
+// visitor is always told what to see next and why, never just "click around".
+export const GUIDED_PATH = [
+  { id: 'laptop', label: 'The work', hint: 'Case studies live here' },
+  { id: 'notebook', label: 'How I work', hint: 'Process & principles' },
+  { id: 'bookshelf', label: 'My journey', hint: 'Career so far' },
+  { id: 'mug', label: 'About me', hint: 'The person behind it' },
+  { id: 'contact', label: 'Say hello', hint: 'Get in touch' },
+]
+
 /* ---------- Shareable URLs ----------
    Every door in the studio has a hash route, so case studies and Recruiter
    Mode can be linked, bookmarked, and sent to a colleague:
@@ -82,28 +94,12 @@ export function StudioProvider({ children }) {
   const [route] = useState(() => parseHash(window.location.hash))
   const [recruiterMode, setRecruiterMode] = useState(route.recruiter)
   const [whyMode, setWhyMode] = useState(false)
-  // A first-ever visit always opens in daylight — night is a lovely second
-  // impression but a confusing first one. The clock takes over from visit two,
-  // and the lamp works either way.
-  // Read-only here — the flag is written in a mount effect below, because a
-  // side effect in an initializer runs twice under StrictMode and would make
-  // the second mount read its own footprint as a previous visit.
-  const [firstVisit] = useState(() => {
-    try {
-      return localStorage.getItem('ff-visited') !== '1'
-    } catch {
-      return false
-    }
-  })
-  const [night, setNight] = useState(() => !firstVisit && isAfterHours())
-  const [afterHours] = useState(() => !firstVisit && isAfterHours())
-  useEffect(() => {
-    try {
-      localStorage.setItem('ff-visited', '1')
-    } catch {
-      /* private mode — every visit stays a first visit, which errs kindly */
-    }
-  }, [])
+  // The studio always opens in daylight. A dark room on arrival reads as a
+  // gloomy site, not "it's night" — so night stays a reward reached through
+  // the lamp, never the default. `afterHours` (real evening, visitor's clock)
+  // only tailors the gentle invitation to try it; it no longer dims anything.
+  const [night, setNight] = useState(false)
+  const [afterHours] = useState(isAfterHours)
   const [activeModal, setActiveModal] = useState(route.modal)
   const [laptopView, setLaptopView] = useState(route.view) // which screen the laptop shows
   const [modalOrigin, setModalOrigin] = useState(null) // viewport {x, y} the modal grows from

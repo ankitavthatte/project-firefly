@@ -40,12 +40,28 @@ const NUDGE_LABELS = {
 }
 
 /* One interactive object in the room. The object IS the navigation. */
-function StudioObject({ id, label, why, style, onOpen, children, labelSide = 'top', settleDelay = 0 }) {
+function StudioObject({ id, label, why, style, onOpen, children, labelSide = 'top', settleDelay = 0, peek = false }) {
   const [active, setActive] = useState(false)
+  const [peeking, setPeeking] = useState(false)
   const { discovered, night } = useStudio()
   const seen = discovered.has(id)
   const reduce = useReducedMotion()
   const lit = night && active // the torch found this object — it steps out of the dusk
+
+  // First-visit only: once the room has settled, each object introduces itself
+  // by flashing its label — so a newcomer sees these are named doors, not decor.
+  // Staggered off settleDelay so the room doesn't shout every name at once.
+  useEffect(() => {
+    if (!peek) return
+    const show = setTimeout(() => setPeeking(true), settleDelay * 1000 + 500)
+    const hide = setTimeout(() => setPeeking(false), settleDelay * 1000 + 3000)
+    return () => {
+      clearTimeout(show)
+      clearTimeout(hide)
+    }
+  }, [peek, settleDelay])
+
+  const labelShown = active || peeking
 
   return (
     <motion.div
@@ -76,10 +92,13 @@ function StudioObject({ id, label, why, style, onOpen, children, labelSide = 'to
         whileTap={reduce ? {} : { scale: 0.97, y: -2 }}
         transition={{ type: 'spring', stiffness: 320, damping: 18 }}
       >
-        {children(active, seen)}
+        {/* resting breathe — desynced per object via a negative start delay */}
+        <div className="breathe" style={{ animationDelay: `${-settleDelay}s` }}>
+          {children(active, seen)}
+        </div>
         {/* floating label */}
         <AnimatePresence>
-          {active && (
+          {labelShown && (
             <motion.span
               initial={{ opacity: 0, y: labelSide === 'top' ? 6 : -6, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -95,7 +114,7 @@ function StudioObject({ id, label, why, style, onOpen, children, labelSide = 'to
           )}
         </AnimatePresence>
         {/* unexplored dot */}
-        {!seen && !active && (
+        {!seen && !labelShown && (
           <span className="absolute -top-1 right-0 block h-2.5 w-2.5 rounded-full bg-coral shadow-[0_0_0_3px_rgba(255,246,234,0.9)]" aria-hidden="true" />
         )}
       </motion.button>
@@ -285,7 +304,7 @@ function DeskCat() {
   // Late visitors get a sleepy welcome: the studio already matched their hour.
   useEffect(() => {
     if (!afterHours) return
-    const show = setTimeout(() => setNudge('psst… you caught the studio after hours. the fireflies are out.'), 1800)
+    const show = setTimeout(() => setNudge('psst… it’s evening in Pune. flip the desk lamp for the night studio 🌙'), 1800)
     const hide = setTimeout(() => setNudge(null), 11000)
     return () => {
       clearTimeout(show)
@@ -420,10 +439,11 @@ function DeskCat() {
 }
 
 /* The laptop: magnetic pull, then a real boot ON the object before the modal. */
-function MagneticLaptop({ onOpen }) {
+function MagneticLaptop({ onOpen, peek = false }) {
   const { discovered, night } = useStudio()
   const reduce = useReducedMotion()
   const [active, setActive] = useState(false)
+  const [peeking, setPeeking] = useState(false)
   const [booting, setBooting] = useState(false)
   const lit = night && active
   const mx = useMotionValue(0)
@@ -432,6 +452,18 @@ function MagneticLaptop({ onOpen }) {
   const sy = useSpring(my, { stiffness: 140, damping: 16 })
   const ref = useRef(null)
   const seen = discovered.has('laptop')
+
+  // First-visit label flash (see StudioObject) — the laptop leads the stagger.
+  useEffect(() => {
+    if (!peek) return
+    const show = setTimeout(() => setPeeking(true), 900)
+    const hide = setTimeout(() => setPeeking(false), 3400)
+    return () => {
+      clearTimeout(show)
+      clearTimeout(hide)
+    }
+  }, [peek])
+  const labelShown = active && !booting ? true : peeking && !booting
 
   const onMove = (e) => {
     if (reduce || !ref.current) return
@@ -488,9 +520,11 @@ function MagneticLaptop({ onOpen }) {
         whileTap={{ scale: 0.97 }}
         className="relative block w-full cursor-pointer border-none bg-transparent p-0"
       >
-        <LaptopSvg active={active} seen={seen} booting={booting} />
+        <div className="breathe" style={{ animationDelay: '-0.55s' }}>
+          <LaptopSvg active={active} seen={seen} booting={booting} />
+        </div>
         <AnimatePresence>
-          {active && !booting && (
+          {labelShown && (
             <motion.span
               initial={{ opacity: 0, y: 6, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -502,7 +536,7 @@ function MagneticLaptop({ onOpen }) {
             </motion.span>
           )}
         </AnimatePresence>
-        {!seen && !active && (
+        {!seen && !labelShown && (
           <span className="absolute top-0 right-2 block h-2.5 w-2.5 rounded-full bg-coral shadow-[0_0_0_3px_rgba(255,246,234,0.9)]" aria-hidden="true" />
         )}
       </motion.button>
@@ -518,6 +552,26 @@ export default function StudioScene() {
   const [justArrived, setJustArrived] = useState(true)
   useEffect(() => {
     const t = setTimeout(() => setJustArrived(false), 9000)
+    return () => clearTimeout(t)
+  }, [])
+
+  // On the very first visit, the room introduces its doors: each object flashes
+  // its label once, in a stagger, so nothing has to be hovered to be found.
+  // One-time — returning visitors already know the objects open.
+  const [peek, setPeek] = useState(false)
+  useEffect(() => {
+    let hinted = false
+    try {
+      hinted = localStorage.getItem('ff-labels-hinted') === '1'
+    } catch {
+      /* private mode — the hint simply plays again next time */
+    }
+    if (hinted) return
+    setPeek(true)
+    try {
+      localStorage.setItem('ff-labels-hinted', '1')
+    } catch { /* ignore */ }
+    const t = setTimeout(() => setPeek(false), 6000)
     return () => clearTimeout(t)
   }, [])
 
@@ -631,6 +685,7 @@ export default function StudioScene() {
         onOpen={(e) => openModal('sticky', e)}
         labelSide="bottom"
         settleDelay={0.9}
+        peek={peek}
       >
         {(a, s) => <StickyNotesSvg active={a} seen={s} />}
       </StudioObject>
@@ -643,6 +698,7 @@ export default function StudioScene() {
         onOpen={(e) => openModal('bookshelf', e)}
         labelSide="bottom"
         settleDelay={0.7}
+        peek={peek}
       >
         {() => <BookshelfSvg />}
       </StudioObject>
@@ -655,6 +711,7 @@ export default function StudioScene() {
         onOpen={(e) => openModal('trophy', e)}
         labelSide="bottom"
         settleDelay={0.8}
+        peek={peek}
       >
         {(a, s) => <TrophyShelfSvg active={a} seen={s} />}
       </StudioObject>
@@ -704,6 +761,7 @@ export default function StudioScene() {
         style={{ left: '12%', top: '58%', width: '13.5%' }}
         onOpen={(e) => openModal('notebook', e)}
         settleDelay={0.65}
+        peek={peek}
       >
         {(a, s) => <NotebookSvg active={a} seen={s} />}
       </StudioObject>
@@ -715,6 +773,7 @@ export default function StudioScene() {
         style={{ left: '25%', top: '76%', width: '11%' }}
         onOpen={(e) => openModal('passport', e)}
         settleDelay={0.85}
+        peek={peek}
       >
         {(a) => <PassportSvg active={a} />}
       </StudioObject>
@@ -726,11 +785,12 @@ export default function StudioScene() {
         style={{ left: '4%', top: '79%', width: '12%' }}
         onOpen={(e) => openModal('palette', e)}
         settleDelay={0.95}
+        peek={peek}
       >
         {(a) => <PaletteSvg active={a} />}
       </StudioObject>
 
-      <MagneticLaptop onOpen={(e) => openModal('laptop', e)} />
+      <MagneticLaptop onOpen={(e) => openModal('laptop', e)} peek={peek} />
 
       <StudioObject
         id="mug"
@@ -739,6 +799,7 @@ export default function StudioScene() {
         style={{ left: '62.5%', top: '61%', width: '6.5%' }}
         onOpen={(e) => openModal('mug', e)}
         settleDelay={0.75}
+        peek={peek}
       >
         {(a, s) => <MugSvg active={a || justArrived} seen={s} />}
       </StudioObject>
@@ -750,6 +811,7 @@ export default function StudioScene() {
         style={{ left: '70.5%', top: '79%', width: '10.5%' }}
         onOpen={(e) => openModal('controller', e)}
         settleDelay={1.05}
+        peek={peek}
       >
         {(a) => <ControllerSvg active={a} />}
       </StudioObject>
@@ -762,6 +824,7 @@ export default function StudioScene() {
         style={{ left: '71.5%', top: '60%', width: '5.5%' }}
         onOpen={(e) => openModal('calendar', e)}
         settleDelay={1.0}
+        peek={peek}
       >
         {(a) => <CalendarSvg active={a} />}
       </StudioObject>
@@ -773,6 +836,7 @@ export default function StudioScene() {
         style={{ left: '48%', top: '84%', width: '10%' }}
         onOpen={(e) => openModal('contact', e)}
         settleDelay={1.1}
+        peek={peek}
       >
         {(a) => <PaperPlaneSvg active={a} />}
       </StudioObject>
@@ -785,6 +849,7 @@ export default function StudioScene() {
         style={{ left: '58%', bottom: '-1.5%', width: '9%' }}
         onOpen={(e) => openModal('drawer', e)}
         settleDelay={1.2}
+        peek={peek}
       >
         {(a, s) => <DrawerSvg active={a} seen={s} />}
       </StudioObject>

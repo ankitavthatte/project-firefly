@@ -23,6 +23,8 @@ import {
   LampSvg,
 } from './objectSvgs.jsx'
 
+const base = import.meta.env.BASE_URL
+
 const cards = [
   { id: 'laptop', label: 'Projects & Case Studies', sub: 'Evalix AI · MoneyMinds · ShiftCare', Svg: LaptopSvg, big: true },
   { id: 'notebook', label: 'Design Process', sub: 'It starts with a question', Svg: NotebookSvg },
@@ -97,10 +99,11 @@ export default function MobileStudio() {
           </>
         )}
       </div>
-      {/* the lamp works on mobile too — Project Firefly keeps its light switch */}
+      {/* The one persistent line points at the work, not the light switch —
+          the lamp stays a real toggle, just captioned as the small delight it is. */}
       <div className="mt-1 flex items-center justify-between pl-2">
         <div className="flex items-center gap-2">
-          <p className="font-hand text-lg text-ink-soft">{night ? 'the fireflies are out' : 'try the lamp →'}</p>
+          <p className="font-hand text-lg text-ink-soft">{night ? 'the fireflies are out' : 'the work’s just below ↓'}</p>
           <HiddenCat id={2} size={18} color="#2f6e57" />
         </div>
         <motion.button
@@ -112,6 +115,9 @@ export default function MobileStudio() {
           className="relative z-[31] -mt-3 w-16 cursor-pointer border-none bg-transparent p-0"
         >
           <LampSvg night={night} />
+          <span className="pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 text-sm leading-none" aria-hidden="true">
+            {night ? '☀' : '☾'}
+          </span>
         </motion.button>
       </div>
 
@@ -119,6 +125,26 @@ export default function MobileStudio() {
         <p className="font-hand text-2xl text-coral-deep">Ankita Thatte · Product Designer · Pune</p>
         <h1 className="mt-1 text-3xl leading-tight font-extrabold tracking-tight">{identity.heroLine}</h1>
         <p className="mt-2.5 text-base leading-relaxed text-ink-soft">{identity.heroSub}</p>
+        {/* The two things a recruiter actually came for, one tap away and named
+            in plain words — no room to decode. The desktop keeps these in the
+            persistent top nav; mobile hides that bar, so the hero carries them. */}
+        <div className="relative z-[31] mt-4 flex flex-wrap gap-2">
+          <a
+            href={`${base}${identity.resumeFile}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 rounded-full bg-coral px-4 py-2.5 text-sm font-bold text-white shadow-sm transition active:scale-95"
+          >
+            Résumé <span aria-hidden="true">↗</span>
+          </a>
+          <button
+            type="button"
+            onClick={(e) => openModal('contact', e)}
+            className="flex items-center gap-1.5 rounded-full border border-ink/15 bg-paper px-4 py-2.5 text-sm font-bold text-ink shadow-sm transition active:scale-95"
+          >
+            Get in touch
+          </button>
+        </div>
       </header>
 
       <JourneyGuide className="relative z-[31] mt-4" />

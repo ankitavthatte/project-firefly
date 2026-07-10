@@ -1,14 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { useStudio } from '../context/StudioContext.jsx'
+import { useStudio, GUIDED_PATH } from '../context/StudioContext.jsx'
 
-const steps = [
-  { id: 'laptop', label: 'The work' },
-  { id: 'notebook', label: 'How I work' },
-  { id: 'bookshelf', label: 'My journey' },
-  { id: 'mug', label: 'About me' },
-  { id: 'contact', label: 'Say hello' },
-]
+const steps = GUIDED_PATH
 
 /* First-visit wayfinding. The studio invites wandering, but nobody should
    have to wander to find the work — five numbered doors, in reading order,
