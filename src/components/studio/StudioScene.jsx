@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { useStudio, DISCOVERABLES } from '../../context/StudioContext.jsx'
 import { identity, whyNotes, catFacts } from '../../data/content.js'
-import { getPuneSeason, SEASON_WORD, puneTime } from '../../data/season.js'
+import { getPuneSeason } from '../../data/season.js'
 import WhyTag from '../shared/WhyTag.jsx'
 import HiddenCat from '../shared/HiddenCat.jsx'
 import JourneyGuide from '../JourneyGuide.jsx'
@@ -253,25 +253,17 @@ function StudioWindow({ night, season }) {
   )
 }
 
-/* A small placard under the window: proof it's Pune's real weather, right now.
-   The window quietly follows Pune's season (and rains in monsoon); without a
-   label there's no way to know it's live. The clock is Pune's own (IST), so it
-   reads as "there", not the visitor's timezone. */
-function PuneClimateTag({ season }) {
-  const [time, setTime] = useState(puneTime)
-  useEffect(() => {
-    const t = setInterval(() => setTime(puneTime()), 30000)
-    return () => clearInterval(t)
-  }, [])
+/* A small placard on the window: it's Pune out there. The window quietly
+   follows Pune's real season (and rains in monsoon); this just names the place. */
+function PuneClimateTag() {
   return (
     <div
       className="pointer-events-none absolute left-[53.5%] top-[32.5%] z-[24] -translate-x-1/2"
-      role="status"
-      aria-label={`The window shows Pune, India right now — ${SEASON_WORD[season]}, local time ${time}`}
+      aria-label="The window shows Pune, India"
     >
       <span className="flex items-center gap-1.5 rounded-full border border-ink/10 bg-paper/85 px-3 py-1 font-hand text-lg whitespace-nowrap text-ink-soft shadow-sm backdrop-blur-sm">
         <span aria-hidden="true">📍</span>
-        Pune, right now{time ? ` · ${time}` : ''} · {SEASON_WORD[season]}
+        Pune
       </span>
     </div>
   )
@@ -924,8 +916,8 @@ export default function StudioScene() {
         </>
       )}
       <StudioWindow night={night} season={season} />
-      {/* always-on: names the live Pune weather the window is showing */}
-      <PuneClimateTag season={season} />
+      {/* always-on: names the place the window looks out on */}
+      <PuneClimateTag />
       {/* the window's why-note lives just below the placard */}
       <WhyTag className="absolute left-[53.5%] top-[38%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
       {night && <RoomFireflies />}
