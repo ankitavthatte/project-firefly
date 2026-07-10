@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useStudio } from '../context/StudioContext.jsx'
 import { identity, projects, awards, chapters, contact } from '../data/content.js'
 
 const base = import.meta.env.BASE_URL
@@ -21,6 +22,14 @@ function Section({ title, children }) {
 
 // Recruiter Mode: everything important, skimmable in one scroll, still warm.
 export default function RecruiterView() {
+  // The summary is the fast, linear read — but it shouldn't be the one place
+  // with no visuals. Each project opens its full case study (the laptop modal
+  // layers over this page), so "busy" no longer means "text only".
+  const { openModal, setLaptopView } = useStudio()
+  const openCase = (id, e) => {
+    openModal('laptop', e) // resets laptopView to 'desktop'…
+    setLaptopView(id) // …then jump straight to this project
+  }
   return (
     <motion.main
       initial={{ opacity: 0, y: 16 }}
@@ -65,7 +74,13 @@ export default function RecruiterView() {
       <Section title="Selected Work">
         <div className="space-y-4">
           {projects.map((p) => (
-            <article key={p.id} className={`rounded-2xl border bg-gradient-to-br p-5 sm:p-6 ${accent[p.color]}`}>
+            <button
+              key={p.id}
+              type="button"
+              onClick={(e) => openCase(p.id, e)}
+              aria-label={`Open the ${p.name} case study`}
+              className={`group block w-full rounded-2xl border bg-gradient-to-br p-5 text-left transition hover:shadow-md sm:p-6 ${accent[p.color]}`}
+            >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h3 className="text-xl font-extrabold">{p.name}</h3>
                 {p.flagship && (
@@ -88,7 +103,11 @@ export default function RecruiterView() {
                   <span aria-hidden="true">🔒 </span>{p.nda}
                 </p>
               )}
-            </article>
+              <span className={`mt-3.5 inline-flex items-center gap-1.5 text-sm font-bold ${accentText[p.color]}`}>
+                {p.media ? 'See the screens' : p.systemMap ? 'See the system map' : 'See the case study'}
+                <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+              </span>
+            </button>
           ))}
         </div>
       </Section>

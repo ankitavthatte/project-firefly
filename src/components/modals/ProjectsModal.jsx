@@ -108,6 +108,63 @@ function MediaGallery({ media, name }) {
   )
 }
 
+/* Evalix is a live enterprise product under NDA, so no screens ship publicly.
+   This is the honest visual: the information architecture Ankita restructured,
+   drawn as an anonymized system map — structure, not proprietary UI. */
+const EVALIX_MAP = {
+  admin: [
+    'Assessment authoring',
+    'Question banks',
+    'Live monitoring',
+    'Submissions',
+    'User management',
+    'Reporting suite · 8 types',
+    'Analytics & dashboards',
+    'Settings',
+  ],
+  candidate: ['Assessment experience', 'Live proctoring', 'Results & feedback'],
+  foundation: ['Design system', 'Dark mode', 'Responsive', '300+ screens'],
+}
+
+function EvalixSystemMap() {
+  const Portal = ({ title, items }) => (
+    <div className="flex-1 rounded-2xl border border-lavender/50 bg-lavender/10 p-4">
+      <h5 className="text-[11px] font-bold tracking-wider text-lavender-deep uppercase">{title}</h5>
+      <div className="mt-3 space-y-2">
+        {items.map((it) => (
+          <div key={it} className="rounded-lg border border-lavender/40 bg-paper px-3 py-2 text-xs font-semibold text-ink">
+            {it}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+  return (
+    <figure className="mt-6">
+      <figcaption className="mb-2 text-sm font-bold tracking-wider uppercase">
+        System map — anonymized
+      </figcaption>
+      <div className="rounded-2xl border border-ink/10 bg-cream p-4 sm:p-5">
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Portal title="Admin portal" items={EVALIX_MAP.admin} />
+          <Portal title="Candidate portal" items={EVALIX_MAP.candidate} />
+        </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-xl border border-ink/10 bg-paper px-3 py-2.5">
+          <span className="text-[10px] font-bold tracking-wider text-ink-soft uppercase">Foundation</span>
+          {EVALIX_MAP.foundation.map((f) => (
+            <span key={f} className="rounded-full bg-lavender/20 px-2.5 py-1 text-[11px] font-semibold text-lavender-deep">
+              {f}
+            </span>
+          ))}
+        </div>
+        <p className="mt-3 text-[11px] leading-relaxed font-semibold text-ink-soft">
+          The structure, not the screens — the actual UI is enterprise-confidential. Happy to walk through the real thing in a call.
+        </p>
+      </div>
+    </figure>
+  )
+}
+
 function CaseStudy({ project, onBack }) {
   return (
     <motion.div
@@ -173,6 +230,24 @@ function CaseStudy({ project, onBack }) {
           </motion.section>
         ))}
       </div>
+
+      {/* Impact — outcomes, not just outputs */}
+      {project.outcomes && (
+        <div className={`mt-6 rounded-2xl border p-5 ${accentSoft[project.color]}`}>
+          <h4 className="text-sm font-bold tracking-wider uppercase">Impact</h4>
+          <ul className="mt-3 space-y-2.5">
+            {project.outcomes.map((o) => (
+              <li key={o} className="flex items-start gap-2.5 text-base leading-relaxed text-ink">
+                <span className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${folderColors[project.id] ?? 'bg-coral'}`} aria-hidden="true" />
+                {o}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* NDA'd flagship: show the architecture, honestly, in place of screens */}
+      {project.systemMap && <EvalixSystemMap />}
 
       {project.nda && (
         <div className="mt-6 flex items-start gap-3 rounded-2xl border border-ink/10 bg-cream p-4">

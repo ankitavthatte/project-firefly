@@ -48,6 +48,14 @@ export const projects = [
     tagline: 'Enterprise AI assessment platform, redesigned from scratch.',
     metaphor: 'A futuristic education lab where every screen earns its place.',
     color: 'lavender',
+    // Qualitative outcomes — reframed from the story below. Add real numbers
+    // when cleared to share (e.g. admin task-time, candidate support load).
+    outcomes: [
+      'Feature-by-feature drift replaced by one coherent system across 300+ screens.',
+      'Reports restructured to lead with the decision, not the raw score.',
+      'Each role — admin, recruiter, candidate — given its own shortest path.',
+    ],
+    systemMap: true,
     summary:
       'Redesigned Evalix AI as the sole designer, working across research, interviews, information architecture, admin and candidate portals, reports, analytics, and 300+ screens.',
     stats: [
@@ -95,6 +103,10 @@ export const projects = [
     tagline: 'Gamified financial literacy that people actually finish.',
     metaphor: 'A playful coin-city where every lesson feels like a level.',
     color: 'sun',
+    outcomes: [
+      'Modules sized to finish in a coffee break — so lessons get completed, not abandoned.',
+      'Progress made visible with XP and streaks, so wins feel earned, not assigned.',
+    ],
     summary:
       'A gamified financial literacy experience designed to make money concepts approachable, engaging, and rewarding.',
     stats: [
@@ -134,6 +146,10 @@ export const projects = [
     tagline: 'Healthcare scheduling without the whiteboard chaos.',
     metaphor: 'A tiny hospital planning board where every shift clicks into place.',
     color: 'mint',
+    outcomes: [
+      'Coverage gaps made impossible to miss — readable from across the room.',
+      'Conflicts surfaced before they become uncovered wards, not after.',
+    ],
     summary:
       'A healthcare scheduling product focused on simplifying staff planning, shift visibility, and operational workflows.',
     stats: [
