@@ -198,8 +198,17 @@ function CaseStudy({ project, onBack }) {
             </span>
           )}
         </div>
-        <p className={`mt-1 font-hand text-xl ${accentText[project.color]}`}>{project.metaphor}</p>
+        {project.kind && (
+          <p className="mt-1 text-[11px] font-bold tracking-wider text-ink-soft uppercase">{project.kind}</p>
+        )}
+        <p className={`mt-1.5 font-hand text-xl ${accentText[project.color]}`}>{project.metaphor}</p>
         <p className="mt-3 text-base leading-relaxed text-ink">{project.summary}</p>
+        {project.role && (
+          <p className="mt-3 rounded-xl bg-paper/70 px-3.5 py-2.5 text-sm leading-relaxed">
+            <span className="font-bold text-ink">My role — </span>
+            <span className="text-ink-soft">{project.role}</span>
+          </p>
+        )}
       </div>
 
       {/* stats */}

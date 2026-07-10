@@ -5,9 +5,11 @@ export const identity = {
   role: 'Product Designer',
   location: 'Pune, India',
   experience:
-    '10+ years across architecture and digital product design — currently the sole designer behind a live enterprise AI SaaS platform.',
+    'A decade in design — first as an architect, now as the sole designer behind a live enterprise AI SaaS platform.',
   positioning: 'I turn confusing products into clear, thoughtful, and delightful experiences.',
-  heroLine: 'I turn complex products into clear, delightful experiences.',
+  // Leads with the differentiator (architect → systems) instead of the generic
+  // "clear & delightful" line every designer uses. Tweak the wording to taste.
+  heroLine: 'Complex software, made clear — with an architect’s eye for systems.',
   heroSub:
     'Most recently: sole designer across 300+ screens of an enterprise AI platform. This studio is my portfolio — everything on the desk opens, so feel free to look around.',
   about:
@@ -45,6 +47,8 @@ export const projects = [
     id: 'evalix',
     name: 'Evalix AI',
     flagship: true,
+    kind: 'Shipped · live enterprise product',
+    role: 'Sole product designer — research & interviews, information architecture, both portals, the 8-report analytics suite, the end-to-end design system, and engineering hand-off.',
     tagline: 'Enterprise AI assessment platform, redesigned from scratch.',
     metaphor: 'A futuristic education lab where every screen earns its place.',
     color: 'lavender',
@@ -100,6 +104,9 @@ export const projects = [
   {
     id: 'moneyminds',
     name: 'MoneyMinds',
+    // If this was client/shipped work, change `kind` — "self-initiated" can undersell.
+    kind: 'Self-initiated case study',
+    role: 'End to end — research, UX, the gamification system, mascot & brand, and visual design.',
     tagline: 'Gamified financial literacy that people actually finish.',
     metaphor: 'A playful coin-city where every lesson feels like a level.',
     color: 'sun',
@@ -143,6 +150,9 @@ export const projects = [
   {
     id: 'shiftcare',
     name: 'ShiftCare',
+    // If this was client/shipped work, change `kind` — "self-initiated" can undersell.
+    kind: 'Self-initiated case study',
+    role: 'End-to-end UX — research, flows, interaction design, and usability testing (35-page case study).',
     tagline: 'Healthcare scheduling without the whiteboard chaos.',
     metaphor: 'A tiny hospital planning board where every shift clicks into place.',
     color: 'mint',
@@ -442,6 +452,14 @@ export const nowBoard = {
     { label: 'Reading', text: 'Between books right now — send a recommendation via the paper plane.', color: 'mint' },
   ],
 }
+
+// Recommendations carry more senior-hire weight than any animation. Add real
+// quotes from managers, PMs or engineers and they'll render automatically; while
+// this is empty, the section stays hidden (no placeholder ships). Shape:
+//   { quote: 'She owned the whole platform and never dropped a detail.',
+//     name: 'Full Name', title: 'Engineering Lead, Cloud.in' }
+// Fastest source: your LinkedIn "Recommendations" — paste them here.
+export const testimonials = []
 
 export const contact = {
   headline: 'Want to build something thoughtful, usable, and a little unforgettable?',

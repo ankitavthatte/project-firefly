@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useStudio } from '../context/StudioContext.jsx'
-import { identity, projects, awards, chapters, contact } from '../data/content.js'
+import { identity, projects, awards, chapters, contact, testimonials } from '../data/content.js'
 
 const base = import.meta.env.BASE_URL
 
@@ -89,8 +89,15 @@ export default function RecruiterView() {
                   </span>
                 )}
               </div>
-              <p className={`text-sm font-bold ${accentText[p.color]}`}>{p.tagline}</p>
+              {p.kind && <p className="text-[11px] font-bold tracking-wider text-ink-soft uppercase">{p.kind}</p>}
+              <p className={`mt-0.5 text-sm font-bold ${accentText[p.color]}`}>{p.tagline}</p>
               <p className="mt-2.5 text-base leading-relaxed text-ink">{p.summary}</p>
+              {p.role && (
+                <p className="mt-2 text-sm leading-relaxed">
+                  <span className="font-bold text-ink">My role — </span>
+                  <span className="text-ink-soft">{p.role}</span>
+                </p>
+              )}
               <div className="mt-3.5 flex flex-wrap gap-x-5 gap-y-1.5">
                 {p.stats.map((s) => (
                   <span key={s.label} className="text-xs font-semibold text-ink-soft">
@@ -111,6 +118,22 @@ export default function RecruiterView() {
           ))}
         </div>
       </Section>
+
+      {testimonials.length > 0 && (
+        <Section title="What people say">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {testimonials.map((t) => (
+              <figure key={t.name} className="rounded-2xl bg-paper p-5 shadow-sm">
+                <blockquote className="text-sm leading-relaxed text-ink">“{t.quote}”</blockquote>
+                <figcaption className="mt-3 text-xs font-bold text-ink">
+                  {t.name}
+                  {t.title && <span className="font-semibold text-ink-soft"> · {t.title}</span>}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </Section>
+      )}
 
       <Section title="Experience & Journey">
         <ol className="space-y-2.5">
