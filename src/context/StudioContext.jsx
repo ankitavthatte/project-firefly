@@ -8,8 +8,6 @@ export const DISCOVERABLES = [
   'trophy',
   'mug',
   'passport',
-  'controller',
-  'palette',
   'bookshelf',
   'sticky',
   'drawer',

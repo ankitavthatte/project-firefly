@@ -18,6 +18,10 @@ export const identity = {
     'I’m curious by nature, always asking why, and I can’t leave a bad experience unredesigned.',
   personality:
     'Outside work, I’m a traveler, gamer, creator, book lover, painting and sketching enthusiast, and cat mom to 11 adopted rescue cats.',
+  // The one line each from the retired Play Mode / Paint & Pixels rooms, folded
+  // in so the insight survives without a whole modal for it.
+  craft:
+    'Games taught me that good interaction is feedback, timing, and reward; painting keeps my eye for colour and composition honest. Both quietly show up in the work.',
   tags: ['Traveler', 'Gamer', 'Creator', 'Book Lover', 'Painter', 'Sketcher', 'Cat Mom'],
   tools: [
     'Figma',
@@ -412,26 +416,6 @@ export const travel = {
   ],
 }
 
-export const playMode = {
-  line: 'Games taught me that good interaction is feedback, timing, reward, and curiosity.',
-  lessons: [
-    { title: 'Feedback', body: 'Every action deserves a response. Games never leave you wondering if the button worked.' },
-    { title: 'Timing', body: 'The same animation feels great at 200ms and broken at 800ms. Rhythm is a design material.' },
-    { title: 'Reward', body: 'Progress you can feel. Games celebrate small wins — products should too.' },
-    { title: 'Curiosity', body: 'The best tutorials are the ones you don’t notice. Let people discover, don’t lecture them.' },
-  ],
-}
-
-export const palette = {
-  intro: 'Before pixels, there was paint. Making things with my hands keeps my eye honest.',
-  loves: [
-    { title: 'Painting', body: 'Color mixing taught me more about UI palettes than any hex-code generator.' },
-    { title: 'Sketching', body: 'Fastest prototyping tool ever invented. Battery life: excellent.' },
-    { title: 'Visual storytelling', body: 'Every case study is a story. Every dashboard is one too — most just forget the plot.' },
-    { title: 'Content creation', body: 'Making things and putting them into the world, on repeat.' },
-  ],
-}
-
 export const drawer = {
   intro: 'Every studio has one drawer of almost-finished things. You found mine.',
   items: [
@@ -474,11 +458,9 @@ export const whyNotes = {
   trophy: 'Awards sit on a shelf, slightly aside — visible, but never louder than the work.',
   mug: 'The about section hides in a coffee mug because people open up over coffee, not over headers.',
   cat: 'The cat adds life, not noise. Delight is rationed so it stays delightful.',
-  controller: 'A controller, because interaction design and game feel are the same craft.',
   sticky: 'Sticky notes carry the philosophy — principles should be short enough to fit on one.',
   bookshelf: 'A bookshelf replaces the timeline. Careers read better as chapters than as dates.',
   passport: 'Travel earns a spot on the desk because observation is a designer’s raw material.',
-  paletteObj: 'The paint palette is here because visual craft came before the pixels.',
   plane: 'Contact is a paper plane — reaching out should feel light, not like filling a form.',
   lamp: 'The lamp actually controls the light — motion with meaning. Also: the site is called Project Firefly. Try it.',
   drawer: 'Every studio has one drawer you’re not sure you should open. Curiosity gaps keep people exploring.',

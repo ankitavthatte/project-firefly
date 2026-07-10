@@ -13,8 +13,6 @@ import {
   TrophyShelfSvg,
   BookshelfSvg,
   CatSvg,
-  ControllerSvg,
-  PaletteSvg,
   PassportSvg,
   StickyNotesSvg,
   PlantSvg,
@@ -30,8 +28,6 @@ const NUDGE_LABELS = {
   trophy: 'the trophy shelf',
   mug: 'the coffee mug',
   passport: 'the passport',
-  controller: 'the controller',
-  palette: 'the paint palette',
   bookshelf: 'the bookshelf',
   sticky: 'the sticky notes',
   drawer: 'the desk drawer',
@@ -789,17 +785,6 @@ export default function StudioScene() {
         {(a) => <PassportSvg active={a} />}
       </StudioObject>
 
-      <StudioObject
-        id="palette"
-        label="Paint & Pixels"
-        why={whyNotes.paletteObj}
-        style={{ left: '4%', top: '79%', width: '12%' }}
-        onOpen={(e) => openModal('palette', e)}
-        settleDelay={0.95}
-      >
-        {(a) => <PaletteSvg active={a} />}
-      </StudioObject>
-
       <MagneticLaptop onOpen={(e) => openModal('laptop', e)} peek={peek} />
 
       <StudioObject
@@ -811,17 +796,6 @@ export default function StudioScene() {
         settleDelay={0.75}
       >
         {(a, s) => <MugSvg active={a || justArrived} seen={s} />}
-      </StudioObject>
-
-      <StudioObject
-        id="controller"
-        label="Play Mode"
-        why={whyNotes.controller}
-        style={{ left: '70.5%', top: '79%', width: '10.5%' }}
-        onOpen={(e) => openModal('controller', e)}
-        settleDelay={1.05}
-      >
-        {(a) => <ControllerSvg active={a} />}
       </StudioObject>
 
       {/* the desk calendar — always on this month's page */}

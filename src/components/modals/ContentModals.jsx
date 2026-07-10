@@ -10,8 +10,6 @@ import {
   principles,
   chapters,
   travel,
-  playMode,
-  palette,
   drawer,
   contact,
   nowBoard,
@@ -183,7 +181,12 @@ export function AboutModal({ onClose }) {
           </span>
         ))}
       </div>
+      <p className="mt-5 text-sm leading-relaxed text-ink-soft">{identity.craft}</p>
+
       <p className="mt-5 font-hand text-2xl text-coral-deep">“{identity.positioning}”</p>
+      <div className="mt-4 flex justify-end">
+        <HiddenCat id={9} size={22} color="#8a90cf" />
+      </div>
     </ModalShell>
   )
 }
@@ -214,44 +217,6 @@ export function PassportModal({ onClose }) {
         <p className="text-xs font-semibold text-ink-soft">Observation is a designer’s raw material — travel is how I stock up.</p>
         <HiddenCat id={8} size={22} color="#3f9a78" />
       </div>
-    </ModalShell>
-  )
-}
-
-/* ---------- Controller: play mode ---------- */
-export function ControllerModal({ onClose }) {
-  return (
-    <ModalShell title="Play Mode" accent="sky" onClose={onClose}>
-      <div className="rounded-2xl bg-ink p-5 text-cream">
-        <p className="font-hand text-2xl leading-snug">“{playMode.line}”</p>
-      </div>
-      <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {playMode.lessons.map((l, i) => (
-          <motion.div
-            key={l.title}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 + i * 0.1 }}
-            className="rounded-xl bg-cream p-4"
-          >
-            <div className="flex items-center gap-2.5">
-              <span
-                className={`grid h-7 w-7 place-items-center rounded-full text-xs font-bold text-ink ${
-                  ['bg-sun', 'bg-coral', 'bg-mint', 'bg-lavender'][i]
-                }`}
-                aria-hidden="true"
-              >
-                {['A', 'B', 'X', 'Y'][i]}
-              </span>
-              <h3 className="text-sm font-bold">{l.title}</h3>
-            </div>
-            <p className="mt-2 text-sm leading-relaxed text-ink-soft">{l.body}</p>
-          </motion.div>
-        ))}
-      </div>
-      <p className="mt-4 text-xs font-semibold text-ink-soft">
-        Every microinteraction on this site is a small “game feel” decision. Even this sentence appearing right now.
-      </p>
     </ModalShell>
   )
 }
@@ -300,47 +265,6 @@ export function NowModal({ onClose }) {
       <p className="mt-5 font-hand text-xl text-sky-deep">
         This page turns every month. If it looks stale, tell me — that&rsquo;s a design bug.
       </p>
-    </ModalShell>
-  )
-}
-
-/* ---------- Palette: visual creativity ---------- */
-export function PaletteModal({ onClose }) {
-  return (
-    <ModalShell title="Paint & Pixels" accent="coral" onClose={onClose}>
-      <p className="text-base leading-relaxed text-ink">{palette.intro}</p>
-      <div className="mt-5 space-y-3">
-        {palette.loves.map((l, i) => (
-          <motion.div
-            key={l.title}
-            initial={{ opacity: 0, x: -14 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.15 + i * 0.1 }}
-            className="flex items-start gap-3 rounded-xl bg-cream p-4"
-          >
-            <span
-              className={`mt-0.5 h-4 w-4 shrink-0 rounded-full ${['bg-coral', 'bg-sun', 'bg-mint', 'bg-sky'][i]}`}
-              aria-hidden="true"
-            />
-            <div>
-              <h3 className="text-sm font-bold">{l.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-ink-soft">{l.body}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-      <div className="mt-4 flex items-center justify-between gap-3">
-        <a
-          href="https://www.instagram.com/punedoodlerr"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 rounded-full border border-coral/40 bg-coral/10 px-4 py-2 text-xs font-bold text-coral-deep transition hover:bg-coral hover:text-white"
-        >
-          See the doodles — @punedoodlerr
-          <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
-        </a>
-        <HiddenCat id={9} size={22} color="#c74e2f" />
-      </div>
     </ModalShell>
   )
 }
