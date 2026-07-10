@@ -40,25 +40,29 @@ export function LaptopSvg({ active, seen = false, booting = false }) {
           <stop offset="100%" stopColor="#f9e8b4" stopOpacity="0" />
         </radialGradient>
       </defs>
-      {/* tiny desktop UI on screen */}
-      <rect x="50" y="25" width="26" height="7" rx="2" fill="#ea6a4b" />
-      <rect x="50" y="38" width="54" height="4" rx="2" fill="#c9c2b4" />
-      <rect x="50" y="46" width="42" height="4" rx="2" fill="#c9c2b4" />
-      {/* folder icons */}
-      <g>
-        <rect x="118" y="34" width="18" height="13" rx="2.5" fill="#8a90cf" />
-        <rect x="118" y="31" width="9" height="5" rx="2" fill="#8a90cf" />
-        <rect x="144" y="34" width="18" height="13" rx="2.5" fill="#ecb041" />
-        <rect x="144" y="31" width="9" height="5" rx="2" fill="#ecb041" />
-        <rect x="118" y="56" width="18" height="13" rx="2.5" fill="#6fbfa0" />
-        <rect x="118" y="53" width="9" height="5" rx="2" fill="#6fbfa0" />
-        <rect x="144" y="56" width="18" height="13" rx="2.5" fill="#85b8e8" />
-        <rect x="144" y="53" width="9" height="5" rx="2" fill="#85b8e8" />
-      </g>
-      <rect x="50" y="60" width="56" height="34" rx="4" fill="#eee5d2" />
-      <rect x="55" y="66" width="30" height="4" rx="2" fill="#ea6a4b" />
-      <rect x="55" y="74" width="44" height="3" rx="1.5" fill="#c9c2b4" />
-      <rect x="55" y="80" width="38" height="3" rx="1.5" fill="#c9c2b4" />
+      {/* tiny desktop UI on screen — the "before" state. Once visited, the
+          case-study window above takes over the screen, so this is hidden to
+          avoid two UIs stacking on top of each other. */}
+      {!seen && (
+        <g>
+          <rect x="50" y="25" width="26" height="7" rx="2" fill="#ea6a4b" />
+          <rect x="50" y="38" width="54" height="4" rx="2" fill="#c9c2b4" />
+          <rect x="50" y="46" width="42" height="4" rx="2" fill="#c9c2b4" />
+          {/* folder icons */}
+          <rect x="118" y="34" width="18" height="13" rx="2.5" fill="#8a90cf" />
+          <rect x="118" y="31" width="9" height="5" rx="2" fill="#8a90cf" />
+          <rect x="144" y="34" width="18" height="13" rx="2.5" fill="#ecb041" />
+          <rect x="144" y="31" width="9" height="5" rx="2" fill="#ecb041" />
+          <rect x="118" y="56" width="18" height="13" rx="2.5" fill="#6fbfa0" />
+          <rect x="118" y="53" width="9" height="5" rx="2" fill="#6fbfa0" />
+          <rect x="144" y="56" width="18" height="13" rx="2.5" fill="#85b8e8" />
+          <rect x="144" y="53" width="9" height="5" rx="2" fill="#85b8e8" />
+          <rect x="50" y="60" width="56" height="34" rx="4" fill="#eee5d2" />
+          <rect x="55" y="66" width="30" height="4" rx="2" fill="#ea6a4b" />
+          <rect x="55" y="74" width="44" height="3" rx="1.5" fill="#c9c2b4" />
+          <rect x="55" y="80" width="38" height="3" rx="1.5" fill="#c9c2b4" />
+        </g>
+      )}
       {/* base */}
       <path d="M22 112h176l10 18a5 5 0 0 1-5 7H17a5 5 0 0 1-5-7z" fill="#524e47" />
       <rect x="88" y="116" width="44" height="6" rx="3" fill="#6a655c" />
