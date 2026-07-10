@@ -1,8 +1,25 @@
 import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useStudio } from '../../context/StudioContext.jsx'
+import { useStudio, GUIDED_PATH } from '../../context/StudioContext.jsx'
 import WhyTag from './WhyTag.jsx'
 import { whyNotes } from '../../data/content.js'
+
+// The visit has an arc: the guided path is the spine of the story, ending at
+// "Say hello". Every modal points to the next beat so closing one is never a
+// dead end. On-path modals advance to the following stop; a wandered-into
+// bonus room rejoins the arc at the first stop not yet seen. `contact` is the
+// ending (it has its own goodbye) and `speedrun` is a shortcut, so neither
+// carries a forward foot.
+function nextStopFor(activeModal, discovered) {
+  if (activeModal === 'contact' || activeModal === 'speedrun') return null
+  const arcIdx = GUIDED_PATH.findIndex((s) => s.id === activeModal)
+  if (arcIdx !== -1) {
+    const next = GUIDED_PATH[arcIdx + 1] || null
+    return next ? { ...next, onArc: true } : null
+  }
+  const rejoin = GUIDED_PATH.find((s) => !discovered.has(s.id)) || GUIDED_PATH[GUIDED_PATH.length - 1]
+  return { ...rejoin, onArc: false }
+}
 
 // Shared modal chrome: warm paper card, anticipation-then-reveal motion,
 // focus trap entry, Escape to close, scrollable body.
@@ -10,7 +27,8 @@ import { whyNotes } from '../../data/content.js'
 export default function ModalShell({ title, accent = 'coral', onClose, children, wide = false, xl = false }) {
   const shellRef = useRef(null)
   const reduce = useReducedMotion()
-  const { modalOrigin } = useStudio()
+  const { modalOrigin, activeModal, discovered, openModal } = useStudio()
+  const nextStop = nextStopFor(activeModal, discovered)
   // Lean in toward the object that was clicked, instead of popping from nowhere.
   const from = modalOrigin
     ? { x: (modalOrigin.x - window.innerWidth / 2) * 0.85, y: (modalOrigin.y - window.innerHeight / 2) * 0.85 }
@@ -82,6 +100,30 @@ export default function ModalShell({ title, accent = 'coral', onClose, children,
           </button>
         </header>
         <div className="nice-scroll min-h-0 grow overflow-y-auto px-6 pb-8 sm:px-8">{children}</div>
+
+        {/* the onward beat — pinned so the story continues even without a scroll */}
+        {nextStop && (
+          <button
+            type="button"
+            onClick={(e) => openModal(nextStop.id, e)}
+            aria-label={`${nextStop.onArc ? 'Next' : 'Back to the tour'}: ${nextStop.label} — ${nextStop.hint}`}
+            className="group flex shrink-0 items-center gap-3 border-t border-ink/10 bg-cream/70 px-6 py-3.5 text-left transition hover:bg-cream-deep sm:px-8"
+          >
+            <span className="text-[10px] font-bold tracking-wider text-coral-deep uppercase">
+              {nextStop.onArc ? 'Up next' : 'Back to the tour'}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm font-extrabold leading-tight text-ink">{nextStop.label}</span>
+              <span className="block truncate text-xs font-semibold text-ink-soft">{nextStop.hint}</span>
+            </span>
+            <span
+              aria-hidden="true"
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-coral text-white transition-transform group-hover:translate-x-0.5"
+            >
+              →
+            </span>
+          </button>
+        )}
       </motion.div>
     </motion.div>
   )
