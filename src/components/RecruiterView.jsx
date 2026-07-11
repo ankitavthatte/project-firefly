@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useStudio } from '../context/StudioContext.jsx'
-import { identity, projects, awards, chapters, contact, testimonials } from '../data/content.js'
+import { identity, projects, awards, chapters, contact, testimonials, faqs } from '../data/content.js'
 
 const base = import.meta.env.BASE_URL
 
@@ -30,6 +30,10 @@ export default function RecruiterView() {
     openModal('laptop', e) // resets laptopView to 'desktop'…
     setLaptopView(id) // …then jump straight to this project
   }
+  // Speaking is a distinct credibility lever — pull the summit out of the awards
+  // grid and give it its own highlighted block; the rest stay in the grid.
+  const summit = awards.find((a) => a.id === 'summit')
+  const otherAwards = awards.filter((a) => a.id !== 'summit')
   return (
     <motion.main
       initial={{ opacity: 0, y: 16 }}
@@ -150,9 +154,19 @@ export default function RecruiterView() {
         </ol>
       </Section>
 
-      <Section title="Achievements">
+      <Section title="Speaking & Recognition">
+        {summit && (
+          <div className="mb-3 flex items-start gap-3.5 rounded-2xl border border-coral/40 bg-gradient-to-br from-coral/15 to-coral/5 p-5">
+            <span className="text-2xl" aria-hidden="true">🎤</span>
+            <div>
+              <div className="text-[11px] font-bold tracking-wider text-coral-deep uppercase">{summit.detail}</div>
+              <div className="mt-0.5 text-base font-extrabold text-ink">{summit.title}</div>
+              <p className="mt-1 text-sm leading-relaxed text-ink-soft">{summit.note}</p>
+            </div>
+          </div>
+        )}
         <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-          {awards.map((a) => (
+          {otherAwards.map((a) => (
             <li key={a.id} className="flex items-center gap-3 rounded-xl bg-paper p-4">
               <span className="text-xl" aria-hidden="true">🏆</span>
               <div>
@@ -170,6 +184,25 @@ export default function RecruiterView() {
             <span key={t} className="rounded-lg border border-ink/10 bg-paper px-3 py-1.5 text-xs font-semibold">
               {t}
             </span>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Questions you might have">
+        <div className="space-y-2.5">
+          {faqs.map((f) => (
+            <details
+              key={f.q}
+              className="group rounded-2xl bg-paper p-4 shadow-sm [&_summary::-webkit-details-marker]:hidden"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-bold text-ink">
+                {f.q}
+                <span aria-hidden="true" className="shrink-0 text-lg text-ink-soft transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">{f.a}</p>
+            </details>
           ))}
         </div>
       </Section>

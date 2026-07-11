@@ -122,7 +122,7 @@ export default function MobileStudio() {
       </div>
 
       <header className="mt-4">
-        <p className="font-hand text-2xl text-coral-deep">Ankita Thatte · Product Designer · Pune</p>
+        <p className="font-hand text-2xl text-coral-deep">Ankita Thatte · Senior Product Designer · Pune</p>
         <h1 className="mt-1 text-3xl leading-tight font-extrabold tracking-tight">{identity.heroLine}</h1>
         <p className="mt-2.5 text-base leading-relaxed text-ink-soft">{identity.heroSub}</p>
         {/* The two things a recruiter actually came for, one tap away and named

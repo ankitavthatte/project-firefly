@@ -2,20 +2,22 @@
 
 export const identity = {
   name: 'Ankita Thatte',
-  role: 'Product Designer',
+  role: 'Senior Product Designer',
   location: 'Pune, India',
   experience:
-    'A decade in design — first as an architect, now as the sole designer behind a live enterprise AI SaaS platform.',
-  positioning: 'I turn confusing products into clear, thoughtful, and delightful experiences.',
-  // Leads with the differentiator (architect → systems) instead of the generic
-  // "clear & delightful" line every designer uses. Tweak the wording to taste.
-  heroLine: 'Complex software, made clear — with an architect’s eye for systems.',
+    '10+ years across architecture, product design and design leadership — now the sole designer behind Evalix AI, a live enterprise AI platform.',
+  // The thesis. Punchy, ownable, and true — the one line a recruiter should be
+  // able to repeat back. See BRAND_STRATEGY.md §1.
+  positioning: 'I design clarity into complex enterprise products.',
+  // Hero = the six-word promise; sub carries the differentiator (architect →
+  // systems) and the scale proof (Evalix). See BRAND_STRATEGY.md §9.
+  heroLine: 'I make complex systems feel obvious.',
   heroSub:
-    'Most recently: sole designer across 300+ screens of an enterprise AI platform. This studio is my portfolio — everything on the desk opens, so feel free to look around.',
+    'Ten years spanning architecture, product design and design systems. Most recently the sole designer on Evalix AI — 300+ screens of an enterprise assessment platform. This studio is the portfolio: everything on the desk opens.',
   about:
-    'I’m Ankita, an architect turned UI/UX Product Designer who loves turning confusing products into clear, thoughtful, and delightful experiences. I design digital products because they can create faster impact, larger impact, and better everyday experiences for people.',
+    'I’m Ankita — an architect turned Senior Product Designer. For a decade I’ve been learning the same craft in two mediums: how structure makes complex things usable. First in buildings, now in enterprise software. I design digital products because a building changes one street; a product can change millions of days.',
   aboutExtra:
-    'I’m curious by nature, always asking why, and I can’t leave a bad experience unredesigned.',
+    'I’m curious by nature, I ask “why” before I draw a screen, and I can’t leave a confusing experience unresolved.',
   personality:
     'Outside work, I’m a traveler, gamer, creator, book lover, painting and sketching enthusiast, and cat mom to 11 adopted rescue cats.',
   // The one line each from the retired Play Mode / Paint & Pixels rooms, folded
@@ -365,11 +367,11 @@ export const processSteps = [
 ]
 
 export const principles = [
-  { text: 'Ask why.', color: 'coral' },
-  { text: 'Make complexity feel simple.', color: 'sun' },
-  { text: 'Motion should have meaning.', color: 'mint' },
-  { text: 'Delight should support usability.', color: 'sky' },
-  { text: 'Design is what people remember feeling.', color: 'lavender' },
+  { text: 'Ask why before you draw.', color: 'coral' },
+  { text: 'Structure before surface.', color: 'sun' },
+  { text: 'Make complexity feel obvious.', color: 'mint' },
+  { text: 'Motion should have meaning.', color: 'sky' },
+  { text: 'Clarity is a decision.', color: 'lavender' },
 ]
 
 // detail = employer · dates, straight from the CV, so reviewers can place
@@ -446,10 +448,36 @@ export const nowBoard = {
 export const testimonials = []
 
 export const contact = {
-  headline: 'Want to build something thoughtful, usable, and a little unforgettable?',
+  headline: 'Have a complex product that deserves to feel simple?',
   cta: 'Let’s talk',
   goodbye: 'Thanks for exploring my little corner of the internet.',
 }
+
+// Recruiter-facing FAQ — pre-answers the questions a hiring team actually has,
+// and quietly signals seniority (she's thought about the reader). Honest by
+// design. VERIFY before publishing — especially the location/availability line.
+export const faqs = [
+  {
+    q: 'Can I see the Evalix AI screens?',
+    a: 'Evalix is a live enterprise product, so its screens stay off the public site. The anonymised system map here shows how it’s structured — and I’m happy to walk you through the full platform, both portals and all 8 reports, in a call.',
+  },
+  {
+    q: 'What exactly did you own on Evalix?',
+    a: 'All of it. As the sole designer I ran the research and interviews, rebuilt the information architecture, designed both the admin and candidate portals and the 8-report analytics suite, and built the end-to-end design system — through to engineering hand-off, across 300+ screens.',
+  },
+  {
+    q: 'Which projects shipped, and which are self-initiated?',
+    a: 'Evalix AI is a live, shipped enterprise product. MoneyMinds and ShiftCare are self-initiated case studies — chosen to show how I frame and structure complex problems end to end.',
+  },
+  {
+    q: 'What kind of role are you looking for?',
+    a: 'Senior Product Designer, Senior UX Designer, or Product Design Lead — on enterprise SaaS, AI-powered products, or complex, workflow-heavy tools. The harder the system, the more interested I am.',
+  },
+  {
+    q: 'Where are you based?',
+    a: 'Pune, India — and open to conversations about remote or relocation for the right team.',
+  },
+]
 
 export const whyNotes = {
   studio: 'This studio is the navigation. Curiosity makes people explore further than menus ever do.',
@@ -474,7 +502,7 @@ export const whyNotes = {
 }
 
 export const speedRun = [
-  'Architect turned UI/UX Product Designer, based in Pune, India.',
+  'Architect turned Senior Product Designer, based in Pune, India.',
   'Sole designer on Evalix AI — 300+ screens, 8 report types, admin + candidate portals, full research-to-handoff ownership.',
   'Designed MoneyMinds (gamified financial literacy) and ShiftCare (healthcare staff scheduling).',
   'Team of the Quarter Q2 2026 · Employee of the Quarter Q1 2026 · FNP Global Designathon 2025, 3rd Place.',

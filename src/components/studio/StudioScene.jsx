@@ -664,7 +664,7 @@ export default function StudioScene() {
           transition={{ delay: 0.2, duration: 0.7 }}
           className="font-hand text-2xl text-coral-deep"
         >
-          Ankita Thatte · Product Designer · Pune
+          Ankita Thatte · Senior Product Designer · Pune
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 18 }}
