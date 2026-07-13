@@ -511,17 +511,3 @@ export const speedRun = [
   'Asks “why” before designing. Cannot leave a bad experience unredesigned.',
   'Cat mom to 11 adopted rescue cats. Products she designs feel alive — on purpose.',
 ]
-
-export const catFacts = [
-  'Cat 1 was the first rescue — the rest followed her home.',
-  'Two of them supervise every Figma file from the desk.',
-  'One only naps on printed wireframes. Low-fidelity sleeper.',
-  'This one attends every user interview. Uninvited.',
-  'Rescued during a monsoon. Now afraid of nothing.',
-  'The quality-assurance cat. Walks across keyboards professionally.',
-  'Prefers dark mode. Obviously.',
-  'The shy one. Finding her means you explore thoroughly.',
-  'Has strong opinions about coral vs. lavender.',
-  'The elder statescat. Approves all final designs.',
-  'Number eleven. You really did look everywhere.',
-]

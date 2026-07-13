@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useStudio, TOTAL_CATS } from '../context/StudioContext.jsx'
+import { useStudio } from '../context/StudioContext.jsx'
 import WhyTag from './shared/WhyTag.jsx'
 import { whyNotes } from '../data/content.js'
 
@@ -21,24 +21,8 @@ function Toggle({ pressed, onToggle, label, children }) {
   )
 }
 
-/* Eleven paw slots — empty outlines beg to be filled. */
-function PawSlots({ found }) {
-  return (
-    <span className="flex items-center gap-[3px]" aria-label={`${found} of ${TOTAL_CATS} hidden cats found`}>
-      {Array.from({ length: TOTAL_CATS }, (_, i) => (
-        <span
-          key={i}
-          className={`h-1.5 w-1.5 rounded-full transition-colors duration-500 ${
-            i < found ? 'bg-coral' : 'border border-ink/25 bg-transparent'
-          }`}
-        />
-      ))}
-    </span>
-  )
-}
-
 export default function ControlDock() {
-  const { recruiterMode, setRecruiterMode, whyMode, setWhyMode, openModal, catsFound, catToast, finale, setFinale } = useStudio()
+  const { recruiterMode, setRecruiterMode, whyMode, setWhyMode, openModal, finale, setFinale } = useStudio()
 
   return (
     <>
@@ -91,17 +75,6 @@ export default function ControlDock() {
       </div>
       <WhyTag className="fixed top-16 right-4 z-40">{whyNotes.recruiter}</WhyTag>
 
-      {/* bottom-left: the one persistent tracker worth keeping — the hidden-cat
-          "rescue squad", and only once the visitor has found their first. Pure
-          opt-in delight, not wayfinding: the top nav and the first-visit guide
-          already say where to go, so nothing down here competes with them. */}
-      {!recruiterMode && catsFound.size > 0 && (
-        <div className="fixed bottom-4 left-4 z-40 flex items-center gap-2.5 rounded-full border border-ink/10 bg-paper/90 px-3.5 py-2 shadow-sm backdrop-blur-sm">
-          <span className="text-[11px] font-bold text-coral-deep">🐾 rescue squad</span>
-          <PawSlots found={catsFound.size} />
-        </div>
-      )}
-
       {/* the finale — fires once, when the whole room has been explored */}
       <AnimatePresence>
         {finale && !recruiterMode && (
@@ -140,38 +113,6 @@ export default function ControlDock() {
                 Keep wandering
               </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* cat found toast */}
-      <AnimatePresence>
-        {catToast && (
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-            role="status"
-            className="fixed bottom-6 left-1/2 z-[60] w-[min(92vw,380px)] -translate-x-1/2 rounded-2xl border border-coral/30 bg-paper p-4 shadow-[0_16px_40px_-12px_rgba(53,50,45,0.4)]"
-          >
-            {catToast.all ? (
-              <div className="text-center">
-                <div className="text-2xl" aria-hidden="true">🐈🐈‍⬛🐈🐈‍⬛🐈</div>
-                <p className="mt-1 font-hand text-2xl font-bold text-coral-deep">You met the whole rescue squad.</p>
-                <p className="mt-1 text-xs font-semibold text-ink-soft">
-                  All 11 cats found — that’s the kind of thoroughness this studio was built for.
-                </p>
-              </div>
-            ) : (
-              <div className="flex items-start gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-coral/15 text-xl" aria-hidden="true">🐾</span>
-                <div>
-                  <p className="text-sm font-bold text-ink">Cat found {catToast.index}/{TOTAL_CATS}</p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-ink-soft">{catToast.fact}</p>
-                </div>
-              </div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>

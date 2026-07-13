@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import ModalShell from '../shared/ModalShell.jsx'
-import HiddenCat from '../shared/HiddenCat.jsx'
 import { useStudio } from '../../context/StudioContext.jsx'
 import {
   identity,
@@ -66,9 +65,6 @@ export function NotebookModal({ onClose }) {
           </motion.li>
         ))}
       </ol>
-      <div className="mt-5 flex justify-end">
-        <HiddenCat id={6} size={22} color="#b57e45" />
-      </div>
     </ModalShell>
   )
 }
@@ -132,9 +128,6 @@ export function TrophyModal({ onClose }) {
           <AwardCard key={a.id} award={a} index={i} />
         ))}
       </div>
-      <div className="mt-4 flex justify-end">
-        <HiddenCat id={7} size={22} color="#b5811c" />
-      </div>
     </ModalShell>
   )
 }
@@ -184,9 +177,6 @@ export function AboutModal({ onClose }) {
       <p className="mt-5 text-sm leading-relaxed text-ink-soft">{identity.craft}</p>
 
       <p className="mt-5 font-hand text-2xl text-coral-deep">“{identity.positioning}”</p>
-      <div className="mt-4 flex justify-end">
-        <HiddenCat id={9} size={22} color="#8a90cf" />
-      </div>
     </ModalShell>
   )
 }
@@ -213,10 +203,7 @@ export function PassportModal({ onClose }) {
           </motion.div>
         ))}
       </div>
-      <div className="mt-4 flex items-center justify-between">
-        <p className="text-xs font-semibold text-ink-soft">Observation is a designer’s raw material — travel is how I stock up.</p>
-        <HiddenCat id={8} size={22} color="#3f9a78" />
-      </div>
+      <p className="mt-4 text-xs font-semibold text-ink-soft">Observation is a designer’s raw material — travel is how I stock up.</p>
     </ModalShell>
   )
 }
@@ -316,9 +303,6 @@ export function BookshelfModal({ onClose }) {
           <p className="mt-2 text-base leading-relaxed text-ink">{chapters[open].body}</p>
         </motion.div>
       </AnimatePresence>
-      <div className="mt-4 flex justify-end">
-        <HiddenCat id={10} size={22} color="#8a5f31" />
-      </div>
     </ModalShell>
   )
 }
@@ -520,9 +504,6 @@ export function ContactModal({ onClose }) {
             ? 'You explored everything. The studio (and all of us) hopes to see you again.'
             : 'The studio will be right here whenever you want to keep exploring.'}
         </p>
-        <div className="mt-2 flex justify-center">
-          <HiddenCat id={11} size={24} color="#6d675e" />
-        </div>
       </motion.div>
     </ModalShell>
   )

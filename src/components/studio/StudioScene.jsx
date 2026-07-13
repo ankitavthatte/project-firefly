@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { useStudio, DISCOVERABLES } from '../../context/StudioContext.jsx'
-import { identity, whyNotes, catFacts } from '../../data/content.js'
+import { identity, whyNotes } from '../../data/content.js'
 import { getPuneSeason } from '../../data/season.js'
 import WhyTag from '../shared/WhyTag.jsx'
-import HiddenCat from '../shared/HiddenCat.jsx'
 import JourneyGuide from '../JourneyGuide.jsx'
 import {
   LaptopSvg,
@@ -195,10 +194,6 @@ function StudioWindow({ night, season }) {
           <div className="mist absolute bottom-[16%] left-[-6%] h-[16%] w-[112%] rounded-full bg-white/50 blur-[6px]" aria-hidden="true" />
         )}
         {monsoon && <WindowRain heavy />}
-        {/* hidden cat on the day hill */}
-        <div className="absolute bottom-[22%] left-[8%]">
-          <HiddenCat id={2} size={17} color="#2f6e57" />
-        </div>
       </div>
 
       {/* night layer — fireflies over dark hills */}
@@ -304,7 +299,7 @@ function RoomFireflies() {
 /* The resident cat: opens an eye when you come close, sometimes stretches,
    sometimes wanders — and gently points out what you haven't explored yet. */
 function DeskCat() {
-  const { findCat, discovered, progress, catsFound, night, afterHours } = useStudio()
+  const { discovered, progress, night, afterHours } = useStudio()
   const reduce = useReducedMotion()
   const [eyeOpen, setEyeOpen] = useState(false)
   const [stretching, setStretching] = useState(false)
@@ -368,8 +363,6 @@ function DeskCat() {
         const remaining = DISCOVERABLES.filter((d) => !discovered.has(d))
         if (remaining.length > 0) {
           setNudge(`psst… you haven’t opened ${NUDGE_LABELS[remaining[0]]} yet.`)
-        } else if (catsFound.size < 11) {
-          setNudge(`${11 - catsFound.size} of my siblings are still hiding around here.`)
         } else {
           return
         }
@@ -394,7 +387,7 @@ function DeskCat() {
       window.removeEventListener('pointerdown', reset)
       window.removeEventListener('keydown', reset)
     }
-  }, [discovered, catsFound, progress])
+  }, [discovered, progress])
 
   return (
     <div className="absolute" style={{ left: '80.5%', top: '56.5%', width: '12.5%' }}>
@@ -434,7 +427,10 @@ function DeskCat() {
       <motion.button
         type="button"
         aria-label="Miso, the studio cat — one of Ankita’s 11 rescues. Say hello."
-        onClick={() => findCat(1, catFacts[0])}
+        onClick={() => {
+          setNudge('meow.')
+          setTimeout(() => setNudge((n) => (n === 'meow.' ? null : n)), 2400)
+        }}
         onHoverStart={() => setEyeOpen(true)}
         onHoverEnd={() => setEyeOpen(false)}
         onFocus={() => setEyeOpen(true)}
@@ -836,11 +832,6 @@ export default function StudioScene() {
       </StudioObject>
 
       <DeskCat />
-
-      {/* hidden rescue cat under the desk */}
-      <div className="absolute" style={{ left: '23%', bottom: '3%' }}>
-        <HiddenCat id={3} size={22} color="#7c5427" />
-      </div>
 
       {/* dusk falls over everything below this line — the torch burns a hole in it */}
       <div

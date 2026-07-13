@@ -72,8 +72,6 @@ export function isAfterHours() {
   return h >= 19 || h < 6
 }
 
-export const TOTAL_CATS = 11
-
 const StudioContext = createContext(null)
 
 function load(key, fallback) {
@@ -87,7 +85,6 @@ function load(key, fallback) {
 
 export function StudioProvider({ children }) {
   const [discovered, setDiscovered] = useState(() => new Set(load('ff-discovered', [])))
-  const [catsFound, setCatsFound] = useState(() => new Set(load('ff-cats', [])))
   // Arriving on a deep link lands directly on that view — no re-exploring.
   const [route] = useState(() => parseHash(window.location.hash))
   const [recruiterMode, setRecruiterMode] = useState(route.recruiter)
@@ -101,16 +98,12 @@ export function StudioProvider({ children }) {
   const [activeModal, setActiveModal] = useState(route.modal)
   const [laptopView, setLaptopView] = useState(route.view) // which screen the laptop shows
   const [modalOrigin, setModalOrigin] = useState(null) // viewport {x, y} the modal grows from
-  const [catToast, setCatToast] = useState(null) // { index, fact, all }
   const [goodbyeSeen, setGoodbyeSeen] = useState(false)
   const [finale, setFinale] = useState(false)
 
   useEffect(() => {
     localStorage.setItem('ff-discovered', JSON.stringify([...discovered]))
   }, [discovered])
-  useEffect(() => {
-    localStorage.setItem('ff-cats', JSON.stringify([...catsFound]))
-  }, [catsFound])
 
   const discover = useCallback((id) => {
     setDiscovered((prev) => {
@@ -164,22 +157,6 @@ export function StudioProvider({ children }) {
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
-  const findCat = useCallback((catId, fact) => {
-    setCatsFound((prev) => {
-      if (prev.has(catId)) return prev
-      const next = new Set(prev)
-      next.add(catId)
-      setCatToast({ index: next.size, fact, all: next.size >= TOTAL_CATS })
-      return next
-    })
-  }, [])
-
-  useEffect(() => {
-    if (!catToast) return
-    const t = setTimeout(() => setCatToast(null), catToast.all ? 7000 : 4200)
-    return () => clearTimeout(t)
-  }, [catToast])
-
   const progress = Math.round((discovered.size / DISCOVERABLES.length) * 100)
 
   // The finale fires once, the first time the room is fully explored.
@@ -196,9 +173,6 @@ export function StudioProvider({ children }) {
     () => ({
       discovered,
       progress,
-      catsFound,
-      findCat,
-      catToast,
       recruiterMode,
       setRecruiterMode,
       whyMode,
@@ -217,7 +191,7 @@ export function StudioProvider({ children }) {
       finale,
       setFinale,
     }),
-    [discovered, progress, catsFound, findCat, catToast, recruiterMode, whyMode, night, afterHours, activeModal, openModal, closeModal, modalOrigin, laptopView, goodbyeSeen, finale],
+    [discovered, progress, recruiterMode, whyMode, night, afterHours, activeModal, openModal, closeModal, modalOrigin, laptopView, goodbyeSeen, finale],
   )
 
   return <StudioContext.Provider value={value}>{children}</StudioContext.Provider>

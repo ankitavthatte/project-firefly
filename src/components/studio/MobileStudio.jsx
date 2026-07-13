@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStudio } from '../../context/StudioContext.jsx'
-import { identity, catFacts } from '../../data/content.js'
+import { identity } from '../../data/content.js'
 import { getPuneSeason } from '../../data/season.js'
 import { WindowRain } from './StudioScene.jsx'
-import HiddenCat from '../shared/HiddenCat.jsx'
 import JourneyGuide from '../JourneyGuide.jsx'
 import {
   LaptopSvg,
@@ -38,7 +37,7 @@ const cards = [
 
 /* The studio, restacked for thumbs: same objects, same doors, vertical room. */
 export default function MobileStudio() {
-  const { openModal, discovered, findCat, night, setNight } = useStudio()
+  const { openModal, discovered, night, setNight } = useStudio()
   const [eyeOpen, setEyeOpen] = useState(false)
   const [season] = useState(() => getPuneSeason())
   const monsoon = season === 'monsoon'
@@ -104,7 +103,6 @@ export default function MobileStudio() {
       <div className="mt-1 flex items-center justify-between pl-2">
         <div className="flex items-center gap-2">
           <p className="font-hand text-lg text-ink-soft">{night ? 'the fireflies are out' : 'the work’s just below ↓'}</p>
-          <HiddenCat id={2} size={18} color="#2f6e57" />
         </div>
         <motion.button
           type="button"
@@ -153,7 +151,6 @@ export default function MobileStudio() {
       <motion.button
         type="button"
         aria-label="Miso, the studio cat — one of Ankita’s 11 rescues. Say hello."
-        onClick={() => findCat(1, catFacts[0])}
         onTapStart={() => setEyeOpen(true)}
         onTap={() => setTimeout(() => setEyeOpen(false), 1500)}
         whileTap={{ scale: 0.96 }}
@@ -193,10 +190,6 @@ export default function MobileStudio() {
         })}
       </div>
 
-      <div className="mt-6 flex items-center justify-center gap-2 text-xs font-semibold text-ink-soft">
-        <span>psst — tiny cats are hiding all over this studio</span>
-        <HiddenCat id={3} size={20} color="#7c5427" />
-      </div>
     </main>
   )
 }
