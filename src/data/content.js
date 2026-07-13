@@ -48,6 +48,24 @@ export const identity = {
   ],
 }
 
+// The guided tour — the same five doors as GUIDED_PATH, spotlit in reading
+// order. Offered once on a first visit; never auto-starts. Step ids must match
+// GUIDED_PATH ids (StudioContext) — the spotlight finds objects by data-tour-id.
+export const tour = {
+  invite: 'New here? Take the 30-second tour',
+  start: 'Show me around',
+  skip: 'I’d rather explore',
+  open: 'Open it now',
+  done: 'Start exploring',
+  steps: [
+    { id: 'laptop', title: 'The work', body: 'Case studies live on the laptop — Evalix AI, the flagship, plus MoneyMinds and ShiftCare.' },
+    { id: 'notebook', title: 'How I work', body: 'The process notebook — research to iteration, and the thinking between the steps.' },
+    { id: 'bookshelf', title: 'My journey', body: 'A decade in chapters — from architecture to enterprise product design.' },
+    { id: 'mug', title: 'About me', body: 'The person behind the desk, over a coffee.' },
+    { id: 'contact', title: 'Say hello', body: 'The paper plane sends a message — résumé and LinkedIn are always in the top bar.' },
+  ],
+}
+
 // The screenshot layer — the five facts a recruiter pattern-matches against a
 // req, scannable in one glance (BRAND_STRATEGY §12). The "Edge" line does the
 // seniority math out loud so "Senior + recent PD dates" never forms as a doubt.

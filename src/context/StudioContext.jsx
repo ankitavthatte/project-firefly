@@ -100,6 +100,20 @@ export function StudioProvider({ children }) {
   const [modalOrigin, setModalOrigin] = useState(null) // viewport {x, y} the modal grows from
   const [goodbyeSeen, setGoodbyeSeen] = useState(false)
   const [finale, setFinale] = useState(false)
+  // The guided tour — null when idle, a step index while running. Marking
+  // 'ff-tour-done' (on start, skip or finish) retires the first-visit invite.
+  const [tourStep, setTourStep] = useState(null)
+
+  const startTour = useCallback(() => {
+    try {
+      localStorage.setItem('ff-tour-done', '1')
+    } catch {
+      /* private mode — the invite just returns next visit */
+    }
+    setTourStep(0)
+  }, [])
+
+  const endTour = useCallback(() => setTourStep(null), [])
 
   useEffect(() => {
     localStorage.setItem('ff-discovered', JSON.stringify([...discovered]))
@@ -190,8 +204,12 @@ export function StudioProvider({ children }) {
       setGoodbyeSeen,
       finale,
       setFinale,
+      tourStep,
+      setTourStep,
+      startTour,
+      endTour,
     }),
-    [discovered, progress, recruiterMode, whyMode, night, afterHours, activeModal, openModal, closeModal, modalOrigin, laptopView, goodbyeSeen, finale],
+    [discovered, progress, recruiterMode, whyMode, night, afterHours, activeModal, openModal, closeModal, modalOrigin, laptopView, goodbyeSeen, finale, tourStep, startTour, endTour],
   )
 
   return <StudioContext.Provider value={value}>{children}</StudioContext.Provider>

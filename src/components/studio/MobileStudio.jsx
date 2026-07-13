@@ -166,6 +166,7 @@ export default function MobileStudio() {
             <motion.button
               key={id}
               type="button"
+              data-tour-id={id}
               onClick={(e) => openModal(id, e)}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}

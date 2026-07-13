@@ -62,6 +62,7 @@ function StudioObject({ id, label, why, style, onOpen, children, labelSide = 'to
     <motion.div
       className={`absolute ${lit ? 'z-[21]' : ''}`}
       style={style}
+      data-tour-id={id}
       initial={reduce ? false : { opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: settleDelay, type: 'spring', stiffness: 120, damping: 14 }}
@@ -502,6 +503,7 @@ function MagneticLaptop({ onOpen, peek = false }) {
     <motion.div
       className={`absolute ${lit ? 'z-[21]' : ''}`}
       style={{ left: '38.5%', top: '52%', width: '21%' }}
+      data-tour-id="laptop"
       initial={reduce ? false : { opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.55, type: 'spring', stiffness: 120, damping: 14 }}
