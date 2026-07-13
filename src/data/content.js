@@ -48,6 +48,17 @@ export const identity = {
   ],
 }
 
+// The screenshot layer — the five facts a recruiter pattern-matches against a
+// req, scannable in one glance (BRAND_STRATEGY §12). The "Edge" line does the
+// seniority math out loud so "Senior + recent PD dates" never forms as a doubt.
+export const atAGlance = [
+  { label: 'Level', value: 'Senior Product Designer' },
+  { label: 'Arenas', value: 'Enterprise SaaS · AI products · complex workflows' },
+  { label: 'Scale', value: 'Sole designer on a live 300+ screen platform' },
+  { label: 'Edge', value: 'Architect first — a decade of structural thinking' },
+  { label: 'Base', value: 'Pune, India · open to remote & relocation' },
+]
+
 export const projects = [
   {
     id: 'evalix',
@@ -58,8 +69,19 @@ export const projects = [
     tagline: 'Enterprise AI assessment platform, redesigned from scratch.',
     metaphor: 'A futuristic education lab where every screen earns its place.',
     color: 'lavender',
-    // Qualitative outcomes — reframed from the story below. Add real numbers
-    // when cleared to share (e.g. admin task-time, candidate support load).
+    // Qualitative outcomes — reframed from the story below.
+    //
+    // COUNTABLE METRICS TODO — no analytics needed, just count in Figma and
+    // replace/extend the lines below. Each of these survives interview probing
+    // because the "measurement" is the flow itself:
+    //   1. Assessment authoring: steps in the OLD flow vs. YOURS
+    //      → 'Assessment authoring cut from N steps to M.'
+    //   2. Login → first useful report: clicks before vs. after
+    //      → 'From login to an answer in N clicks (was M).'
+    //   3. Navigation depth: menu levels collapsed in the IA rebuild
+    //      → 'N navigation levels flattened to M.'
+    // If the team can share real usage data later (task time, support load),
+    // it slots in here too — but never publish an estimated number as real.
     outcomes: [
       'Feature-by-feature drift replaced by one coherent system across 300+ screens.',
       'Reports restructured to lead with the decision, not the raw score.',

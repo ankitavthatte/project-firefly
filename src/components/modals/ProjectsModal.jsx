@@ -115,6 +115,72 @@ function MediaGallery({ media, name }) {
   )
 }
 
+/* The structural shift, before/after — the senior artifact that needs no
+   screens: what the platform's architecture was when Ankita arrived vs. the
+   role-based structure she rebuilt. Same NDA-safe abstraction level as the
+   system map below — structure, never proprietary UI. */
+const EVALIX_SHIFT = {
+  before: {
+    title: 'When I arrived',
+    note: 'Grown feature by feature, with no design ownership.',
+    items: [
+      'One shared interface for every role',
+      'Features added where they fit, not where they belonged',
+      'Reports led with raw scores — the answer buried',
+      'Every screen its own pattern; no system',
+    ],
+  },
+  after: {
+    title: 'What I rebuilt',
+    note: 'One architecture, a shortest path per role.',
+    items: [
+      'Role-based portals — admin, recruiter, candidate',
+      'IA restructured around what each role came to do',
+      'Reports lead with the decision — 8 types',
+      'One design system across 300+ screens',
+    ],
+  },
+}
+
+function EvalixBeforeAfter() {
+  const Panel = ({ data, after = false }) => (
+    <div
+      className={`flex-1 rounded-2xl border p-4 ${
+        after ? 'border-lavender/50 bg-lavender/10' : 'border-ink/15 bg-cream'
+      }`}
+    >
+      <h5 className={`text-[11px] font-bold tracking-wider uppercase ${after ? 'text-lavender-deep' : 'text-ink-soft'}`}>
+        {data.title}
+      </h5>
+      <p className="mt-1 font-hand text-lg leading-snug text-ink-soft">{data.note}</p>
+      <ul className="mt-3 space-y-2">
+        {data.items.map((it) => (
+          <li
+            key={it}
+            className={`rounded-lg border px-3 py-2 text-xs font-semibold ${
+              after ? 'border-lavender/40 bg-paper text-ink' : 'border-ink/10 bg-paper/60 text-ink-soft'
+            }`}
+          >
+            {it}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+  return (
+    <figure className="mt-6">
+      <figcaption className="mb-2 text-sm font-bold tracking-wider uppercase">
+        The structural shift
+      </figcaption>
+      <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+        <Panel data={EVALIX_SHIFT.before} />
+        <span className="self-center text-xl text-ink-soft" aria-hidden="true">→</span>
+        <Panel data={EVALIX_SHIFT.after} after />
+      </div>
+    </figure>
+  )
+}
+
 /* Evalix is a live enterprise product under NDA, so no screens ship publicly.
    This is the honest visual: the information architecture Ankita restructured,
    drawn as an anonymized system map — structure, not proprietary UI. */
@@ -262,7 +328,9 @@ function CaseStudy({ project, onBack }) {
         </div>
       )}
 
-      {/* NDA'd flagship: show the architecture, honestly, in place of screens */}
+      {/* NDA'd flagship: show the architecture, honestly, in place of screens —
+          first the shift (the thinking), then the map (the result) */}
+      {project.systemMap && <EvalixBeforeAfter />}
       {project.systemMap && <EvalixSystemMap />}
 
       {project.nda && (
