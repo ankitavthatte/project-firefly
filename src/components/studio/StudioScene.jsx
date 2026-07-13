@@ -171,7 +171,7 @@ function StudioWindow({ night, season }) {
               : season === 'summer'
                 ? 'bg-sun shadow-[0_0_38px_16px_rgba(255,201,77,0.7)]'
                 : season === 'winter'
-                  ? 'bg-[#f9e8b4] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
+                  ? 'bg-[#f6e2a4] shadow-[0_0_20px_8px_rgba(255,233,179,0.45)]'
                   : 'bg-sun shadow-[0_0_28px_10px_rgba(255,201,77,0.55)]'
           }`}
           style={rise(!night, 'translate(-26px, 230px)')}
@@ -648,9 +648,9 @@ export default function StudioScene() {
       <div className="absolute right-0 bottom-0 left-0 h-[38%]" aria-hidden="true">
         <div className="h-[6%] bg-[#a8763f]" />
         <div className="h-[94%] bg-gradient-to-b from-[#e8b478] via-wood to-[#c08a4e]" />
-        <div className="absolute top-[24%] right-0 left-0 h-px bg-[#b57e45]/40" />
-        <div className="absolute top-[52%] right-0 left-0 h-px bg-[#b57e45]/30" />
-        <div className="absolute top-[78%] right-0 left-0 h-px bg-[#b57e45]/40" />
+        <div className="absolute top-[24%] right-0 left-0 h-px bg-[#a87137]/40" />
+        <div className="absolute top-[52%] right-0 left-0 h-px bg-[#a87137]/30" />
+        <div className="absolute top-[78%] right-0 left-0 h-px bg-[#a87137]/40" />
         <div className="absolute top-[12%] left-[36%] h-[48%] w-[27%] rounded-[50%/40%] bg-[#8f6335]/12 blur-[3px]" />
       </div>
 
@@ -871,13 +871,13 @@ export default function StudioScene() {
             <svg viewBox="0 0 48 48" className="w-full overflow-visible">
               {/* body, held from the bottom-right corner of the screen-verse */}
               <g transform="rotate(45 10 10)">
-                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#ea6a4b" />
+                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#e0583a" />
                 <rect x="6.5" y="19.5" width="7" height="17" rx="3.2" fill="#524e47" />
-                <rect x="6.5" y="23" width="7" height="2.4" fill="#322f2a" />
+                <rect x="6.5" y="23" width="7" height="2.4" fill="#2c2823" />
               </g>
               {/* lens, glowing right at the pointer tip */}
-              <circle cx="10" cy="10" r="6" fill="#f9e8b4" />
-              <circle cx="10" cy="10" r="9" fill="none" stroke="#f9e8b4" strokeOpacity="0.45" strokeWidth="2" />
+              <circle cx="10" cy="10" r="6" fill="#f6e2a4" />
+              <circle cx="10" cy="10" r="9" fill="none" stroke="#f6e2a4" strokeOpacity="0.45" strokeWidth="2" />
             </svg>
           </div>
         </>
