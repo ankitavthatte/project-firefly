@@ -410,16 +410,6 @@ function Hero() {
         ))}
       </div>
 
-      <div className="mx-auto mt-6 flex max-w-3xl justify-center">
-        <button
-          type="button"
-          onClick={() => navTo('works')}
-          className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-coral px-6 py-3 text-sm font-bold text-paper transition hover:bg-coral-deep"
-        >
-          See selected works
-          <span aria-hidden="true">→</span>
-        </button>
-      </div>
     </section>
   )
 }
@@ -598,8 +588,8 @@ function ProjectCard({ p, i }) {
 // The full works index, reference-style: one row per work — diagonal arrow
 // (viewable) or padlock (locked/NDA), category pill on the right, a coral
 // full-row highlight on hover, and a floating thumbnail that follows the
-// cursor (desktop pointers only). Rows for the three case studies scroll to
-// their card in the deck above; experiment rows open their board.
+// cursor (desktop pointers only). Rows for the three case studies jump to
+// their card in the deck on the home page; experiment rows open their board.
 const worksIndex = [
   { name: 'Evalix AI', cat: 'Enterprise AI · UX', lock: true, target: 'evalix' },
   { name: 'MoneyMinds', cat: 'Gamified EdTech', img: 'projects/moneyminds/intro.jpg', target: 'moneyminds' },
@@ -646,21 +636,22 @@ function WorksIndex() {
   )
 
   return (
-    <div id="v3-works-list" className="mt-16 scroll-mt-24" onMouseLeave={() => setPeek(null)}>
-      <div className="text-center">
-        <h3 className="text-lg font-bold tracking-[0.15em] text-ink uppercase sm:text-xl">Collection of Works</h3>
-        <p className="mt-1 text-xs font-bold text-coral-deep sm:text-sm">Things I’ve built, shipped, and celebrated.</p>
+    <div id="v3-works-list" className="mt-8 scroll-mt-24" onMouseLeave={() => setPeek(null)}>
+      <div className="mb-4 flex items-center gap-3">
+        <span className="text-[10px] font-bold tracking-[0.25em] text-ink uppercase">The full index</span>
+        <span className="h-px flex-1 bg-ink/15" />
+        <span className="text-[10px] font-bold tracking-wide text-ink-soft uppercase">{worksIndex.length} entries</span>
       </div>
-      <ul className="mt-6 border-t-2 border-ink/20">
+      <ul className="border-t-2 border-ink/20">
         {worksIndex.map((r) => (
           <li key={r.name} className="border-b border-ink/15">
             {r.target ? (
               <button
                 type="button"
-                onClick={() => scrollTo(`v3-work-${r.target}`)}
+                onClick={() => goToSection(`v3-work-${r.target}`)}
                 onMouseMove={(e) => move(e, r.img)}
                 className={rowClass(r)}
-                aria-label={`${r.name} — jump to the case study above`}
+                aria-label={`${r.name} — open the case study`}
               >
                 {inner(r)}
               </button>
@@ -703,14 +694,10 @@ function WorksIndex() {
   )
 }
 
-function Works() {
+// The featured case-study deck — lives on the home page, below the name card.
+function SelectedWorks() {
   return (
-    <section className="relative mx-auto max-w-6xl px-4 pt-28 pb-16 sm:px-6 sm:pt-32">
-      <div className="mb-10 text-center">
-        <p className="text-xs font-bold tracking-widest text-coral-deep uppercase">Ankita Thatte · Portfolio</p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight text-ink uppercase sm:text-6xl">The Works</h1>
-        <p className="mt-3 text-sm font-bold text-ink-soft">Things I’ve built, shipped, and celebrated.</p>
-      </div>
+    <section className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionHead index="01" label="Selected Works" note={`[ ${projects.length} ] the “i swear it all shipped” archive`} id="v3-works" />
       {/* The stacked-scroll deck: on desktop each card pins just below the nav
           and the next one slides up over it (position: sticky, later siblings
@@ -722,6 +709,30 @@ function Works() {
             <ProjectCard p={p} i={i} />
           </div>
         ))}
+      </div>
+      <div className="mt-12 flex justify-center">
+        <button
+          type="button"
+          onClick={() => navTo('works')}
+          className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-paper px-6 py-3 text-sm font-bold text-ink transition hover:bg-ink hover:text-cream"
+        >
+          Browse the full works index
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+  )
+}
+
+// The dedicated Works page (#v3/works): a title over the full index list —
+// reference-style, where the Works page is a scannable list of everything.
+function WorksPage() {
+  return (
+    <section className="relative mx-auto max-w-6xl px-4 pt-28 pb-16 sm:px-6 sm:pt-32">
+      <div className="mb-6 text-center">
+        <p className="text-xs font-bold tracking-widest text-coral-deep uppercase">Ankita Thatte · Portfolio</p>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight text-ink uppercase sm:text-6xl">The Works</h1>
+        <p className="mt-3 text-sm font-bold text-ink-soft">Things I’ve built, shipped, and celebrated.</p>
       </div>
       <WorksIndex />
     </section>
@@ -997,12 +1008,13 @@ export default function V3App() {
       <Doodles />
       {sub === 'works' ? (
         <main>
-          <Works />
+          <WorksPage />
           <SiteFooter />
         </main>
       ) : (
         <main>
           <Hero />
+          <SelectedWorks />
           <About />
           <Journey />
           <FunStuff />
