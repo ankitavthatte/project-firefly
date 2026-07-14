@@ -51,7 +51,7 @@ export default function RecruiterView() {
 
         {/* the screenshot layer — the five facts a recruiter matches against a
             req, in one glance (BRAND_STRATEGY §12) */}
-        <dl className="mt-5 grid grid-cols-1 gap-x-6 gap-y-2 rounded-2xl bg-cream p-4 sm:grid-cols-2">
+        <dl className="mt-5 grid grid-cols-1 gap-x-6 gap-y-2 rounded-2xl border border-ink/10 bg-white p-4 sm:grid-cols-2">
           {atAGlance.map((f) => (
             <div key={f.label} className="flex items-baseline gap-2.5">
               <dt className="w-14 shrink-0 text-[10px] font-bold tracking-wider text-ink-soft uppercase">{f.label}</dt>
