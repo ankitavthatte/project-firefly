@@ -473,14 +473,16 @@ function ProjectCard({ p, i }) {
         <span className="rounded-full border-2 border-ink bg-paper px-4 py-1.5 text-xs font-bold text-ink">{meta.category || p.kind}</span>
       </div>
 
-      {/* the big thumbnail (or the NDA system map for Evalix) */}
-      <div className="mt-5">
+      {/* image beside details on desktop so a whole card fits one viewport —
+          the stacked-scroll effect needs each card to read at a glance */}
+      <div className="mt-5 grid gap-5 lg:grid-cols-[1.15fr_1fr] lg:items-stretch">
+      <div className="min-w-0">
         {meta.thumb ? (
           <img
             src={`${base}${meta.thumb}`}
             alt={`${p.name} — ${p.tagline}`}
             loading="lazy"
-            className="aspect-video w-full rounded-2xl border-2 border-ink object-cover object-top"
+            className="aspect-video w-full rounded-2xl border-2 border-ink object-cover object-top lg:aspect-auto lg:h-full lg:max-h-[560px]"
           />
         ) : (
           <SystemMap />
@@ -488,7 +490,7 @@ function ProjectCard({ p, i }) {
       </div>
 
       {/* details on a paper panel so the coral cards stay readable */}
-      <div className="mt-5 rounded-2xl border-2 border-ink bg-paper p-5 sm:p-6">
+      <div className="min-w-0 rounded-2xl border-2 border-ink bg-paper p-5 sm:p-6">
         <div className="flex items-baseline gap-3">
           <span className={`h-3 w-3 shrink-0 rounded-full ${dot[p.color] || 'bg-coral'}`} aria-hidden="true" />
           <p className="text-sm font-bold text-coral-deep">{p.tagline}</p>
@@ -501,7 +503,7 @@ function ProjectCard({ p, i }) {
           </p>
         )}
 
-        <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-lg border-2 border-ink bg-ink sm:grid-cols-4">
+        <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-lg border-2 border-ink bg-ink">
           {p.stats.map((s) => (
             <div key={s.label} className="bg-cream p-3">
               <div className="text-base font-bold text-ink">{s.value}</div>
@@ -547,6 +549,7 @@ function ProjectCard({ p, i }) {
           {p.nda && !p.pdfHref && !hasBoards && <span className="text-sm font-bold text-ink-soft">Walkthrough available in a call</span>}
         </div>
       </div>
+      </div>
     </Reveal>
   )
 }
@@ -555,9 +558,15 @@ function Works() {
   return (
     <section className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionHead index="01" label="Selected Works" note={`[ ${projects.length} ] the “i swear it all shipped” archive`} id="v3-works" />
+      {/* The stacked-scroll deck: on desktop each card pins just below the nav
+          and the next one slides up over it (position: sticky, later siblings
+          paint on top). Small screens scroll normally. The stepped top offset
+          leaves a sliver of each pinned card's header visible under the next. */}
       <div className="mt-8 space-y-10">
         {projects.map((p, i) => (
-          <ProjectCard key={p.id} p={p} i={i} />
+          <div key={p.id} className="lg:sticky" style={{ top: `calc(5.5rem + ${i * 24}px)` }}>
+            <ProjectCard p={p} i={i} />
+          </div>
         ))}
       </div>
     </section>
@@ -727,8 +736,11 @@ function Contact() {
 
 export default function V3App() {
   return (
+    // NOTE: no overflow-x-hidden here — any overflow on this element would make
+    // it the sticky containing scroller and silently kill the Works card stack.
+    // Horizontal clipping is handled inside the Doodles layer instead.
     <div
-      className="v3-root relative min-h-dvh overflow-x-hidden font-mono text-ink"
+      className="v3-root relative min-h-dvh font-mono text-ink"
       style={{
         // The dotted-grid ground lives on the root itself: a negative-z fixed
         // layer would paint beneath the body's cream background (html+body
