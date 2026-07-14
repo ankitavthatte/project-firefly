@@ -320,7 +320,7 @@ function Hero() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border-2 border-ink bg-cream-deep shadow-[6px_6px_0_0_var(--color-ink)]"
+        className="group relative mx-auto max-w-3xl overflow-hidden rounded-2xl border-2 border-ink bg-cream-deep shadow-[6px_6px_0_0_var(--color-ink)]"
       >
         <Marquee />
 
@@ -347,20 +347,26 @@ function Hero() {
           </div>
         </div>
 
-        {/* the coral intro panel + CTA (revealed on scroll, like the reference) */}
-        <div className="border-t-2 border-ink bg-coral px-6 py-8 text-center sm:px-10 sm:py-10">
-          <p className="mx-auto max-w-xl text-sm leading-relaxed font-bold text-paper sm:text-base">
-            {identity.positioning} An architect turned Senior Product Designer who makes complex
-            enterprise systems feel obvious — most recently 300+ screens of Evalix AI, end to end.
-          </p>
-          <button
-            type="button"
-            onClick={() => scrollTo('v3-about')}
-            className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-6 py-3 text-sm font-bold text-paper transition hover:bg-paper hover:text-ink"
-          >
-            more about me
-            <span aria-hidden="true">↗</span>
-          </button>
+        {/* the coral intro panel + CTA — collapsed until the card is hovered
+            (or keyboard-focused), like the reference. On touch devices, where
+            hover doesn't exist, it stays open so the intro is never lost. */}
+        <div className="v3-reveal">
+          <div className="overflow-hidden">
+            <div className="border-t-2 border-ink bg-coral px-6 py-8 text-center sm:px-10 sm:py-10">
+              <p className="mx-auto max-w-xl text-sm leading-relaxed font-bold text-paper sm:text-base">
+                {identity.positioning} An architect turned Senior Product Designer who makes complex
+                enterprise systems feel obvious — most recently 300+ screens of Evalix AI, end to end.
+              </p>
+              <button
+                type="button"
+                onClick={() => scrollTo('v3-about')}
+                className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-6 py-3 text-sm font-bold text-paper transition hover:bg-paper hover:text-ink"
+              >
+                more about me
+                <span aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </div>
         </div>
       </motion.div>
 
@@ -738,8 +744,18 @@ export default function V3App() {
         .v3-marquee { animation: v3marquee 22s linear infinite; }
         @keyframes v3cloud { 0%,100% { transform: translateX(0); } 50% { transform: translateX(30px); } }
         .cloud-soft { animation: v3cloud 18s ease-in-out infinite; }
+        /* The ID card's intro panel: collapsed until the card is hovered or
+           something inside it takes keyboard focus. Grid-rows animation keeps
+           it smooth at any content height. */
+        .v3-reveal { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+        .group:hover .v3-reveal,
+        .group:focus-within .v3-reveal { grid-template-rows: 1fr; }
+        @media (hover: none) {
+          .v3-reveal { grid-template-rows: 1fr; }
+        }
         @media (prefers-reduced-motion: reduce) {
           .v3-marquee, .cloud-soft { animation: none !important; }
+          .v3-reveal { transition: none !important; }
         }
       `}</style>
 
