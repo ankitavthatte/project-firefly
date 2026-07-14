@@ -8,7 +8,9 @@ import './index.css'
 //   /        → the interactive studio (App)
 //   /#v3     → the "Design Artifacts" redesign (V3App)
 // The studio is the default so existing links are unchanged.
-const isV3 = () => window.location.hash.replace(/^#\/?/, '').toLowerCase() === 'v3'
+// v3 owns every #v3… hash (the home page is #v3; sub-pages like #v3/works are
+// routed internally by V3App). The studio stays the default for everything else.
+const isV3 = () => window.location.hash.replace(/^#\/?/, '').toLowerCase().startsWith('v3')
 
 function Root() {
   const [v3, setV3] = useState(isV3)

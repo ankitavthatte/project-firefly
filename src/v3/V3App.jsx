@@ -11,7 +11,7 @@
 // It shares nothing with the interactive studio (App.jsx); the two coexist and
 // are switched between in main.jsx by the URL hash.
 // ─────────────────────────────────────────────────────────────────────────
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   identity,
@@ -38,9 +38,35 @@ const projectMeta = {
   shiftcare: { category: 'Healthcare UX', thumb: 'projects/shiftcare/slide-01.jpg' },
 }
 
-// Smooth in-page scroll without touching the URL hash (the hash drives the
-// v3⇄studio router in main.jsx, so nav must never write to it).
+// Smooth in-page scroll to an element that's already on the current page.
 const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+// v3 is a two-page site switched by the URL sub-hash: #v3 (home) and
+// #v3/works (a dedicated Works page). main.jsx routes any #v3… hash here.
+const currentSub = () => window.location.hash.replace(/^#\/?/, '').toLowerCase().split('/')[1] || 'home'
+const navTo = (sub) => {
+  window.location.hash = sub && sub !== 'home' ? `#v3/${sub}` : '#v3'
+}
+// A nav anchor clicked from another page: remember where to scroll, jump home,
+// and the root effect finishes the scroll once the home page has mounted.
+let pendingScroll = null
+const goToSection = (id) => {
+  if (currentSub() !== 'home') {
+    pendingScroll = id
+    navTo('home')
+  } else {
+    scrollTo(id)
+  }
+}
+function useV3Route() {
+  const [sub, setSub] = useState(currentSub)
+  useEffect(() => {
+    const onHash = () => setSub(currentSub())
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+  return sub
+}
 
 // ── Doodle stickers ──────────────────────────────────────────────────────
 // Brand-appropriate cutouts scattered down the page's outer margins (desktop
@@ -229,21 +255,21 @@ function Reveal({ children, className = '', delay = 0 }) {
 
 // ── Chrome: nav, corner marks ────────────────────────────────────────────
 
-function Nav() {
+function Nav({ sub }) {
   const links = [
-    { label: 'About', id: 'v3-about' },
-    { label: 'Works', id: 'v3-works-list' },
-    { label: 'Journey', id: 'v3-journey' },
-    { label: 'Fun Stuff', id: 'v3-fun' },
+    { label: 'About', onClick: () => goToSection('v3-about') },
+    { label: 'Works', onClick: () => navTo('works'), active: sub === 'works' },
+    { label: 'Journey', onClick: () => goToSection('v3-journey') },
+    { label: 'Fun Stuff', onClick: () => goToSection('v3-fun') },
   ]
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
         <button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => (currentSub() === 'home' ? window.scrollTo({ top: 0, behavior: 'smooth' }) : navTo('home'))}
           className="flex items-center gap-2 rounded-full border-2 border-ink bg-paper px-4 py-2 shadow-sm transition hover:bg-cream-deep"
-          aria-label="Ankita Thatte — back to top"
+          aria-label="Ankita Thatte — home"
         >
           <span className="text-coral" aria-hidden="true">✳</span>
           <span className="text-sm font-bold tracking-widest text-ink">ANKITA</span>
@@ -252,10 +278,13 @@ function Nav() {
           <div className="hidden items-center gap-1 sm:flex sm:gap-2">
             {links.map((l) => (
               <button
-                key={l.id}
+                key={l.label}
                 type="button"
-                onClick={() => scrollTo(l.id)}
-                className="rounded-full px-2.5 py-1.5 text-xs font-bold tracking-wide text-ink transition hover:bg-ink hover:text-cream sm:px-3 sm:text-sm"
+                onClick={l.onClick}
+                aria-current={l.active ? 'page' : undefined}
+                className={`rounded-full px-2.5 py-1.5 text-xs font-bold tracking-wide transition sm:px-3 sm:text-sm ${
+                  l.active ? 'bg-ink text-cream' : 'text-ink hover:bg-ink hover:text-cream'
+                }`}
               >
                 {l.label}
               </button>
@@ -379,6 +408,17 @@ function Hero() {
             <div className="mt-1 text-[11px] leading-snug font-bold text-ink">{f.value}</div>
           </div>
         ))}
+      </div>
+
+      <div className="mx-auto mt-6 flex max-w-3xl justify-center">
+        <button
+          type="button"
+          onClick={() => navTo('works')}
+          className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-coral px-6 py-3 text-sm font-bold text-paper transition hover:bg-coral-deep"
+        >
+          See selected works
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
     </section>
   )
@@ -665,7 +705,12 @@ function WorksIndex() {
 
 function Works() {
   return (
-    <section className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <section className="relative mx-auto max-w-6xl px-4 pt-28 pb-16 sm:px-6 sm:pt-32">
+      <div className="mb-10 text-center">
+        <p className="text-xs font-bold tracking-widest text-coral-deep uppercase">Ankita Thatte · Portfolio</p>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight text-ink uppercase sm:text-6xl">The Works</h1>
+        <p className="mt-3 text-sm font-bold text-ink-soft">Things I’ve built, shipped, and celebrated.</p>
+      </div>
       <SectionHead index="01" label="Selected Works" note={`[ ${projects.length} ] the “i swear it all shipped” archive`} id="v3-works" />
       {/* The stacked-scroll deck: on desktop each card pins just below the nav
           and the next one slides up over it (position: sticky, later siblings
@@ -861,22 +906,41 @@ function Contact() {
           <p className="mt-8 text-xs leading-relaxed text-cream/50">{contact.goodbye}</p>
         </div>
       </Reveal>
-
-      {/* footer: artifact metadata + link back to the interactive studio */}
-      <footer className="mt-8 flex flex-col items-center justify-between gap-4 border-t-2 border-ink/15 pt-6 text-[10px] tracking-wider text-ink-soft uppercase sm:flex-row">
-        <span>© {new Date().getFullYear()} {identity.name} · Digital_Design_Artifacts · v3</span>
-        <a href="./" className="font-bold text-ink underline-offset-4 hover:underline">
-          ← Enter the interactive studio
-        </a>
-        <span className="tabular-nums">{COORDS.lat} {COORDS.lng}</span>
-      </footer>
     </section>
+  )
+}
+
+// Shared footer: artifact metadata + a link back to the interactive studio.
+function SiteFooter() {
+  return (
+    <footer className="mx-auto mt-8 flex max-w-6xl flex-col items-center justify-between gap-4 border-t-2 border-ink/15 px-4 pt-6 pb-10 text-[10px] tracking-wider text-ink-soft uppercase sm:flex-row sm:px-6">
+      <span>© {new Date().getFullYear()} {identity.name} · Digital_Design_Artifacts · v3</span>
+      <a href="./" className="font-bold text-ink underline-offset-4 hover:underline">
+        ← Enter the interactive studio
+      </a>
+      <span className="tabular-nums">{COORDS.lat} {COORDS.lng}</span>
+    </footer>
   )
 }
 
 // ── Root ─────────────────────────────────────────────────────────────────
 
 export default function V3App() {
+  const sub = useV3Route()
+  // On page change: finish a cross-page anchor jump if one is pending,
+  // otherwise start the new page at the top.
+  useEffect(() => {
+    if (sub === 'home' && pendingScroll) {
+      const id = pendingScroll
+      pendingScroll = null
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })),
+      )
+    } else {
+      window.scrollTo({ top: 0 })
+    }
+  }, [sub])
+
   return (
     // NOTE: no overflow-x-hidden here — any overflow on this element would make
     // it the sticky containing scroller and silently kill the Works card stack.
@@ -928,17 +992,24 @@ export default function V3App() {
         }
       `}</style>
 
-      <Nav />
+      <Nav sub={sub} />
       <CornerChrome />
       <Doodles />
-      <main>
-        <Hero />
-        <About />
-        <Works />
-        <Journey />
-        <FunStuff />
-        <Contact />
-      </main>
+      {sub === 'works' ? (
+        <main>
+          <Works />
+          <SiteFooter />
+        </main>
+      ) : (
+        <main>
+          <Hero />
+          <About />
+          <Journey />
+          <FunStuff />
+          <Contact />
+          <SiteFooter />
+        </main>
+      )}
     </div>
   )
 }
