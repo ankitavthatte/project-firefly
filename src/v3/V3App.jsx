@@ -258,7 +258,7 @@ function Reveal({ children, className = '', delay = 0 }) {
 function Nav({ sub }) {
   const links = [
     { label: 'About', onClick: () => goToSection('v3-about') },
-    { label: 'Works', onClick: () => navTo('works'), active: sub === 'works' },
+    { label: 'Works', onClick: () => goToSection('v3-works') },
     { label: 'Journey', onClick: () => goToSection('v3-journey') },
     { label: 'Fun Stuff', onClick: () => goToSection('v3-fun') },
   ]
@@ -710,15 +710,9 @@ function SelectedWorks() {
           </div>
         ))}
       </div>
-      <div className="mt-12 flex justify-center">
-        <button
-          type="button"
-          onClick={() => navTo('works')}
-          className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-paper px-6 py-3 text-sm font-bold text-ink transition hover:bg-ink hover:text-cream"
-        >
-          Browse the full works index
-          <span aria-hidden="true">→</span>
-        </button>
+      {/* the full index, inline below the featured deck */}
+      <div className="mt-16">
+        <WorksIndex />
       </div>
     </section>
   )
