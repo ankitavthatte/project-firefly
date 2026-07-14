@@ -11,6 +11,7 @@
 // It shares nothing with the interactive studio (App.jsx); the two coexist and
 // are switched between in main.jsx by the URL hash.
 // ─────────────────────────────────────────────────────────────────────────
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   identity,
@@ -554,6 +555,114 @@ function ProjectCard({ p, i }) {
   )
 }
 
+// The full works index, reference-style: one row per work — diagonal arrow
+// (viewable) or padlock (locked/NDA), category pill on the right, a coral
+// full-row highlight on hover, and a floating thumbnail that follows the
+// cursor (desktop pointers only). Rows for the three case studies scroll to
+// their card in the deck above; experiment rows open their board.
+const worksIndex = [
+  { name: 'Evalix AI', cat: 'Enterprise AI · UX', lock: true, target: 'evalix' },
+  { name: 'MoneyMinds', cat: 'Gamified EdTech', img: 'projects/moneyminds/intro.jpg', target: 'moneyminds' },
+  { name: 'ShiftCare', cat: 'Healthcare UX', img: 'projects/shiftcare/slide-01.jpg', target: 'shiftcare' },
+  { name: 'IRCTC Connect', cat: 'Mobile App Redesign', img: 'projects/irctc/redesign-1.jpg' },
+  { name: 'ChowNow', cat: 'Food Delivery App', img: 'projects/chownow/board-1.jpg' },
+  { name: 'The Nook', cat: 'Brand Identity', img: 'projects/nook/nook-01.jpg' },
+  { name: 'Logofolio', cat: 'Logo Collection', img: 'projects/logofolio/board-1.jpg' },
+  { name: 'Vfort', cat: 'Security Product', lock: true },
+  { name: 'Niyantrac', cat: 'Dashboard Concepts', lock: true },
+  { name: 'Luma', cat: 'Interface Experiments', lock: true },
+]
+
+function RowIcon({ lock }) {
+  return lock ? (
+    <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="9" rx="1.5" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </svg>
+  ) : (
+    <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path d="M7 7l10 10M17 8v9H8" />
+    </svg>
+  )
+}
+
+function WorksIndex() {
+  // {src,x,y} of the floating thumbnail; null while no viewable row is hovered.
+  const [peek, setPeek] = useState(null)
+  const move = (e, img) => setPeek(img ? { src: `${base}${img}`, x: e.clientX, y: e.clientY } : null)
+
+  const rowClass = (r) =>
+    `group flex w-full items-center gap-4 px-4 py-4 text-left transition sm:gap-6 sm:px-6 ${
+      r.lock ? 'text-ink-soft hover:bg-cream-deep' : 'text-ink hover:bg-coral'
+    }`
+  const inner = (r) => (
+    <>
+      <RowIcon lock={r.lock} />
+      <span className="flex-1 text-sm font-bold tracking-wide uppercase sm:text-lg">{r.name}</span>
+      <span className="hidden shrink-0 rounded-full border-2 border-ink bg-paper px-4 py-1 text-xs font-bold text-ink sm:inline-block">
+        {r.cat}
+      </span>
+    </>
+  )
+
+  return (
+    <div className="mt-16" onMouseLeave={() => setPeek(null)}>
+      <div className="text-center">
+        <h3 className="text-lg font-bold tracking-[0.15em] text-ink uppercase sm:text-xl">Collection of Works</h3>
+        <p className="mt-1 text-xs font-bold text-coral-deep sm:text-sm">Things I’ve built, shipped, and celebrated.</p>
+      </div>
+      <ul className="mt-6 border-t-2 border-ink/20">
+        {worksIndex.map((r) => (
+          <li key={r.name} className="border-b border-ink/15">
+            {r.target ? (
+              <button
+                type="button"
+                onClick={() => scrollTo(`v3-work-${r.target}`)}
+                onMouseMove={(e) => move(e, r.img)}
+                className={rowClass(r)}
+                aria-label={`${r.name} — jump to the case study above`}
+              >
+                {inner(r)}
+              </button>
+            ) : r.img ? (
+              <a
+                href={`${base}${r.img}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseMove={(e) => move(e, r.img)}
+                className={rowClass(r)}
+                aria-label={`${r.name} — open the board`}
+              >
+                {inner(r)}
+              </a>
+            ) : (
+              <div onMouseMove={(e) => move(e, null)} className={rowClass(r)}>
+                {inner(r)}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      {/* the cursor-chasing thumbnail — decorative, desktop only */}
+      {peek && (
+        <img
+          src={peek.src}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none fixed z-[70] hidden w-80 rounded-xl border-2 border-ink object-cover object-top shadow-[6px_6px_0_0_var(--color-ink)] lg:block"
+          style={{
+            left: Math.min(peek.x + 28, (typeof window !== 'undefined' ? window.innerWidth : 1440) - 360),
+            top: peek.y,
+            maxHeight: '24rem',
+            transform: 'translateY(-50%) rotate(2deg)',
+          }}
+        />
+      )}
+    </div>
+  )
+}
+
 function Works() {
   return (
     <section className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -564,11 +673,12 @@ function Works() {
           leaves a sliver of each pinned card's header visible under the next. */}
       <div className="mt-8 space-y-10">
         {projects.map((p, i) => (
-          <div key={p.id} className="lg:sticky" style={{ top: `calc(5.5rem + ${i * 24}px)` }}>
+          <div key={p.id} id={`v3-work-${p.id}`} className="scroll-mt-24 lg:sticky" style={{ top: `calc(5.5rem + ${i * 24}px)` }}>
             <ProjectCard p={p} i={i} />
           </div>
         ))}
       </div>
+      <WorksIndex />
     </section>
   )
 }
