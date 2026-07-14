@@ -727,17 +727,17 @@ function Contact() {
 
 export default function V3App() {
   return (
-    <div className="v3-root relative min-h-dvh overflow-x-hidden font-mono text-ink">
-      {/* dotted-grid backdrop */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 -z-10"
-        style={{
-          background: 'var(--color-cream)',
-          backgroundImage: 'radial-gradient(circle, rgba(50,47,42,0.16) 1px, transparent 1.4px)',
-          backgroundSize: '24px 24px',
-        }}
-      />
+    <div
+      className="v3-root relative min-h-dvh overflow-x-hidden font-mono text-ink"
+      style={{
+        // The dotted-grid ground lives on the root itself: a negative-z fixed
+        // layer would paint beneath the body's cream background (html+body
+        // both set one in index.css) and never show.
+        backgroundColor: '#ffffff',
+        backgroundImage: 'radial-gradient(circle, rgba(50,47,42,0.16) 1px, transparent 1.4px)',
+        backgroundSize: '24px 24px',
+      }}
+    >
       {/* scoped styles: marquee + soft cloud drift, reduced-motion aware */}
       <style>{`
         @keyframes v3marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
