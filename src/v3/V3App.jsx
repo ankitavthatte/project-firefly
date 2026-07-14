@@ -232,7 +232,7 @@ function Reveal({ children, className = '', delay = 0 }) {
 function Nav() {
   const links = [
     { label: 'About', id: 'v3-about' },
-    { label: 'Works', id: 'v3-works' },
+    { label: 'Works', id: 'v3-works-list' },
     { label: 'Journey', id: 'v3-journey' },
     { label: 'Fun Stuff', id: 'v3-fun' },
   ]
@@ -606,7 +606,7 @@ function WorksIndex() {
   )
 
   return (
-    <div className="mt-16" onMouseLeave={() => setPeek(null)}>
+    <div id="v3-works-list" className="mt-16 scroll-mt-24" onMouseLeave={() => setPeek(null)}>
       <div className="text-center">
         <h3 className="text-lg font-bold tracking-[0.15em] text-ink uppercase sm:text-xl">Collection of Works</h3>
         <p className="mt-1 text-xs font-bold text-coral-deep sm:text-sm">Things I’ve built, shipped, and celebrated.</p>
