@@ -629,7 +629,7 @@ export default function StudioScene() {
       onWheel={onScrollAttempt}
     >
       {/* wall */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cream via-cream to-cream-deep" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-cream" aria-hidden="true" />
       {/* sunbeam from the window (day only) */}
       <div
         className={`absolute transition-opacity duration-1000 ${night ? 'opacity-0' : 'opacity-40'}`}
