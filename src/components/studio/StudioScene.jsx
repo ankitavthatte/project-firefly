@@ -157,7 +157,7 @@ function StudioWindow({ night, season }) {
   return (
     <div
       className="absolute z-[21] overflow-hidden rounded-2xl border-[10px] border-wood-deep shadow-[inset_0_0_30px_rgba(53,50,45,0.15),0_14px_30px_-12px_rgba(53,50,45,0.3)]"
-      style={{ left: '41%', top: '14%', width: '25%', aspectRatio: '1.45' }}
+      style={{ left: '46%', top: '14%', width: '25%', aspectRatio: '1.45' }}
     >
       {/* day layer — sky, clouds and light follow Pune's season */}
       <div className={`absolute inset-0 bg-gradient-to-b ${SEASON_SKY[season]} transition-opacity duration-1000 ${night ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
@@ -239,20 +239,9 @@ function StudioWindow({ night, season }) {
       {/* frame cross bars */}
       <div className="absolute top-0 left-1/2 h-full w-[7px] -translate-x-1/2 bg-wood-deep" />
       <div className="absolute top-1/2 left-0 h-[7px] w-full -translate-y-1/2 bg-wood-deep" />
-    </div>
-  )
-}
 
-/* A small placard on the window: it's Pune out there. The window quietly
-   follows Pune's real season (and rains in monsoon); this just names the place. */
-function PuneClimateTag() {
-  return (
-    <div
-      className="pointer-events-none absolute left-[53.5%] top-[32.5%] z-[24] -translate-x-1/2"
-      aria-label="The window shows Pune, India"
-    >
-      <span className="flex items-center gap-1.5 rounded-full border border-ink/10 bg-paper/85 px-3 py-1 font-hand text-lg whitespace-nowrap text-ink-soft shadow-sm backdrop-blur-sm">
-        <span aria-hidden="true">📍</span>
+      {/* just the place name, tucked in the window's top-left corner */}
+      <span className="pointer-events-none absolute left-2 top-2 z-10 rounded-md bg-paper/85 px-2 py-0.5 font-hand text-lg leading-none text-ink-soft shadow-sm backdrop-blur-sm">
         Pune
       </span>
     </div>
@@ -869,10 +858,8 @@ export default function StudioScene() {
         </>
       )}
       <StudioWindow night={night} season={season} />
-      {/* always-on: names the place the window looks out on */}
-      <PuneClimateTag />
-      {/* the window's why-note lives just below the placard */}
-      <WhyTag className="absolute left-[53.5%] top-[38%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
+      {/* the window's why-note, above the laptop where the window shows */}
+      <WhyTag className="absolute left-[58.5%] top-[26%] z-[24] w-max max-w-56 -translate-x-1/2">{whyNotes.window}</WhyTag>
       {night && <RoomFireflies />}
 
       {/* answer the first scroll attempt — the page isn't broken, it's a room.
