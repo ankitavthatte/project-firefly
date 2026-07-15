@@ -6,7 +6,6 @@ import {
   identity,
   awards,
   processSteps,
-  principles,
   chapters,
   travel,
   drawer,
@@ -25,18 +24,9 @@ const tone = {
 
 /* ---------- Notebook: design process ---------- */
 export function NotebookModal({ onClose }) {
-  const reduce = useReducedMotion()
   return (
     <ModalShell title="The Process Notebook" accent="coral" onClose={onClose} wide>
-      {/* the sticky note that falls out */}
-      <motion.div
-        initial={reduce ? { opacity: 0 } : { opacity: 0, y: -60, rotate: -14 }}
-        animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, rotate: -4 }}
-        transition={{ type: 'spring', stiffness: 120, damping: 11, delay: 0.35 }}
-        className="mx-auto w-fit rounded-sm bg-sun px-6 py-4 shadow-[3px_5px_12px_rgba(53,50,45,0.2)]"
-      >
-        <p className="font-hand text-2xl font-bold text-ink">“Everything starts with a question.”</p>
-      </motion.div>
+      <p className="text-center font-hand text-2xl font-bold text-ink">“Everything starts with a question.”</p>
 
       <p className="mt-6 text-base leading-relaxed text-ink-soft">
         <strong className="text-ink">I always ask why before designing.</strong> The notebook fills up long before
@@ -303,59 +293,6 @@ export function BookshelfModal({ onClose }) {
           <p className="mt-2 text-base leading-relaxed text-ink">{chapters[open].body}</p>
         </motion.div>
       </AnimatePresence>
-    </ModalShell>
-  )
-}
-
-/* ---------- Sticky notes: peel to reveal principles ---------- */
-function PeelNote({ principle, index }) {
-  const [peeled, setPeeled] = useState(false)
-  const t = tone[principle.color]
-  return (
-    <motion.button
-      type="button"
-      onClick={() => setPeeled(true)}
-      initial={{ opacity: 0, rotate: index % 2 ? 3 : -3, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.15 + index * 0.1 }}
-      whileHover={peeled ? {} : { rotate: index % 2 ? -2 : 2, y: -3 }}
-      className={`relative h-40 cursor-pointer rounded-sm p-4 text-left shadow-[3px_5px_10px_rgba(53,50,45,0.16)] ${t.bg}`}
-      aria-label={peeled ? principle.text : 'A folded sticky note. Activate to peel it open.'}
-    >
-      <AnimatePresence mode="wait">
-        {!peeled ? (
-          <motion.div key="front" exit={{ opacity: 0, y: -30, rotate: -12 }} transition={{ duration: 0.3 }} className="flex h-full flex-col justify-between">
-            <span className="font-hand text-xl text-ink/70">peel me</span>
-            <span className="self-end text-2xl" aria-hidden="true">📌</span>
-          </motion.div>
-        ) : (
-          <motion.p
-            key="back"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="grid h-full place-items-center text-center font-hand text-2xl leading-snug font-bold text-ink"
-          >
-            “{principle.text}”
-          </motion.p>
-        )}
-      </AnimatePresence>
-      {/* curled corner */}
-      <span className="absolute right-0 bottom-0 h-5 w-5 rounded-tl-xl bg-black/10" aria-hidden="true" />
-    </motion.button>
-  )
-}
-
-export function StickyModal({ onClose }) {
-  return (
-    <ModalShell title="Design Philosophy" accent="sun" onClose={onClose} wide>
-      <p className="text-base leading-relaxed text-ink-soft">
-        Five sticky notes. Everything I believe about design fits on them — peel each one.
-      </p>
-      <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        {principles.map((p, i) => (
-          <PeelNote key={p.text} principle={p} index={i} />
-        ))}
-      </div>
     </ModalShell>
   )
 }
