@@ -13,7 +13,6 @@ import {
   BookshelfSvg,
   CatSvg,
   PassportSvg,
-  StickyNotesSvg,
   PlantSvg,
   LampSvg,
   PaperPlaneSvg,
@@ -28,7 +27,6 @@ const NUDGE_LABELS = {
   mug: 'the coffee mug',
   passport: 'the passport',
   bookshelf: 'the bookshelf',
-  sticky: 'the sticky notes',
   drawer: 'the desk drawer',
   calendar: 'the desk calendar',
   contact: 'the paper plane',
@@ -688,18 +686,6 @@ export default function StudioScene() {
 
       {/* wall pieces */}
       <StudioObject
-        id="sticky"
-        label="Design Philosophy"
-        why={whyNotes.sticky}
-        style={{ left: '73.5%', top: '43%', width: '7.5%' }}
-        onOpen={(e) => openModal('sticky', e)}
-        labelSide="bottom"
-        settleDelay={0.9}
-      >
-        {(a, s) => <StickyNotesSvg active={a} seen={s} />}
-      </StudioObject>
-
-      <StudioObject
         id="bookshelf"
         label="My Journey, in Chapters"
         why={whyNotes.bookshelf}
@@ -776,7 +762,7 @@ export default function StudioScene() {
         id="passport"
         label="Travel & Inspiration"
         why={whyNotes.passport}
-        style={{ left: '12%', top: '78%', width: '11%' }}
+        style={{ left: '12%', top: '81%', width: '11%' }}
         onOpen={(e) => openModal('passport', e)}
         settleDelay={0.85}
       >
@@ -789,7 +775,7 @@ export default function StudioScene() {
         id="mug"
         label="About Ankita"
         why={whyNotes.mug}
-        style={{ left: '36%', top: '85%', width: '6.5%' }}
+        style={{ left: '73%', top: '73%', width: '6.5%' }}
         onOpen={(e) => openModal('mug', e)}
         settleDelay={0.75}
       >
@@ -812,7 +798,7 @@ export default function StudioScene() {
         id="contact"
         label="Send a Message"
         why={whyNotes.plane}
-        style={{ left: '48%', top: '84%', width: '10%' }}
+        style={{ left: '80%', top: '82%', width: '10%' }}
         onOpen={(e) => openModal('contact', e)}
         settleDelay={1.1}
         peek={peek}

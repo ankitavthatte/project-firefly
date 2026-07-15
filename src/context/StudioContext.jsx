@@ -9,7 +9,6 @@ export const DISCOVERABLES = [
   'mug',
   'passport',
   'bookshelf',
-  'sticky',
   'drawer',
   'calendar',
   'contact',
