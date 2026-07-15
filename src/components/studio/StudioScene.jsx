@@ -159,7 +159,7 @@ function StudioWindow({ night, season }) {
   return (
     <div
       className="absolute z-[21] overflow-hidden rounded-2xl border-[10px] border-wood-deep shadow-[inset_0_0_30px_rgba(53,50,45,0.15),0_14px_30px_-12px_rgba(53,50,45,0.3)]"
-      style={{ left: '41%', top: '4%', width: '25%', aspectRatio: '1.45' }}
+      style={{ left: '41%', top: '14%', width: '25%', aspectRatio: '1.45' }}
     >
       {/* day layer — sky, clouds and light follow Pune's season */}
       <div className={`absolute inset-0 bg-gradient-to-b ${SEASON_SKY[season]} transition-opacity duration-1000 ${night ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
@@ -501,8 +501,8 @@ function MagneticLaptop({ onOpen, peek = false }) {
 
   return (
     <motion.div
-      className={`absolute ${lit ? 'z-[21]' : ''}`}
-      style={{ left: '38.5%', top: '52%', width: '21%', transformOrigin: 'center' }}
+      className="absolute z-[22]"
+      style={{ left: '38.5%', top: '45%', width: '21%', transformOrigin: 'center' }}
       data-tour-id="laptop"
       initial={reduce ? { scale: 2.2 } : { opacity: 0, y: 16, scale: 2.2 }}
       animate={{ opacity: 1, y: 0, scale: 2.2 }}
