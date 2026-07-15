@@ -1,0 +1,23 @@
+<svg width="460" height="460" viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ankita Thatte monogram">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E2725B"/>
+      <stop offset="1" stop-color="#C65C46"/>
+    </linearGradient>
+  </defs>
+  <!-- rounded-square field, matches the studio brand terracotta -->
+  <rect width="460" height="460" rx="96" fill="url(#bg)"/>
+  <!-- monogram AT: an architect's structural mark, drawn as clean strokes -->
+  <g fill="none" stroke="#FBF5EE" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <!-- A -->
+    <path d="M120 320 L168 150 L216 320"/>
+    <path d="M138 258 L198 258"/>
+    <!-- T -->
+    <path d="M250 150 L360 150"/>
+    <path d="M305 150 L305 320"/>
+  </g>
+  <!-- firefly spark: the one warm accent -->
+  <g fill="#FBF5EE">
+    <path d="M360 300 l7 18 18 7 -18 7 -7 18 -7 -18 -18 -7 18 -7 z"/>
+  </g>
+</svg>
