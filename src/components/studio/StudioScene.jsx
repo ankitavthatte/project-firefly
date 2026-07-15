@@ -504,8 +504,8 @@ function MagneticLaptop({ onOpen, peek = false }) {
       className={`absolute ${lit ? 'z-[21]' : ''}`}
       style={{ left: '38.5%', top: '52%', width: '21%', transformOrigin: 'center' }}
       data-tour-id="laptop"
-      initial={reduce ? { scale: 3 } : { opacity: 0, y: 16, scale: 3 }}
-      animate={{ opacity: 1, y: 0, scale: 3 }}
+      initial={reduce ? { scale: 2.2 } : { opacity: 0, y: 16, scale: 2.2 }}
+      animate={{ opacity: 1, y: 0, scale: 2.2 }}
       transition={{ delay: 0.55, type: 'spring', stiffness: 120, damping: 14 }}
     >
       {lit && (
