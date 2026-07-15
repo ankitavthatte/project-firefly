@@ -18,14 +18,13 @@ npm run preview  # preview the production build
 | Object | Opens |
 | --- | --- |
 | 💻 Laptop (magnetic hover, boot animation) | Projects — Evalix AI (flagship), MoneyMinds, ShiftCare, Experiments |
-| 📓 Notebook | Design process (a sticky note falls out: “Everything starts with a question.”) |
+| 📓 Notebook | Design process — “Everything starts with a question.” |
 | 🏆 Trophy shelf | Awards as flippable collectible cards |
 | ☕ Coffee mug | About Ankita (coffee-stain reveal) |
 | 🛂 Passport | Travel as design field research |
 | 🎮 Controller | Play Mode — what games taught her about interaction |
 | 🎨 Paint palette | Painting, sketching, visual storytelling |
 | 📚 Bookshelf | Career journey as chapters (no boring timeline) |
-| 📝 Sticky notes | Peelable UX principles |
 | ✈️ Paper plane | Contact + the goodbye moment |
 | 🐈 The cat | One of 11 — find all hidden rescue cats to meet the whole squad |
 

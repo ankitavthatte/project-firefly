@@ -406,14 +406,6 @@ export const processSteps = [
   },
 ]
 
-export const principles = [
-  { text: 'Ask why before you draw.', color: 'coral' },
-  { text: 'Structure before surface.', color: 'sun' },
-  { text: 'Make complexity feel obvious.', color: 'mint' },
-  { text: 'Motion should have meaning.', color: 'sky' },
-  { text: 'Clarity is a decision.', color: 'lavender' },
-]
-
 // detail = employer · dates, straight from the CV, so reviewers can place
 // each chapter in time without leaving the page.
 export const chapters = [
@@ -526,7 +518,6 @@ export const whyNotes = {
   trophy: 'Awards sit on a shelf, slightly aside — visible, but never louder than the work.',
   mug: 'The about section hides in a coffee mug because people open up over coffee, not over headers.',
   cat: 'The cat adds life, not noise. Delight is rationed so it stays delightful.',
-  sticky: 'Sticky notes carry the philosophy — principles should be short enough to fit on one.',
   bookshelf: 'A bookshelf replaces the timeline. Careers read better as chapters than as dates.',
   passport: 'Travel earns a spot on the desk because observation is a designer’s raw material.',
   plane: 'Contact is a paper plane — reaching out should feel light, not like filling a form.',

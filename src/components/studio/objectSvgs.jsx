@@ -400,40 +400,6 @@ export function PassportSvg({ active }) {
   )
 }
 
-export function StickyNotesSvg({ active, seen = false }) {
-  return (
-    <svg viewBox="0 0 110 100" className="w-full" aria-hidden="true">
-      {seen ? (
-        /* one note peeled away — only tape marks remain */
-        <g transform="rotate(-5 30 30)" opacity="0.5">
-          <rect x="8" y="10" width="12" height="6" rx="1" fill="#d8cfbd" />
-          <rect x="38" y="10" width="12" height="6" rx="1" fill="#d8cfbd" />
-        </g>
-      ) : (
-        <g transform="rotate(-5 30 30)">
-          <rect x="8" y="10" width="42" height="42" rx="2" fill="#e3a52f" />
-          <path d="M8 44l42 8v-8z" fill="rgba(53,50,45,0.08)" />
-          <text x="29" y="34" textAnchor="middle" fontFamily="Caveat, cursive" fontSize="15" fontWeight="700" fill="#2c2823">
-            why?
-          </text>
-        </g>
-      )}
-      <g transform={active ? 'rotate(7 78 34) translate(0 -3)' : 'rotate(4 78 34)'} style={{ transition: 'all 0.3s' }}>
-        <rect x="56" y="14" width="42" height="42" rx="2" fill="#4fa98a" />
-        <text x="77" y="38" textAnchor="middle" fontFamily="Caveat, cursive" fontSize="13" fontWeight="700" fill="#2c2823">
-          simple!
-        </text>
-      </g>
-      <g transform={active ? 'rotate(-9 52 74) translate(0 -4)' : 'rotate(-3 52 74)'} style={{ transition: 'all 0.3s 0.06s' }}>
-        <rect x="32" y="52" width="42" height="42" rx="2" fill="#d8a3b3" />
-        <text x="53" y="77" textAnchor="middle" fontFamily="Caveat, cursive" fontSize="13" fontWeight="700" fill="#2c2823">
-          feeling
-        </text>
-      </g>
-    </svg>
-  )
-}
-
 export function PlantSvg() {
   return (
     <svg viewBox="0 0 110 160" className="w-full" aria-hidden="true">
