@@ -131,6 +131,18 @@ body {
   animation: breathe 4.5s ease-in-out infinite;
 }
 
+/* The project list scrolling continuously on the laptop screen.
+   The track holds two identical copies stacked; translating up by exactly
+   one copy's height loops seamlessly. -105 = 7 rows × 15 SVG units. */
+@keyframes laptopscroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-105px); }
+}
+.laptop-scroll {
+  animation: laptopscroll 16s linear infinite;
+  will-change: transform;
+}
+
 /* Lamp glow breathing */
 @keyframes glowpulse {
   0%, 100% { opacity: 0.55; }
@@ -219,7 +231,7 @@ body {
 
 /* Respect reduced motion for every ambient animation */
 @media (prefers-reduced-motion: reduce) {
-  .cloud, .mote, .sway, .steam, .tailflick, .eartwitch, .glowpulse, .planefly, .firefly, .twinkle, .shoot, .raindrop, .mist, .breathe {
+  .cloud, .mote, .sway, .steam, .tailflick, .eartwitch, .glowpulse, .planefly, .firefly, .twinkle, .shoot, .raindrop, .mist, .breathe, .laptop-scroll {
     animation: none !important;
   }
   .firefly { opacity: 0.8; }

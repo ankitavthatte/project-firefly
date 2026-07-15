@@ -1,6 +1,47 @@
 /* Hand-drawn SVG illustrations for every object in the studio.
    Pure visuals — interaction lives in StudioScene. `active` = hovered/focused. */
 
+import { projects, experiments } from '../../data/content.js'
+
+const SCREEN_HEX = {
+  coral: '#e0583a',
+  sun: '#e3a52f',
+  mint: '#4fa98a',
+  lavender: '#7b74ce',
+  sky: '#6499cf',
+}
+const SCREEN_CYCLE = ['lavender', 'sun', 'mint', 'sky', 'coral']
+
+/* The real work, listed live on the laptop screen: the flagship + case studies,
+   then the named experiments — the same projects the laptop opens. */
+const SCREEN_PROJECTS = [...projects, ...experiments.filter((e) => e.media)].map((p, i) => ({
+  name: p.name,
+  kind: p.flagship ? 'Flagship' : 'Case study',
+  color: SCREEN_HEX[p.color] || SCREEN_HEX[SCREEN_CYCLE[i % SCREEN_CYCLE.length]],
+}))
+
+const SCREEN_ROW_H = 15
+const SCREEN_SET_H = SCREEN_PROJECTS.length * SCREEN_ROW_H
+
+/* One project row on the laptop screen. `yBase` lets us stack a second copy
+   directly below the first so the scroll loops without a seam. */
+function ScreenRow({ p, y }) {
+  return (
+    <g>
+      <rect x="50" y={y} width="120" height="12" rx="2.5" fill="#ffffff" stroke="#e7dfce" strokeWidth="0.7" />
+      <rect x="50" y={y} width="3" height="12" rx="1.5" fill={p.color} />
+      <circle cx="61" cy={y + 6} r="3.2" fill={p.color} fillOpacity="0.16" />
+      <circle cx="61" cy={y + 6} r="1.5" fill={p.color} />
+      <text x="69" y={y + 5.7} fontSize="5.4" fontWeight="700" fill="#2c2823">
+        {p.name}
+      </text>
+      <text x="69" y={y + 10.2} fontSize="3.7" fill="#a89f8d">
+        {p.kind}
+      </text>
+    </g>
+  )
+}
+
 export function LaptopSvg({ active, seen = false, booting = false }) {
   if (booting) {
     return (
@@ -19,50 +60,51 @@ export function LaptopSvg({ active, seen = false, booting = false }) {
       <ellipse cx="110" cy="140" rx="95" ry="9" fill="rgba(53,50,45,0.14)" />
       {/* screen */}
       <rect x="35" y="10" width="150" height="100" rx="10" fill="#3b3833" />
-      <rect x="42" y="17" width="136" height="86" rx="6" fill={active ? '#ffffff' : '#f3ecdd'} />
-      {active && <rect x="42" y="17" width="136" height="86" rx="6" fill="url(#lapGlow)" />}
-      {/* after you've visited, the case study window stays open on screen */}
-      {seen && (
-        <g>
-          <rect x="66" y="30" width="108" height="64" rx="5" fill="#ffffff" stroke="#d8cfbd" />
-          <rect x="66" y="30" width="108" height="12" rx="5" fill="#7b74ce" />
-          <circle cx="73" cy="36" r="2" fill="#fbf4e8" />
-          <circle cx="80" cy="36" r="2" fill="#fbf4e8" />
-          <rect x="73" y="49" width="52" height="5" rx="2.5" fill="#524ba8" />
-          <rect x="73" y="59" width="90" height="3.5" rx="1.75" fill="#c9c2b4" />
-          <rect x="73" y="66" width="80" height="3.5" rx="1.75" fill="#c9c2b4" />
-          <rect x="73" y="76" width="34" height="10" rx="5" fill="#e0583a" />
-        </g>
-      )}
+      <rect x="42" y="17" width="136" height="86" rx="6" fill={active ? '#ffffff' : '#f6f0e4'} />
       <defs>
         <radialGradient id="lapGlow" cx="0.5" cy="0.4" r="0.8">
           <stop offset="0%" stopColor="#f6e2a4" stopOpacity="0.9" />
           <stop offset="100%" stopColor="#f6e2a4" stopOpacity="0" />
         </radialGradient>
+        <clipPath id="lapScreenClip">
+          <rect x="46" y="33" width="128" height="66" rx="3" />
+        </clipPath>
       </defs>
-      {/* tiny desktop UI on screen — the "before" state. Once visited, the
-          case-study window above takes over the screen, so this is hidden to
-          avoid two UIs stacking on top of each other. */}
-      {!seen && (
-        <g>
-          <rect x="50" y="25" width="26" height="7" rx="2" fill="#e0583a" />
-          <rect x="50" y="38" width="54" height="4" rx="2" fill="#c9c2b4" />
-          <rect x="50" y="46" width="42" height="4" rx="2" fill="#c9c2b4" />
-          {/* folder icons */}
-          <rect x="118" y="34" width="18" height="13" rx="2.5" fill="#7b74ce" />
-          <rect x="118" y="31" width="9" height="5" rx="2" fill="#7b74ce" />
-          <rect x="144" y="34" width="18" height="13" rx="2.5" fill="#e3a52f" />
-          <rect x="144" y="31" width="9" height="5" rx="2" fill="#e3a52f" />
-          <rect x="118" y="56" width="18" height="13" rx="2.5" fill="#4fa98a" />
-          <rect x="118" y="53" width="9" height="5" rx="2" fill="#4fa98a" />
-          <rect x="144" y="56" width="18" height="13" rx="2.5" fill="#6499cf" />
-          <rect x="144" y="53" width="9" height="5" rx="2" fill="#6499cf" />
-          <rect x="50" y="60" width="56" height="34" rx="4" fill="#eee5d2" />
-          <rect x="55" y="66" width="30" height="4" rx="2" fill="#e0583a" />
-          <rect x="55" y="74" width="44" height="3" rx="1.5" fill="#c9c2b4" />
-          <rect x="55" y="80" width="38" height="3" rx="1.5" fill="#c9c2b4" />
+      {/* the real projects, scrolling continuously behind the fixed header */}
+      <g clipPath="url(#lapScreenClip)">
+        <rect x="46" y="33" width="128" height="66" fill="#faf5ea" />
+        <g className="laptop-scroll">
+          {SCREEN_PROJECTS.map((p, i) => (
+            <ScreenRow key={`a-${i}`} p={p} y={36 + i * SCREEN_ROW_H} />
+          ))}
+          {SCREEN_PROJECTS.map((p, i) => (
+            <ScreenRow key={`b-${i}`} p={p} y={36 + SCREEN_SET_H + i * SCREEN_ROW_H} />
+          ))}
         </g>
-      )}
+        {/* soft fades top & bottom so rows enter and leave, not pop */}
+        <rect x="46" y="33" width="128" height="9" fill="url(#lapFadeTop)" />
+        <rect x="46" y="90" width="128" height="9" fill="url(#lapFadeBottom)" />
+      </g>
+      {/* fixed window header on top of the scroll */}
+      <rect x="46" y="21" width="128" height="13" rx="3" fill="#efe7d6" />
+      <rect x="46" y="30" width="128" height="4" fill="#efe7d6" />
+      <circle cx="53" cy="27.5" r="1.7" fill="#e0583a" />
+      <circle cx="59" cy="27.5" r="1.7" fill="#e3a52f" />
+      <circle cx="65" cy="27.5" r="1.7" fill="#4fa98a" />
+      <text x="112" y="29.6" textAnchor="middle" fontSize="5.6" fontWeight="700" fill="#8a8272">
+        Selected Work
+      </text>
+      {active && <rect x="42" y="17" width="136" height="86" rx="6" fill="url(#lapGlow)" style={{ pointerEvents: 'none' }} />}
+      <defs>
+        <linearGradient id="lapFadeTop" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#faf5ea" stopOpacity="1" />
+          <stop offset="100%" stopColor="#faf5ea" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="lapFadeBottom" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#faf5ea" stopOpacity="0" />
+          <stop offset="100%" stopColor="#faf5ea" stopOpacity="1" />
+        </linearGradient>
+      </defs>
       {/* base */}
       <path d="M22 112h176l10 18a5 5 0 0 1-5 7H17a5 5 0 0 1-5-7z" fill="#524e47" />
       <rect x="88" y="116" width="44" height="6" rx="3" fill="#6a655c" />
