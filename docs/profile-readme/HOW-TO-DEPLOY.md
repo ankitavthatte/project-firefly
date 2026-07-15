@@ -23,6 +23,6 @@ Applied straight from [`../github-profiles-analysis.md`](../github-profiles-anal
 
 ## Things to personalise before publishing
 
-- **Portfolio URL** — currently points to `ankitavthatte.github.io/project-firefly` (the GitHub Pages target in `vite.config.js`). Confirm that's live, or swap for your custom domain.
+- **Portfolio URL** — points to `https://ankitathatte.com`, your custom domain (already set as the website on your GitHub account). Swap if you'd rather link the interactive studio directly.
 - **Pin the matching repos** on your profile (Settings → Customize your pins) so the "Selected work" table and your pinned repos tell the same story.
 - **Optional:** add a real profile avatar and a one-line bio in GitHub's profile settings — they sit right beside the README.

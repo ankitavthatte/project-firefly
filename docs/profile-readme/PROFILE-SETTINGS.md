@@ -25,7 +25,7 @@ GitHub caps the bio at ~160 characters. Pick one:
 | **Pronouns** | _(optional — set if you'd like them shown)_ |
 | **Company** | Cloud.in _(or leave blank if you'd rather stay role-agnostic)_ |
 | **Location** | Pune, India |
-| **Website** | https://ankitavthatte.github.io/project-firefly |
+| **Website** | https://ankitathatte.com _(already set on your account ✓)_ |
 | **Social** | LinkedIn `in/ankita-thatte` · Behance `ankitathatte` |
 
 ## Two finishing touches

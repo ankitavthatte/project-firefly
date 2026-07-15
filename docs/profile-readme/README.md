@@ -8,7 +8,7 @@
 
 📍 Pune, India · open to remote & relocation
 
-[**Portfolio**](https://ankitavthatte.github.io/project-firefly) · [LinkedIn](https://www.linkedin.com/in/ankita-thatte) · [Behance](https://www.behance.net/ankitathatte) · [Email](mailto:ankitavthatte@gmail.com)
+[**Portfolio**](https://ankitathatte.com) · [LinkedIn](https://www.linkedin.com/in/ankita-thatte) · [Behance](https://www.behance.net/ankitathatte) · [Email](mailto:ankitavthatte@gmail.com)
 
 </div>
 
@@ -32,7 +32,7 @@ I turn high-stakes, complicated software into products people can actually use. 
 | **MoneyMinds** | Gamified financial literacy that people actually finish | End-to-end — research, UX, gamification system, mascot & brand, visual design |
 | **ShiftCare** | Healthcare scheduling without the whiteboard chaos | End-to-end UX — research, flows, interaction design, usability testing (35-page case study) |
 
-→ Case studies, process, and the full story live in the [**interactive portfolio**](https://ankitavthatte.github.io/project-firefly). _(Evalix is a live enterprise product — happy to walk through both portals and the reporting suite in a conversation.)_
+→ Case studies, process, and the full story live in the [**interactive portfolio**](https://ankitathatte.com). _(Evalix is a live enterprise product — happy to walk through both portals and the reporting suite in a conversation.)_
 
 ### 🧰 Toolkit
 
