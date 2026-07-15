@@ -691,7 +691,7 @@ export default function StudioScene() {
         id="sticky"
         label="Design Philosophy"
         why={whyNotes.sticky}
-        style={{ left: '32.5%', top: '33%', width: '7.5%' }}
+        style={{ left: '32.5%', top: '33%', width: '7.5%', zIndex: 23 }}
         onOpen={(e) => openModal('sticky', e)}
         labelSide="bottom"
         settleDelay={0.9}
@@ -789,7 +789,7 @@ export default function StudioScene() {
         id="mug"
         label="About Ankita"
         why={whyNotes.mug}
-        style={{ left: '62.5%', top: '61%', width: '6.5%' }}
+        style={{ left: '62.5%', top: '61%', width: '6.5%', zIndex: 23 }}
         onOpen={(e) => openModal('mug', e)}
         settleDelay={0.75}
       >
@@ -801,7 +801,7 @@ export default function StudioScene() {
         id="calendar"
         label="This Month in the Studio"
         why={whyNotes.calendar}
-        style={{ left: '71.5%', top: '60%', width: '5.5%' }}
+        style={{ left: '71.5%', top: '60%', width: '5.5%', zIndex: 23 }}
         onOpen={(e) => openModal('calendar', e)}
         settleDelay={1.0}
       >
