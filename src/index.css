@@ -4,23 +4,23 @@
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-hand: "Caveat", cursive;
 
-  --color-cream: #f2f4f6;
-  --color-cream-deep: #e2e6ea;
-  --color-paper: #ffffff;
-  --color-coral: #536b83;
-  --color-coral-deep: #3a4f63;
-  --color-lavender: #7f8498;
-  --color-lavender-deep: #565c70;
-  --color-mint: #6d8a86;
-  --color-mint-deep: #4a6560;
-  --color-sky: #5f7d97;
-  --color-sky-deep: #3d566d;
-  --color-sun: #97968c;
-  --color-sun-deep: #6b6a5f;
-  --color-ink: #1f242c;
-  --color-ink-soft: #616772;
-  --color-wood: #a6a49d;
-  --color-wood-deep: #7d7b74;
+  --color-cream: #f5f1ea;
+  --color-cream-deep: #e8e1d3;
+  --color-paper: #fffefb;
+  --color-coral: #bb6a4e;
+  --color-coral-deep: #8c4a33;
+  --color-lavender: #8a83a6;
+  --color-lavender-deep: #625a84;
+  --color-mint: #6f9585;
+  --color-mint-deep: #4c6d5e;
+  --color-sky: #7089a4;
+  --color-sky-deep: #46607a;
+  --color-sun: #c79f4f;
+  --color-sun-deep: #866622;
+  --color-ink: #232228;
+  --color-ink-soft: #646059;
+  --color-wood: #c39a6b;
+  --color-wood-deep: #9a7748;
 }
 
 html,

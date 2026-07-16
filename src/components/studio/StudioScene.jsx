@@ -625,20 +625,20 @@ export default function StudioScene() {
           top: '18%',
           width: '32%',
           height: '55%',
-          background: 'linear-gradient(195deg, rgba(205,216,228,0.4), rgba(205,216,228,0))',
+          background: 'linear-gradient(195deg, rgba(255,201,77,0.35), rgba(255,201,77,0))',
           filter: 'blur(18px)',
           transform: 'skewX(-8deg)',
         }}
         aria-hidden="true"
       />
-      {/* desk — a light, cool surface seen slightly from above */}
+      {/* desk — a warm wood surface seen slightly from above */}
       <div className="absolute right-0 bottom-0 left-0 h-[38%]" aria-hidden="true">
-        <div className="h-[6%] bg-[#c6c5be]" />
-        <div className="h-[94%] bg-gradient-to-b from-[#e8e8e4] via-[#dcdbd6] to-[#c9c8c2]" />
-        <div className="absolute top-[24%] right-0 left-0 h-px bg-[#b3b1aa]/40" />
-        <div className="absolute top-[52%] right-0 left-0 h-px bg-[#b3b1aa]/30" />
-        <div className="absolute top-[78%] right-0 left-0 h-px bg-[#b3b1aa]/40" />
-        <div className="absolute top-[12%] left-[36%] h-[48%] w-[27%] rounded-[50%/40%] bg-[#a9a7a1]/12 blur-[3px]" />
+        <div className="h-[6%] bg-[#a8763f]" />
+        <div className="h-[94%] bg-gradient-to-b from-[#e8b478] via-wood to-[#c08a4e]" />
+        <div className="absolute top-[24%] right-0 left-0 h-px bg-[#9a7748]/40" />
+        <div className="absolute top-[52%] right-0 left-0 h-px bg-[#9a7748]/30" />
+        <div className="absolute top-[78%] right-0 left-0 h-px bg-[#9a7748]/40" />
+        <div className="absolute top-[12%] left-[36%] h-[48%] w-[27%] rounded-[50%/40%] bg-[#8f6335]/12 blur-[3px]" />
       </div>
 
       {/* hero copy */}
@@ -846,9 +846,9 @@ export default function StudioScene() {
             <svg viewBox="0 0 48 48" className="w-full overflow-visible">
               {/* body, held from the bottom-right corner of the screen-verse */}
               <g transform="rotate(45 10 10)">
-                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#536b83" />
+                <rect x="3.5" y="10" width="13" height="9.5" rx="2.5" fill="#bb6a4e" />
                 <rect x="6.5" y="19.5" width="7" height="17" rx="3.2" fill="#524e47" />
-                <rect x="6.5" y="23" width="7" height="2.4" fill="#1f242c" />
+                <rect x="6.5" y="23" width="7" height="2.4" fill="#232228" />
               </g>
               {/* lens, glowing right at the pointer tip */}
               <circle cx="10" cy="10" r="6" fill="#f6e2a4" />
