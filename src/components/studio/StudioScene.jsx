@@ -631,14 +631,14 @@ export default function StudioScene() {
         }}
         aria-hidden="true"
       />
-      {/* desk — a warm wood surface seen slightly from above */}
+      {/* desk — a light, cool surface seen slightly from above */}
       <div className="absolute right-0 bottom-0 left-0 h-[38%]" aria-hidden="true">
-        <div className="h-[6%] bg-[#8f8d84]" />
-        <div className="h-[94%] bg-gradient-to-b from-[#cfd0cb] via-wood to-[#9a9891]" />
-        <div className="absolute top-[24%] right-0 left-0 h-px bg-[#7d7b74]/40" />
-        <div className="absolute top-[52%] right-0 left-0 h-px bg-[#7d7b74]/30" />
-        <div className="absolute top-[78%] right-0 left-0 h-px bg-[#7d7b74]/40" />
-        <div className="absolute top-[12%] left-[36%] h-[48%] w-[27%] rounded-[50%/40%] bg-[#82807a]/12 blur-[3px]" />
+        <div className="h-[6%] bg-[#c6c5be]" />
+        <div className="h-[94%] bg-gradient-to-b from-[#e8e8e4] via-[#dcdbd6] to-[#c9c8c2]" />
+        <div className="absolute top-[24%] right-0 left-0 h-px bg-[#b3b1aa]/40" />
+        <div className="absolute top-[52%] right-0 left-0 h-px bg-[#b3b1aa]/30" />
+        <div className="absolute top-[78%] right-0 left-0 h-px bg-[#b3b1aa]/40" />
+        <div className="absolute top-[12%] left-[36%] h-[48%] w-[27%] rounded-[50%/40%] bg-[#a9a7a1]/12 blur-[3px]" />
       </div>
 
       {/* hero copy */}
