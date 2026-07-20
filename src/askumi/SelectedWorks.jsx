@@ -1,15 +1,11 @@
 import { projects, experiments, identity } from '../data/content.js'
-import { TechLabel } from './bits.jsx'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
 // Per-project presentation: a descriptive title, a category pill, and the
 // media that fronts the card.
 const WORK = {
-  evalix: {
-    title: 'REDESIGNING EVALIX AI, END TO END',
-    category: 'Enterprise AI · UX',
-  },
+  evalix: { title: 'REDESIGNING EVALIX AI, END TO END', category: 'Enterprise AI · UX' },
   moneyminds: {
     title: 'GAMIFYING FINANCIAL LITERACY',
     category: 'Gamified product design',
@@ -27,8 +23,10 @@ const behance = identity.links.find((l) => l.label === 'Behance')?.href
 export default function SelectedWorks() {
   const count = projects.length + 1
   return (
-    <section id="work" className="relative overflow-hidden pt-6 pb-8">
-      <div className="wrap">
+    <section id="work" className="relative pt-6 pb-8">
+      <SideStickers />
+
+      <div className="wrap relative z-10">
         {/* header */}
         <div className="mb-7 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h2 className="display flex items-baseline gap-3 text-3xl sm:text-4xl">
@@ -40,72 +38,80 @@ export default function SelectedWorks() {
           </span>
         </div>
 
-        <div className="flex flex-col gap-10">
+        {/* stacked cards */}
+        <div className="flex flex-col">
           {projects.map((p, i) => (
-            <WorkCard key={p.id} project={p} index={i + 1} side={i % 2 === 0 ? 'a' : 'b'} />
+            <WorkCard key={p.id} project={p} index={i + 1} orange={i % 2 === 0} stackIndex={i} />
           ))}
-          <MoreWorkCard index={count} />
+          <MoreWorkCard index={count} orange={projects.length % 2 === 0} stackIndex={projects.length} />
         </div>
       </div>
     </section>
   )
 }
 
-function WorkCard({ project, index, side }) {
+function WorkCard({ project, index, orange, stackIndex }) {
   const meta = WORK[project.id] || { title: project.name.toUpperCase(), category: project.kind }
   return (
-    <div className="relative">
-      <StickerCluster side={side} />
+    <article
+      className={`stack-card mb-5 p-3 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] sm:p-4 ${
+        orange
+          ? 'bg-[color:var(--color-orange)]'
+          : 'border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)]'
+      }`}
+      style={{ top: `${20 + stackIndex * 58}px` }}
+    >
+      {/* title bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-3 pt-2 sm:px-3">
+        <h3 className="mono text-[1.05rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.35rem]">
+          <span>{index}.</span>
+          {meta.title}
+        </h3>
+        <span
+          className={`mono rounded-full px-3.5 py-1.5 text-[0.72rem] text-[color:var(--color-ink)] ${
+            orange
+              ? 'border border-[color:var(--color-ink)]/25 bg-[color:var(--color-card-hi)]'
+              : 'border border-[color:var(--color-line)] bg-[color:var(--color-paper)]'
+          }`}
+        >
+          {meta.category}
+        </span>
+      </div>
 
-      <article className="relative z-10 rounded-[22px] bg-[color:var(--color-orange)] p-3 sm:p-4">
-        {/* title bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-3 pt-2 sm:px-3">
-          <h3 className="mono text-[1.05rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.35rem]">
-            <span>{index}.</span>
-            {meta.title}
-          </h3>
-          <span className="mono rounded-full border border-[color:var(--color-ink)]/25 bg-[color:var(--color-card-hi)] px-3.5 py-1.5 text-[0.72rem] text-[color:var(--color-ink)]">
-            {meta.category}
+      {/* media */}
+      <div className="relative overflow-hidden rounded-[16px]">
+        {meta.img ? (
+          <img
+            src={asset(meta.img)}
+            alt={`${project.name} — ${project.tagline}`}
+            loading="lazy"
+            className="h-[clamp(240px,40vw,440px)] w-full object-cover"
+          />
+        ) : (
+          <SystemMap />
+        )}
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent px-4 pb-3 pt-10">
+          <span className="mono text-[0.78rem] text-white/95">{project.tagline}</span>
+          <span className="mono hidden text-[0.66rem] text-white/70 sm:block">
+            {project.chips.slice(0, 3).join(' · ')}
           </span>
         </div>
 
-        {/* media */}
-        <div className="relative overflow-hidden rounded-[16px]">
-          {meta.img ? (
-            <img
-              src={asset(meta.img)}
-              alt={`${project.name} — ${project.tagline}`}
-              loading="lazy"
-              className="h-[clamp(240px,42vw,460px)] w-full object-cover"
-            />
-          ) : (
-            <SystemMap />
-          )}
-
-          {/* caption bar over the media bottom */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent px-4 pb-3 pt-10">
-            <span className="mono text-[0.78rem] text-white/95">{project.tagline}</span>
-            <span className="mono hidden text-[0.66rem] text-white/70 sm:block">
-              {project.chips.slice(0, 3).join(' · ')}
-            </span>
-          </div>
-
-          {project.flagship && (
-            <span className="mono absolute right-3 top-3 rounded-full bg-[color:var(--color-ink)] px-3 py-1 text-[0.62rem] text-[color:var(--color-paper)]">
-              NDA · flagship
-            </span>
-          )}
-        </div>
-      </article>
-    </div>
+        {project.flagship && (
+          <span className="mono absolute right-3 top-3 rounded-full bg-[color:var(--color-ink)] px-3 py-1 text-[0.62rem] text-[color:var(--color-paper)]">
+            NDA · flagship
+          </span>
+        )}
+      </div>
+    </article>
   )
 }
 
-// A stand-in "300+ screens" system diagram for the NDA flagship.
 function SystemMap() {
   const nodes = Array.from({ length: 26 })
   return (
-    <div className="relative h-[clamp(240px,42vw,460px)] w-full overflow-hidden bg-[color:var(--color-card-hi)]">
+    <div className="relative h-[clamp(240px,40vw,440px)] w-full overflow-hidden bg-[color:var(--color-card-hi)]">
       <svg viewBox="0 0 200 130" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
         <g stroke="var(--color-line)" strokeWidth="0.4">
           <path d="M100 65 L40 25 M100 65 L160 25 M100 65 L28 100 M100 65 L172 100 M100 65 L100 15 M100 65 L100 118" />
@@ -126,78 +132,82 @@ function SystemMap() {
   )
 }
 
-// The dark "more from the archive" card — the fourth entry.
-function MoreWorkCard({ index }) {
+function MoreWorkCard({ index, orange, stackIndex }) {
   const named = experiments.filter((e) => e.note).slice(0, 6)
   return (
-    <div className="relative">
-      <article className="relative z-10 rounded-[22px] bg-[color:var(--color-ink)] p-6 text-[color:var(--color-paper)] sm:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h3 className="mono text-[1.05rem] font-bold tracking-tight sm:text-[1.35rem]">
-            <span>{index}.</span>MORE FROM THE ARCHIVE
-          </h3>
-          {behance && (
-            <a
-              className="mono rounded-full border border-white/30 px-3.5 py-1.5 text-[0.72rem] transition hover:bg-white hover:text-[color:var(--color-ink)]"
-              href={behance}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Full archive ↗
-            </a>
-          )}
-        </div>
+    <article
+      className={`stack-card mb-5 p-6 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] sm:p-8 ${
+        orange
+          ? 'bg-[color:var(--color-orange)]'
+          : 'border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)]'
+      }`}
+      style={{ top: `${20 + stackIndex * 58}px` }}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h3 className="mono text-[1.05rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.35rem]">
+          <span>{index}.</span>COLLECTION OF SIDE PROJECTS
+        </h3>
+        {behance && (
+          <a
+            className="mono rounded-full border border-[color:var(--color-line)] bg-[color:var(--color-paper)] px-3.5 py-1.5 text-[0.72rem] text-[color:var(--color-ink)] transition hover:bg-[color:var(--color-ink)] hover:text-[color:var(--color-paper)]"
+            href={behance}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Full archive ↗
+          </a>
+        )}
+      </div>
 
-        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {named.map((e) => (
-            <div
-              key={e.name}
-              className="rounded-2xl border border-white/15 bg-white/5 p-4 transition hover:border-[color:var(--color-orange)]"
-            >
-              <div className="display text-lg">{e.name}</div>
-              <div className="mono mt-1 text-[0.72rem] text-[color:var(--color-paper)]/70">{e.note}</div>
-            </div>
-          ))}
-        </div>
-      </article>
-    </div>
+      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {named.map((e) => (
+          <div
+            key={e.name}
+            className="rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-paper)] p-4 transition hover:border-[color:var(--color-orange)]"
+          >
+            <div className="display text-lg">{e.name}</div>
+            <div className="mono mt-1 text-[0.72rem] text-[color:var(--color-ink-soft)]">{e.note}</div>
+          </div>
+        ))}
+      </div>
+    </article>
   )
 }
 
-// Playful cut-outs scattered in the card margins (desktop only, decorative).
-function StickerCluster({ side }) {
-  const left =
-    side === 'a'
-      ? ['👻', '🚧', '✦']
-      : ['🌐', '💀', '✦']
-  const right =
-    side === 'a'
-      ? ['🌐', '💎', '💀']
-      : ['👻', '💎', '🚧']
+// Decorative cut-outs down both margins (desktop only).
+function SideStickers() {
+  const L = [
+    { e: '👻', top: '8%' },
+    { e: '🌐', top: '34%' },
+    { e: '🚧', top: '58%' },
+    { e: '✦', top: '82%' },
+  ]
+  const R = [
+    { e: '👀', top: '10%' },
+    { e: '🌀', top: '40%' },
+    { e: '💀', top: '64%' },
+    { e: '💎', top: '86%' },
+  ]
   return (
-    <>
-      <div className="pointer-events-none absolute -left-16 top-1/2 z-0 hidden -translate-y-1/2 flex-col gap-10 xl:flex">
-        {left.map((s, i) => (
-          <span
-            key={i}
-            className={`float-${i % 2 === 0 ? 'a' : 'b'} text-3xl`}
-            style={{ '--r': `${(i - 1) * 12}deg`, transform: `rotate(${(i - 1) * 12}deg)` }}
-          >
-            {s}
-          </span>
-        ))}
-      </div>
-      <div className="pointer-events-none absolute -right-16 top-1/2 z-0 hidden -translate-y-1/2 flex-col items-end gap-10 xl:flex">
-        {right.map((s, i) => (
-          <span
-            key={i}
-            className={`float-${i % 2 === 0 ? 'b' : 'a'} text-3xl`}
-            style={{ '--r': `${(1 - i) * 12}deg`, transform: `rotate(${(1 - i) * 12}deg)` }}
-          >
-            {s}
-          </span>
-        ))}
-      </div>
-    </>
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-0 hidden xl:block">
+      {L.map((s, i) => (
+        <span
+          key={i}
+          className={`float-${i % 2 ? 'b' : 'a'} absolute text-4xl`}
+          style={{ left: 'max(12px, calc(50% - 640px))', top: s.top, '--r': `${(i - 1) * 10}deg`, transform: `rotate(${(i - 1) * 10}deg)` }}
+        >
+          {s.e}
+        </span>
+      ))}
+      {R.map((s, i) => (
+        <span
+          key={i}
+          className={`float-${i % 2 ? 'a' : 'b'} absolute text-4xl`}
+          style={{ right: 'max(12px, calc(50% - 640px))', top: s.top, '--r': `${(1 - i) * 10}deg`, transform: `rotate(${(1 - i) * 10}deg)` }}
+        >
+          {s.e}
+        </span>
+      ))}
+    </div>
   )
 }

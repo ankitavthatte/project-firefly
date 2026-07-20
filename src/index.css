@@ -21,6 +21,7 @@
   --color-orange-deep: #e8410a;
   --color-green: #57c98a;      /* sticker / console green */
   --color-green-deep: #2f9c63;
+  --color-lime: #c9f24e;       /* fun-stuff portrait card */
   --color-sky: #bcd9ec;        /* top strip sky */
 }
 
@@ -33,6 +34,18 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overscroll-behavior-y: none;
+  overflow-x: hidden; /* let margin stickers bleed without a scrollbar */
+}
+
+/* stacked case-study cards: each pins under the previous as you scroll */
+.stack-card {
+  position: sticky;
+  border-radius: 22px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .stack-card {
+    position: static;
+  }
 }
 
 #root {
