@@ -6,8 +6,6 @@ const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
 const POLAROIDS = [
   { src: 'art/nook.jpg', cap: 'The Nook', rot: -6 },
-  { src: 'art/adoption.jpg', cap: 'Adoption drive', rot: 5 },
-  { src: 'art/setu.jpg', cap: 'Setu', rot: -3 },
 ]
 
 const TAG_EMOJI = {
