@@ -1,256 +1,279 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-hand: "Caveat", cursive;
+/* ============================================================
+   ASKUMI-STYLE DESIGN SYSTEM — "Ankita OS"
+   Warm off-white canvas · one bold orange · mono technical
+   labels · rounded software-UI cards · sticker collage.
+   ============================================================ */
 
-  --color-cream: #f5f1ea;
-  --color-cream-deep: #e8e1d3;
-  --color-paper: #fffefb;
-  --color-coral: #bb6a4e;
-  --color-coral-deep: #8c4a33;
-  --color-lavender: #8a83a6;
-  --color-lavender-deep: #625a84;
-  --color-mint: #6f9585;
-  --color-mint-deep: #4c6d5e;
-  --color-sky: #7089a4;
-  --color-sky-deep: #46607a;
-  --color-sun: #c79f4f;
-  --color-sun-deep: #866622;
-  --color-ink: #232228;
-  --color-ink-soft: #646059;
-  --color-wood: #c39a6b;
-  --color-wood-deep: #9a7748;
+@theme {
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-paper: #e9e6df;      /* the warm canvas */
+  --color-paper-deep: #ddd9d0; /* recessed panels */
+  --color-card: #f7f5f0;       /* raised card surface */
+  --color-card-hi: #fdfcf9;    /* brightest surface */
+  --color-ink: #16150f;        /* near-black text */
+  --color-ink-soft: #6a675d;   /* muted labels */
+  --color-line: #cbc7bd;       /* hairline borders */
+  --color-orange: #ff5a1f;     /* the one accent */
+  --color-orange-deep: #e8410a;
+  --color-green: #57c98a;      /* sticker / console green */
+  --color-green-deep: #2f9c63;
+  --color-sky: #bcd9ec;        /* top strip sky */
 }
 
 html,
 body {
   height: 100%;
-  background: #ffffff;
+  background: var(--color-paper);
   color: var(--color-ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   overscroll-behavior-y: none;
 }
 
 #root {
-  height: 100%;
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 ::selection {
-  background: var(--color-sun);
+  background: var(--color-orange);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---- Typographic helpers ---------------------------------- */
+
+.mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* the tiny technical caps label used everywhere */
+.tech {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.94;
+}
+
+/* ---- Software-UI card frame ------------------------------- */
+
+.card {
+  position: relative;
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 18px;
+}
+
+.card-hi {
+  background: var(--color-card-hi);
+}
+
+/* corner registration brackets, like the reference chrome */
+.brackets::before,
+.brackets::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--color-ink);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.brackets::before {
+  top: 9px;
+  left: 9px;
+  border-right: none;
+  border-bottom: none;
+}
+.brackets::after {
+  bottom: 9px;
+  right: 9px;
+  border-left: none;
+  border-top: none;
+}
+
+/* the pill button ------------------------------------------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.pill:hover {
+  transform: translateY(-2px);
+  background: var(--color-orange);
+  border-color: var(--color-orange);
+  color: #fff;
+}
+.pill-ghost {
+  background: transparent;
   color: var(--color-ink);
 }
-
-/* Visible, warm focus states everywhere */
-:focus-visible {
-  outline: 3px solid var(--color-coral);
-  outline-offset: 3px;
-  border-radius: 10px;
+.pill-ghost:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
+.pill-orange {
+  background: var(--color-orange);
+  border-color: var(--color-orange);
+  color: #fff;
+}
+.pill-orange:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
 }
 
-/* Subtle film grain over the whole studio */
+/* small round icon button (toolbar chrome) ------------------ */
+.chip-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+  background: var(--color-card-hi);
+  color: var(--color-ink-soft);
+  transition: transform 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.chip-btn:hover {
+  transform: translateY(-2px);
+  color: var(--color-orange);
+  border-color: var(--color-orange);
+}
+
+/* ---- Marquee ticker --------------------------------------- */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee__track {
+  display: inline-flex;
+  gap: 3rem;
+  padding-right: 3rem;
+  animation: marquee 26s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---- Barcode strip for the ID badge ----------------------- */
+.barcode {
+  height: 34px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-ink) 0 1px,
+    transparent 1px 3px,
+    var(--color-ink) 3px 5px,
+    transparent 5px 6px,
+    var(--color-ink) 6px 9px,
+    transparent 9px 12px
+  );
+}
+
+/* ---- Floating sticker/collage pieces ---------------------- */
+.float-a {
+  animation: floaty 6s ease-in-out infinite;
+}
+.float-b {
+  animation: floaty 8s ease-in-out infinite reverse;
+}
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-12px) rotate(var(--r, 0deg));
+  }
+}
+
+/* ---- Grain overlay ---------------------------------------- */
 .grain::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 90;
-  opacity: 0.05;
+  opacity: 0.045;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-/* Soft drifting clouds in the window */
+/* soft drifting clouds in the top sky strip */
 @keyframes drift {
-  from { transform: translateX(-15%); }
-  to { transform: translateX(115%); }
+  from {
+    transform: translateX(-12%);
+  }
+  to {
+    transform: translateX(112%);
+  }
 }
 .cloud {
   animation: drift linear infinite;
 }
 
-/* Floating dust motes in the sunbeam */
-@keyframes mote {
-  0% { transform: translateY(0) translateX(0); opacity: 0; }
-  20% { opacity: 0.7; }
-  80% { opacity: 0.5; }
-  100% { transform: translateY(-90px) translateX(14px); opacity: 0; }
-}
-.mote {
-  animation: mote 9s ease-in-out infinite;
+/* ---- Section rhythm --------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
-/* Plant sway */
-@keyframes sway {
-  0%, 100% { transform: rotate(-2.2deg); }
-  50% { transform: rotate(2.2deg); }
-}
-.sway {
-  transform-origin: bottom center;
-  animation: sway 6s ease-in-out infinite;
+.rule {
+  border: none;
+  border-top: 1px dashed var(--color-line);
 }
 
-/* Coffee steam */
-@keyframes steam {
-  0% { transform: translateY(0) scaleX(1); opacity: 0; }
-  30% { opacity: 0.65; }
-  100% { transform: translateY(-26px) scaleX(1.6); opacity: 0; }
-}
-.steam {
-  animation: steam 2.6s ease-out infinite;
-}
-
-/* Cat tail flick + ear twitch */
-@keyframes tailflick {
-  0%, 86%, 100% { transform: rotate(0deg); }
-  90% { transform: rotate(9deg); }
-  94% { transform: rotate(-5deg); }
-}
-.tailflick {
-  transform-origin: left center;
-  animation: tailflick 7s ease-in-out infinite;
-}
-@keyframes eartwitch {
-  0%, 91%, 100% { transform: rotate(0deg); }
-  93% { transform: rotate(-10deg); }
-  96% { transform: rotate(4deg); }
-}
-.eartwitch {
-  transform-origin: bottom center;
-  animation: eartwitch 8s ease-in-out infinite;
-}
-
-/* Interactive objects breathe at rest, so they read as doors — not scenery —
-   before anyone hovers. Applied to an inner wrapper so it never fights the
-   hover-lift transform framer sets on the button itself. */
-@keyframes breathe {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-.breathe {
-  animation: breathe 4.5s ease-in-out infinite;
-}
-
-/* The project list scrolling continuously on the laptop screen.
-   The track holds two identical copies stacked; translating up by exactly
-   one copy's height loops seamlessly. -105 = 7 rows × 15 SVG units. */
-@keyframes laptopscroll {
-  from { transform: translateY(0); }
-  to { transform: translateY(-105px); }
-}
-.laptop-scroll {
-  animation: laptopscroll 16s linear infinite;
-  will-change: transform;
-}
-
-/* Lamp glow breathing */
-@keyframes glowpulse {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 0.8; }
-}
-.glowpulse {
-  animation: glowpulse 5s ease-in-out infinite;
-}
-
-/* Paper plane loop across the window */
-@keyframes planefly {
-  0% { transform: translate(-30px, 22px) rotate(8deg); opacity: 0; }
-  8% { opacity: 1; }
-  50% { transform: translate(150px, -6px) rotate(-4deg); }
-  92% { opacity: 1; }
-  100% { transform: translate(330px, 14px) rotate(6deg); opacity: 0; }
-}
-.planefly {
-  animation: planefly 16s ease-in-out infinite;
-  animation-delay: 4s;
-}
-
-/* Fireflies — the studio's namesake, out after dark */
-@keyframes firefly {
-  0% { transform: translate(0, 0); opacity: 0.15; }
-  25% { opacity: 1; }
-  50% { transform: translate(20px, -26px); opacity: 0.4; }
-  75% { opacity: 0.95; }
-  100% { transform: translate(0, 0); opacity: 0.15; }
-}
-.firefly {
-  animation: firefly 8s ease-in-out infinite;
-  background: #ffd97a;
-  box-shadow: 0 0 8px 3px rgba(255, 217, 122, 0.7);
-  border-radius: 9999px;
-}
-
-/* After dark the pointer becomes a torch — hide the real cursor everywhere
-   in the scene so the light does the pointing. */
-.torch-zone,
-.torch-zone * {
-  cursor: none !important;
-}
-
-/* Monsoon rain on the window — Pune, June through September */
-@keyframes rainfall {
-  from { transform: translate3d(6px, -130%, 0); }
-  to { transform: translate3d(-8px, 520%, 0); }
-}
-.raindrop {
-  animation: rainfall linear infinite;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.65));
-  border-radius: 9999px;
-}
-
-/* Winter haze drifting over the hills — December through February */
-@keyframes mistdrift {
-  0%, 100% { transform: translateX(-5%); }
-  50% { transform: translateX(5%); }
-}
-.mist {
-  animation: mistdrift 16s ease-in-out infinite;
-}
-
-/* Stars twinkling in the night window */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.25; }
-  50% { opacity: 1; }
-}
-.twinkle {
-  animation: twinkle 3.4s ease-in-out infinite;
-}
-
-/* Shooting stars — a brief streak, then a long quiet wait */
-@keyframes shoot {
-  0% { transform: translate(0, 0) rotate(28deg); opacity: 0; }
-  2% { opacity: 1; }
-  9% { transform: translate(150px, 80px) rotate(28deg); opacity: 0; }
-  100% { transform: translate(150px, 80px) rotate(28deg); opacity: 0; }
-}
-.shoot {
-  animation: shoot 11s linear infinite;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.95));
-  border-radius: 9999px;
-}
-
-/* Respect reduced motion for every ambient animation */
 @media (prefers-reduced-motion: reduce) {
-  .cloud, .mote, .sway, .steam, .tailflick, .eartwitch, .glowpulse, .planefly, .firefly, .twinkle, .shoot, .raindrop, .mist, .breathe, .laptop-scroll {
+  .marquee__track,
+  .float-a,
+  .float-b,
+  .cloud {
     animation: none !important;
   }
-  .firefly { opacity: 0.8; }
-  .shoot { opacity: 0; }
-  .raindrop { opacity: 0; }
-  * {
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Thin, warm scrollbars inside modals */
-.nice-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-wood) transparent;
-}
-.nice-scroll::-webkit-scrollbar {
-  width: 8px;
-}
-.nice-scroll::-webkit-scrollbar-thumb {
-  background: var(--color-wood);
-  border-radius: 8px;
 }
