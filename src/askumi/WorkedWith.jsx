@@ -1,5 +1,7 @@
 import { awards, identity } from '../data/content.js'
 
+const asset = (p) => `${import.meta.env.BASE_URL}${p}`
+
 // Where the work happened + the receipts. A translucent green "console"
 // holds the roster; real award mentions arrive as comment bubbles.
 const ROSTER = ['Cloud.in', 'Hostin Services', 'Evalix AI', 'Tamarind Studio', 'Venkatramanan Assoc.']
@@ -108,6 +110,17 @@ function Comment({ award, avatar, side }) {
         </div>
       </div>
       <p className="mono mt-2 text-[0.72rem] leading-snug text-[color:var(--color-ink)]">{award.note}</p>
+      {award.photo && (
+        <img
+          src={asset(award.photo)}
+          alt={award.title}
+          loading="lazy"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+          className="mt-2.5 h-28 w-full rounded-xl border border-[color:var(--color-line)] object-cover"
+        />
+      )}
     </div>
   )
 }
