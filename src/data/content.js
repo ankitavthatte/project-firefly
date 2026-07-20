@@ -4,6 +4,11 @@ export const identity = {
   name: 'Ankita Thatte',
   role: 'Senior Product Designer',
   location: 'Pune, India',
+  // Drop a headshot at public/<this filename> and it renders automatically
+  // (B&W-treated) in the landing ID card and the Fun Stuff card. Until the
+  // file exists the app falls back to the stylised silhouette. Set to '' to
+  // force the silhouette even when a file is present.
+  photo: 'ankita.jpg',
   experience:
     '10+ years across architecture, product design and design leadership — now the sole designer behind Evalix AI, a live enterprise AI platform.',
   // The thesis. Punchy, ownable, and true — the one line a recruiter should be

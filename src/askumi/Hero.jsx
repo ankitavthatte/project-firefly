@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { identity } from '../data/content.js'
 import Masthead from './Masthead.jsx'
+
+const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
 // The landing: a minimal full-screen scene — sky fading to a dotted-grid
 // canvas, a centered "studio ID card" as the hero object, and a technical
@@ -118,9 +121,24 @@ function IdCard() {
   )
 }
 
-// A B&W profile placeholder that reads as an intentional cutout. Swap for a
-// real headshot by dropping one in /public and pointing an <img> here.
+// Renders the real headshot when identity.photo resolves; otherwise the
+// stylised silhouette. Dropping public/<identity.photo> is all it takes.
 function Portrait() {
+  const [failed, setFailed] = useState(false)
+  if (identity.photo && !failed) {
+    return (
+      <img
+        src={asset(identity.photo)}
+        alt={identity.name}
+        onError={() => setFailed(true)}
+        className="photo-bw relative z-10 h-[15rem] w-[11rem] rounded-xl"
+      />
+    )
+  }
+  return <Silhouette />
+}
+
+function Silhouette() {
   return (
     <svg
       viewBox="0 0 200 250"

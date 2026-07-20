@@ -282,6 +282,12 @@ body {
   border-top: 1px dashed var(--color-line);
 }
 
+/* ---- Portrait photo treatment (drop-in headshot) ---------- */
+.photo-bw {
+  filter: grayscale(1) contrast(1.05) brightness(0.98);
+  object-fit: cover;
+}
+
 /* ---- ID card hover-reveal --------------------------------- */
 .id-card__reveal {
   display: grid;

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { identity, nowBoard } from '../data/content.js'
 import { Sticker } from './bits.jsx'
 
@@ -102,6 +103,17 @@ export default function FunStuff() {
 }
 
 function LimePortrait() {
+  const [failed, setFailed] = useState(false)
+  if (identity.photo && !failed) {
+    return (
+      <img
+        src={asset(identity.photo)}
+        alt={identity.name}
+        onError={() => setFailed(true)}
+        className="photo-bw h-56 w-full rounded-lg"
+      />
+    )
+  }
   return (
     <svg viewBox="0 0 200 240" className="h-56 w-auto" aria-label="Ankita, off the clock" role="img" preserveAspectRatio="xMidYMax meet">
       <path d="M22 240c0-50 34-78 78-78s78 28 78 78z" fill="#0d0d0c" />
