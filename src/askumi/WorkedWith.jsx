@@ -1,11 +1,27 @@
+import { useEffect, useRef, useState } from 'react'
 import { awards, identity } from '../data/content.js'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
 // Where the work happened + the receipts. A translucent green "console"
-// holds the roster; real award mentions arrive as comment bubbles.
+// holds interchangeable "cartridges"; award mentions arrive as comments.
 const ROSTER = ['Cloud.in', 'Hostin Services', 'Evalix AI', 'Tamarind Studio', 'Venkatramanan Assoc.']
+const TOOLS = identity.tools
+const STATS = [
+  { v: '10+', l: 'years' },
+  { v: '300+', l: 'screens' },
+  { v: '8', l: 'reports' },
+  { v: '4', l: 'awards' },
+]
+const SCREENS = [
+  { app: 'ROSTER.EXE', foot: '10+ YEARS · ARCHITECTURE → PRODUCT' },
+  { app: 'TOOLKIT.EXE', foot: 'DESIGNS AI-FIRST, EVERY DAY' },
+  { app: 'STATS.EXE', foot: 'THE RECEIPTS' },
+]
 const AVATAR = ['bg-[#e0583a]', 'bg-[#7a6ff0]', 'bg-[#2f9c63]', 'bg-[#c79f4f]']
+
+const REDUCE =
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export default function WorkedWith() {
   const left = awards.slice(0, 2)
@@ -23,51 +39,14 @@ export default function WorkedWith() {
         </div>
 
         <div className="mt-10 grid items-center gap-6 lg:grid-cols-[1fr_auto_1fr]">
-          {/* left comments */}
           <div className="flex flex-col gap-4 lg:items-end">
             {left.map((a, i) => (
               <Comment key={a.id} award={a} avatar={AVATAR[i % AVATAR.length]} side="left" />
             ))}
           </div>
 
-          {/* console */}
-          <div className="relative mx-auto w-full max-w-md">
-            <span aria-hidden className="float-a absolute -left-6 top-6 text-3xl">🦋</span>
-            <span aria-hidden className="float-b absolute -right-5 bottom-10 text-3xl">🌊</span>
+          <Console />
 
-            <div className="relative rounded-[30px] bg-gradient-to-b from-[color:var(--color-green)] to-[color:var(--color-green-deep)] p-3.5 shadow-[0_22px_50px_-18px_rgba(47,156,99,0.7)]">
-              {/* translucent shine */}
-              <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-white/10" />
-              <div className="absolute -left-2 top-1/2 h-20 w-4 -translate-y-1/2 rounded-full bg-[color:var(--color-green-deep)]" />
-              <div className="absolute -right-2 top-1/2 h-20 w-4 -translate-y-1/2 rounded-full bg-[color:var(--color-green-deep)]" />
-
-              <div className="relative rounded-[20px] bg-[color:var(--color-ink)] p-5">
-                <div className="mono mb-4 flex items-center justify-between text-[0.6rem] tracking-[0.2em] text-white/45">
-                  <span>ROSTER.EXE</span>
-                  <span className="text-[color:var(--color-green)]">● ● ●</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2.5">
-                  {ROSTER.map((r, i) => (
-                    <div
-                      key={r}
-                      className={`flex min-h-[54px] items-center justify-center rounded-lg bg-white/5 px-2 text-center ${
-                        i === 0 ? 'col-span-2' : ''
-                      }`}
-                    >
-                      <span className="display text-[0.95rem] leading-tight text-[color:var(--color-paper)]">
-                        {r}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mono mt-4 text-center text-[0.6rem] text-white/40">
-                  10+ YEARS · ARCHITECTURE → PRODUCT
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* right comments */}
           <div className="flex flex-col gap-4">
             {right.map((a, i) => (
               <Comment key={a.id} award={a} avatar={AVATAR[(i + 2) % AVATAR.length]} side="right" />
@@ -91,15 +70,151 @@ export default function WorkedWith() {
   )
 }
 
+function Console() {
+  const [screen, setScreen] = useState(0)
+  const pausedRef = useRef(false)
+
+  // Auto-cycle the cartridges, pausing on hover/focus and for reduced motion.
+  useEffect(() => {
+    if (REDUCE) return
+    const id = setInterval(() => {
+      if (!pausedRef.current) setScreen((s) => (s + 1) % SCREENS.length)
+    }, 4200)
+    return () => clearInterval(id)
+  }, [])
+
+  const go = (i) => setScreen(((i % SCREENS.length) + SCREENS.length) % SCREENS.length)
+  const pause = () => (pausedRef.current = true)
+  const resume = () => (pausedRef.current = false)
+
+  return (
+    <div
+      className="relative mx-auto w-full max-w-md"
+      onMouseEnter={pause}
+      onMouseLeave={resume}
+      onFocusCapture={pause}
+      onBlurCapture={resume}
+    >
+      <span aria-hidden className="float-a absolute -left-6 top-6 text-3xl">
+        🦋
+      </span>
+      <span aria-hidden className="float-b absolute -right-5 bottom-10 text-3xl">
+        🌊
+      </span>
+
+      <div className="relative rounded-[30px] bg-gradient-to-b from-[color:var(--color-green)] to-[color:var(--color-green-deep)] p-3.5 shadow-[0_22px_50px_-18px_rgba(47,156,99,0.7)]">
+        <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-white/10" />
+        <div className="absolute -left-2 top-1/2 h-20 w-4 -translate-y-1/2 rounded-full bg-[color:var(--color-green-deep)]" />
+        <div className="absolute -right-2 top-1/2 h-20 w-4 -translate-y-1/2 rounded-full bg-[color:var(--color-green-deep)]" />
+
+        {/* screen — click / arrow keys switch cartridge */}
+        <div
+          role="button"
+          tabIndex={0}
+          aria-label={`Console — showing ${SCREENS[screen].app}. Activate to switch.`}
+          onClick={() => go(screen + 1)}
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') {
+              e.preventDefault()
+              go(screen - 1)
+            } else if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              go(screen + 1)
+            }
+          }}
+          className="relative cursor-pointer select-none rounded-[20px] bg-[color:var(--color-ink)] p-5 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--color-green)]"
+        >
+          {/* screen header */}
+          <div className="mono mb-4 flex items-center justify-between text-[0.6rem] tracking-[0.2em] text-white/45">
+            <span>{SCREENS[screen].app}</span>
+            <span className="flex items-center gap-1.5">
+              {SCREENS.map((_, i) => (
+                <button
+                  key={i}
+                  aria-label={`Show ${SCREENS[i].app}`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    go(i)
+                  }}
+                  className={`h-1.5 w-1.5 rounded-full transition ${
+                    i === screen ? 'bg-[color:var(--color-green)]' : 'bg-white/25 hover:bg-white/50'
+                  }`}
+                />
+              ))}
+            </span>
+          </div>
+
+          {/* cartridge content */}
+          <div key={screen} className="screen-swap min-h-[172px]">
+            {screen === 0 && (
+              <div className="grid grid-cols-2 gap-2.5">
+                {ROSTER.map((r, i) => (
+                  <div
+                    key={r}
+                    className={`flex min-h-[54px] items-center justify-center rounded-lg bg-white/5 px-2 text-center ${
+                      i === 0 ? 'col-span-2' : ''
+                    }`}
+                  >
+                    <span className="display text-[0.95rem] leading-tight text-[color:var(--color-paper)]">
+                      {r}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {screen === 1 && (
+              <div className="grid grid-cols-2 gap-2">
+                {TOOLS.map((t) => (
+                  <div
+                    key={t}
+                    className="flex min-h-[42px] items-center justify-center rounded-lg bg-white/5 px-2 text-center"
+                  >
+                    <span className="mono text-[0.72rem] leading-tight text-[color:var(--color-paper)]">
+                      {t}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {screen === 2 && (
+              <div className="grid grid-cols-2 gap-2.5">
+                {STATS.map((s) => (
+                  <div
+                    key={s.l}
+                    className="flex min-h-[78px] flex-col items-center justify-center rounded-lg bg-white/5"
+                  >
+                    <span className="display text-2xl text-[color:var(--color-green)]">{s.v}</span>
+                    <span className="mono mt-0.5 text-[0.6rem] uppercase tracking-[0.15em] text-white/50">
+                      {s.l}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* footer */}
+          <div className="mono mt-4 flex items-center justify-between text-[0.6rem] text-white/40">
+            <span>{SCREENS[screen].foot}</span>
+            <span className="text-[color:var(--color-green)]">tap ▸</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function Comment({ award, avatar, side }) {
   return (
     <div
-      className={`w-full max-w-xs rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-3.5 shadow-[0_10px_26px_-14px_rgba(0,0,0,0.35)] ${
+      className={`group w-full max-w-xs rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-3.5 shadow-[0_10px_26px_-14px_rgba(0,0,0,0.35)] transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_18px_36px_-16px_rgba(0,0,0,0.45)] ${
         side === 'left' ? 'rounded-bl-sm' : 'rounded-br-sm'
       }`}
     >
       <div className="flex items-center gap-2.5">
-        <span className={`grid h-7 w-7 place-items-center rounded-full text-[0.7rem] font-bold text-white ${avatar}`}>
+        <span
+          className={`grid h-7 w-7 place-items-center rounded-full text-[0.7rem] font-bold text-white ${avatar}`}
+        >
           {award.detail.split(' ')[0].slice(0, 1)}
         </span>
         <div className="min-w-0">
@@ -111,15 +226,17 @@ function Comment({ award, avatar, side }) {
       </div>
       <p className="mono mt-2 text-[0.72rem] leading-snug text-[color:var(--color-ink)]">{award.note}</p>
       {award.photo && (
-        <img
-          src={asset(award.photo)}
-          alt={award.title}
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-          className="mt-2.5 h-28 w-full rounded-xl border border-[color:var(--color-line)] object-cover"
-        />
+        <div className="mt-2.5 overflow-hidden rounded-xl border border-[color:var(--color-line)]">
+          <img
+            src={asset(award.photo)}
+            alt={award.title}
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.parentElement.style.display = 'none'
+            }}
+            className="h-28 w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+          />
+        </div>
       )}
     </div>
   )

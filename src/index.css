@@ -295,6 +295,26 @@ body {
   object-fit: cover;
 }
 
+/* ---- Console cartridge screen swap ------------------------ */
+@keyframes screenIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.screen-swap {
+  animation: screenIn 0.34s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .screen-swap {
+    animation: none;
+  }
+}
+
 /* ---- ID card hover-reveal --------------------------------- */
 .id-card__reveal {
   display: grid;
