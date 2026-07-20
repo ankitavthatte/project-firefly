@@ -37,7 +37,7 @@ export default function GridBackground() {
       }
       const sig2 = 2 * 150 * 150 // warp radius
       const glow2 = 2 * 170 * 170 // glow radius
-      const pull = staticOnly ? 0 : 34
+      const pull = staticOnly ? 0 : 16
       const cols = Math.ceil(W / SPACING) + 2
       const rows = Math.ceil(H / SPACING) + 2
 
@@ -63,7 +63,7 @@ export default function GridBackground() {
 
       // base grid — one faint path
       ctx.lineWidth = 1
-      ctx.strokeStyle = 'rgba(150,168,205,0.10)'
+      ctx.strokeStyle = 'rgba(150,168,205,0.07)'
       ctx.beginPath()
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -90,10 +90,10 @@ export default function GridBackground() {
             const n = nodes[r][c]
             if (n.heat < 0.05) continue
             const seg = (m) => {
-              const h = Math.min(1, ((n.heat + m.heat) / 2) * 1.7)
+              const h = Math.min(1, ((n.heat + m.heat) / 2) * 1.1)
               if (h < 0.05) return
-              ctx.strokeStyle = `rgba(96,146,255,${h * 0.9})`
-              ctx.lineWidth = 1 + h * 1.4
+              ctx.strokeStyle = `rgba(96,146,255,${h * 0.5})`
+              ctx.lineWidth = 1 + h * 0.7
               ctx.beginPath()
               ctx.moveTo(n.x, n.y)
               ctx.lineTo(m.x, m.y)
@@ -112,9 +112,9 @@ export default function GridBackground() {
           ctx.beginPath()
           ctx.fillStyle =
             n.heat > 0.08
-              ? `rgba(130,178,255,${Math.min(1, n.heat * 1.25)})`
+              ? `rgba(130,178,255,${Math.min(1, n.heat * 0.7)})`
               : 'rgba(160,178,215,0.13)'
-          ctx.arc(n.x, n.y, 1 + n.heat * 2.4, 0, 6.283)
+          ctx.arc(n.x, n.y, 1 + n.heat * 1.3, 0, 6.283)
           ctx.fill()
         }
       }
@@ -122,7 +122,7 @@ export default function GridBackground() {
       // focal glow at the cursor
       if (!staticOnly) {
         const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 130)
-        g.addColorStop(0, 'rgba(70,120,255,0.15)')
+        g.addColorStop(0, 'rgba(70,120,255,0.07)')
         g.addColorStop(1, 'rgba(70,120,255,0)')
         ctx.fillStyle = g
         ctx.beginPath()
