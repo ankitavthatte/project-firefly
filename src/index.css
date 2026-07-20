@@ -269,6 +269,42 @@ body {
   border-top: 1px dashed var(--color-line);
 }
 
+/* ---- ID card hover-reveal --------------------------------- */
+.id-card__reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.35s ease;
+}
+.id-card__reveal > * {
+  overflow: hidden;
+  min-height: 0;
+}
+.id-card:hover .id-card__reveal,
+.id-card:focus-visible .id-card__reveal,
+.id-card:focus-within .id-card__reveal {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.id-card__hint {
+  transition: opacity 0.25s ease;
+}
+.id-card:hover .id-card__hint,
+.id-card:focus-within .id-card__hint {
+  opacity: 0;
+}
+/* touch devices have no hover — keep the panel open there */
+@media (hover: none) {
+  .id-card__reveal {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  .id-card__hint {
+    display: none;
+  }
+}
+
 /* ---- Landing backdrop: sky fading to paper + dotted grid --- */
 .sky {
   background: linear-gradient(

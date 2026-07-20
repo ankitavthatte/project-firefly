@@ -43,7 +43,12 @@ function IdCard() {
   const strip = Array.from({ length: 6 })
   return (
     <div className="relative w-full max-w-3xl">
-      <div className="overflow-hidden rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card)] shadow-[0_30px_70px_-30px_rgba(0,0,0,0.45)]">
+      {/* `group` + focusable so the reveal opens on hover, keyboard focus,
+          or tap (touch devices get it open via CSS below). */}
+      <div
+        tabIndex={0}
+        className="id-card group overflow-hidden rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card)] shadow-[0_30px_70px_-30px_rgba(0,0,0,0.45)] outline-none transition-shadow duration-300 hover:shadow-[0_40px_90px_-30px_rgba(0,0,0,0.55)]"
+      >
         {/* orange marquee strip */}
         <div className="marquee bg-[color:var(--color-orange)] py-2.5 text-[color:var(--color-ink)]">
           <div className="marquee__track">
@@ -57,7 +62,9 @@ function IdCard() {
         </div>
 
         {/* card body */}
-        <div className="grid gap-4 p-6 sm:grid-cols-[minmax(180px,0.8fr)_1.2fr] sm:gap-8 sm:p-9">
+        <div className="relative grid gap-4 p-6 sm:grid-cols-[minmax(180px,0.8fr)_1.2fr] sm:gap-8 sm:p-9">
+          {/* green sticker sits at the body's bottom-right, overlapping the reveal */}
+          <Paw className="absolute -bottom-7 right-5 z-20 h-16 w-16 rotate-[18deg]" />
           {/* photo + sunburst */}
           <div className="relative flex min-h-[15rem] items-end justify-center overflow-hidden">
             <div className="sunburst pointer-events-none absolute left-1/2 top-[38%] h-64 w-64 -translate-x-1/2 -translate-y-1/2" />
@@ -81,16 +88,32 @@ function IdCard() {
 
             <div className="mt-6 max-w-xs">
               <div className="barcode" />
-              <div className="mono mt-1 text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
-                AT · 2016 — {new Date().getFullYear()}
+              <div className="mono mt-1 flex items-center justify-between text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
+                <span>AT · 2016 — {new Date().getFullYear()}</span>
+                <span className="id-card__hint tracking-normal">hover ▾</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* green sticker overlapping the card */}
-      <Paw className="absolute -bottom-4 right-6 h-16 w-16 rotate-[18deg]" />
+        {/* reveal panel — collapsed until hover/focus/tap */}
+        <div className="id-card__reveal">
+          <div className="bg-[color:var(--color-orange)] px-6 py-8 text-center text-white sm:px-10">
+            <p className="mono mx-auto max-w-xl text-[0.95rem] leading-relaxed">
+              A Senior Product Designer who makes complex enterprise systems feel
+              obvious — architect-trained, sole designer behind Evalix AI’s 300+
+              screens. Off the clock: traveler, gamer, painter and cat mom to 11
+              rescues. Equal parts systems thinker and curious maker.
+            </p>
+            <a
+              href="#about"
+              className="pill mt-6 bg-[color:var(--color-ink)] border-[color:var(--color-ink)] hover:bg-white hover:text-[color:var(--color-orange)]"
+            >
+              more about me ↗
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
