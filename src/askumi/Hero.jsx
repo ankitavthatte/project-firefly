@@ -42,7 +42,7 @@ function CircleArrow() {
 function IdCard() {
   const strip = Array.from({ length: 6 })
   return (
-    <div className="relative mx-auto w-full max-w-[30rem]">
+    <div className="relative mx-auto w-full max-w-[23rem]">
       {/* `group` + focusable so the reveal opens on hover, keyboard focus,
           or tap (touch devices get it open via CSS below). */}
       <div
@@ -66,10 +66,10 @@ function IdCard() {
           {/* green sticker sits at the body's bottom-right, overlapping the reveal */}
           <Paw className="absolute -bottom-7 right-5 z-20 h-14 w-14 rotate-[18deg]" />
 
-          <h1 className="mono text-2xl font-bold tracking-tight text-[color:var(--color-orange)]">
+          <h1 className="mono text-xl font-bold tracking-tight text-[color:var(--color-orange)]">
             {identity.name.toUpperCase()}
           </h1>
-          <p className="mono mt-1 text-[0.95rem] text-[color:var(--color-ink)]">{identity.role}</p>
+          <p className="mono mt-1 text-[0.85rem] text-[color:var(--color-ink)]">{identity.role}</p>
 
           <hr className="my-5 w-16 border-[color:var(--color-line)]" />
 
