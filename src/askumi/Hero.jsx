@@ -42,7 +42,7 @@ function CircleArrow() {
 function IdCard() {
   const strip = Array.from({ length: 6 })
   return (
-    <div className="relative mx-auto w-full max-w-[23rem]">
+    <div className="relative mx-auto w-full max-w-[34rem]">
       {/* `group` + focusable so the reveal opens on hover, keyboard focus,
           or tap (touch devices get it open via CSS below). */}
       <div
@@ -62,24 +62,23 @@ function IdCard() {
         </div>
 
         {/* card body — name centred, no portrait */}
-        <div className="relative flex flex-col items-center px-6 py-8 text-center sm:px-8">
+        <div className="relative flex flex-col items-center px-8 py-5 text-center sm:px-10">
           {/* green sticker sits at the body's bottom-right, overlapping the reveal */}
-          <Paw className="absolute -bottom-7 right-5 z-20 h-14 w-14 rotate-[18deg]" />
+          <Paw className="absolute -bottom-6 right-5 z-20 h-12 w-12 rotate-[18deg]" />
 
           <h1 className="mono text-xl font-bold tracking-tight text-[color:var(--color-orange)]">
             {identity.name.toUpperCase()}
           </h1>
-          <p className="mono mt-1 text-[0.85rem] text-[color:var(--color-ink)]">{identity.role}</p>
+          <p className="mono mt-0.5 text-[0.85rem] text-[color:var(--color-ink)]">{identity.role}</p>
 
-          <hr className="my-5 w-16 border-[color:var(--color-line)]" />
+          <hr className="my-3 w-16 border-[color:var(--color-line)]" />
 
-          <p className="mono text-[0.9rem] leading-relaxed text-[color:var(--color-ink)]">
+          <p className="mono text-[0.88rem] leading-relaxed text-[color:var(--color-ink)]">
             Hostin Services · Cloud.in
-            <br />
-            <span className="text-[color:var(--color-ink-soft)]">[Currently designing Evalix AI]</span>
+            <span className="text-[color:var(--color-ink-soft)]"> · [Currently designing Evalix AI]</span>
           </p>
 
-          <div className="mt-6 w-full max-w-xs">
+          <div className="mt-4 w-full max-w-sm">
             <div className="barcode" />
             <div className="mono mt-1 flex items-center justify-between text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
               <span>AT · 2016 — {new Date().getFullYear()}</span>
