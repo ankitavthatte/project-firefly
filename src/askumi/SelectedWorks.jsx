@@ -28,7 +28,7 @@ export default function SelectedWorks() {
 
       <div className="wrap relative z-10">
         {/* header */}
-        <div className="mb-7 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <div className="mx-auto mb-7 flex max-w-4xl flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h2 className="display flex items-baseline gap-3 text-3xl sm:text-4xl">
             SELECTED WORKS
             <span className="mono text-base text-[color:var(--color-orange)]">[ {count} ]</span>
@@ -39,7 +39,7 @@ export default function SelectedWorks() {
         </div>
 
         {/* stacked cards */}
-        <div className="flex flex-col">
+        <div className="mx-auto flex max-w-4xl flex-col">
           {projects.map((p, i) => (
             <WorkCard key={p.id} project={p} index={i + 1} orange={i % 2 === 0} stackIndex={i} />
           ))}
@@ -63,7 +63,7 @@ function WorkCard({ project, index, orange, stackIndex }) {
     >
       {/* title bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-3 pt-2 sm:px-3">
-        <h3 className="mono text-[1.05rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.35rem]">
+        <h3 className="mono text-[0.95rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.15rem]">
           <span>{index}.</span>
           {meta.title}
         </h3>
@@ -85,7 +85,7 @@ function WorkCard({ project, index, orange, stackIndex }) {
             src={asset(meta.img)}
             alt={`${project.name} — ${project.tagline}`}
             loading="lazy"
-            className="h-[clamp(240px,40vw,440px)] w-full object-cover"
+            className="h-[clamp(170px,26vw,300px)] w-full object-cover"
           />
         ) : (
           <SystemMap />
@@ -111,7 +111,7 @@ function WorkCard({ project, index, orange, stackIndex }) {
 function SystemMap() {
   const nodes = Array.from({ length: 26 })
   return (
-    <div className="relative h-[clamp(240px,40vw,440px)] w-full overflow-hidden bg-[color:var(--color-card-hi)]">
+    <div className="relative h-[clamp(170px,26vw,300px)] w-full overflow-hidden bg-[color:var(--color-card-hi)]">
       <svg viewBox="0 0 200 130" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
         <g stroke="var(--color-line)" strokeWidth="0.4">
           <path d="M100 65 L40 25 M100 65 L160 25 M100 65 L28 100 M100 65 L172 100 M100 65 L100 15 M100 65 L100 118" />
@@ -144,7 +144,7 @@ function MoreWorkCard({ index, orange, stackIndex }) {
       style={{ top: `${20 + stackIndex * 58}px` }}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h3 className="mono text-[1.05rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.35rem]">
+        <h3 className="mono text-[0.95rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.15rem]">
           <span>{index}.</span>COLLECTION OF SIDE PROJECTS
         </h3>
         {behance && (
