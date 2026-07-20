@@ -42,7 +42,7 @@ function CircleArrow() {
 function IdCard() {
   const strip = Array.from({ length: 6 })
   return (
-    <div className="relative mx-auto w-full max-w-[34rem]">
+    <div className="relative mx-auto w-full max-w-[38rem]">
       {/* `group` + focusable so the reveal opens on hover, keyboard focus,
           or tap (touch devices get it open via CSS below). */}
       <div
@@ -62,7 +62,7 @@ function IdCard() {
         </div>
 
         {/* card body — name centred, no portrait */}
-        <div className="relative flex flex-col items-center px-8 py-5 text-center sm:px-10">
+        <div className="relative flex flex-col items-center px-8 py-4 text-center sm:px-12">
           {/* green sticker sits at the body's bottom-right, overlapping the reveal */}
           <Paw className="absolute -bottom-6 right-5 z-20 h-12 w-12 rotate-[18deg]" />
 
@@ -71,14 +71,14 @@ function IdCard() {
           </h1>
           <p className="mono mt-0.5 text-[0.85rem] text-[color:var(--color-ink)]">{identity.role}</p>
 
-          <hr className="my-3 w-16 border-[color:var(--color-line)]" />
+          <hr className="my-2.5 w-16 border-[color:var(--color-line)]" />
 
           <p className="mono text-[0.88rem] leading-relaxed text-[color:var(--color-ink)]">
             Hostin Services · Cloud.in
             <span className="text-[color:var(--color-ink-soft)]"> · [Currently designing Evalix AI]</span>
           </p>
 
-          <div className="mt-4 w-full max-w-sm">
+          <div className="mt-3 w-full max-w-sm">
             <div className="barcode" />
             <div className="mono mt-1 flex items-center justify-between text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
               <span>AT · 2016 — {new Date().getFullYear()}</span>
