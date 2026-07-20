@@ -269,6 +269,32 @@ body {
   border-top: 1px dashed var(--color-line);
 }
 
+/* ---- Landing backdrop: sky fading to paper + dotted grid --- */
+.sky {
+  background: linear-gradient(
+    180deg,
+    #a6d0e8 0%,
+    #bfdcee 18%,
+    #d8e6ec 38%,
+    var(--color-paper) 62%
+  );
+}
+.dotgrid {
+  background-image: radial-gradient(rgba(22, 21, 15, 0.16) 1px, transparent 1.4px);
+  background-size: 27px 27px;
+}
+
+/* hand-drawn sunburst rays behind the badge photo */
+.sunburst {
+  background: conic-gradient(
+    from 1deg,
+    rgba(22, 21, 15, 0.22) 0deg 1.6deg,
+    transparent 1.6deg 15deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 30%, #000 31% 74%, transparent 82%);
+  mask: radial-gradient(circle, transparent 30%, #000 31% 74%, transparent 82%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee__track,
   .float-a,

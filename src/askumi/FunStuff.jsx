@@ -25,7 +25,7 @@ const doodle = nowBoard.items.find((i) => i.href)?.href
 
 export default function FunStuff() {
   return (
-    <section id="about" className="relative overflow-hidden py-14">
+    <section id="fun" className="relative overflow-hidden py-14">
       <div className="wrap relative">
         {/* scattered stickers */}
         <Sticker rot={-18} className="left-2 top-4" size="2rem">
