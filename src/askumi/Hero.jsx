@@ -136,11 +136,6 @@ function BottomBar() {
         <a href={`mailto:${identity.email}`} className="hover:text-[color:var(--color-orange)]" aria-label="Email">
           <IconChat />
         </a>
-        <span className="mono text-[0.8rem] font-bold">CE</span>
-        <div className="mono hidden text-[0.62rem] leading-tight text-[color:var(--color-ink-soft)] sm:block">
-          <div>DIGITAL_DESIGN_ARTIFACTS</div>
-          <div>18.5204° N&nbsp;&nbsp;&nbsp;73.8567° E</div>
-        </div>
       </div>
 
       <CircleX />
