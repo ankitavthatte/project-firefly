@@ -1,8 +1,5 @@
-import { useState } from 'react'
 import { identity } from '../data/content.js'
 import Masthead from './Masthead.jsx'
-
-const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
 // The landing: a minimal full-screen scene — sky fading to a dotted-grid
 // canvas, a centered "studio ID card" as the hero object, and a technical
@@ -45,7 +42,7 @@ function CircleArrow() {
 function IdCard() {
   const strip = Array.from({ length: 6 })
   return (
-    <div className="relative mx-auto w-full max-w-2xl">
+    <div className="relative mx-auto w-full max-w-[30rem]">
       {/* `group` + focusable so the reveal opens on hover, keyboard focus,
           or tap (touch devices get it open via CSS below). */}
       <div
@@ -64,37 +61,29 @@ function IdCard() {
           </div>
         </div>
 
-        {/* card body */}
-        <div className="relative grid gap-4 p-6 sm:grid-cols-[minmax(180px,0.8fr)_1.2fr] sm:gap-8 sm:p-9">
+        {/* card body — name centred, no portrait */}
+        <div className="relative flex flex-col items-center px-6 py-8 text-center sm:px-8">
           {/* green sticker sits at the body's bottom-right, overlapping the reveal */}
-          <Paw className="absolute -bottom-7 right-5 z-20 h-16 w-16 rotate-[18deg]" />
-          {/* photo + sunburst */}
-          <div className="relative flex min-h-[15rem] items-end justify-center overflow-hidden">
-            <div className="sunburst pointer-events-none absolute left-1/2 top-[38%] h-64 w-64 -translate-x-1/2 -translate-y-1/2" />
-            <Portrait />
-          </div>
+          <Paw className="absolute -bottom-7 right-5 z-20 h-14 w-14 rotate-[18deg]" />
 
-          {/* details */}
-          <div className="flex flex-col justify-center">
-            <h1 className="mono text-2xl font-bold tracking-tight text-[color:var(--color-orange)] sm:text-[1.9rem]">
-              {identity.name.toUpperCase()}
-            </h1>
-            <p className="mono mt-1 text-[1rem] text-[color:var(--color-ink)]">{identity.role}</p>
+          <h1 className="mono text-2xl font-bold tracking-tight text-[color:var(--color-orange)]">
+            {identity.name.toUpperCase()}
+          </h1>
+          <p className="mono mt-1 text-[0.95rem] text-[color:var(--color-ink)]">{identity.role}</p>
 
-            <hr className="my-5 border-[color:var(--color-line)]" />
+          <hr className="my-5 w-16 border-[color:var(--color-line)]" />
 
-            <p className="mono text-[0.95rem] leading-relaxed text-[color:var(--color-ink)]">
-              Hostin Services · Cloud.in
-              <br />
-              <span className="text-[color:var(--color-ink-soft)]">[Currently designing Evalix AI]</span>
-            </p>
+          <p className="mono text-[0.9rem] leading-relaxed text-[color:var(--color-ink)]">
+            Hostin Services · Cloud.in
+            <br />
+            <span className="text-[color:var(--color-ink-soft)]">[Currently designing Evalix AI]</span>
+          </p>
 
-            <div className="mt-6 max-w-xs">
-              <div className="barcode" />
-              <div className="mono mt-1 flex items-center justify-between text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
-                <span>AT · 2016 — {new Date().getFullYear()}</span>
-                <span className="id-card__hint tracking-normal">hover ▾</span>
-              </div>
+          <div className="mt-6 w-full max-w-xs">
+            <div className="barcode" />
+            <div className="mono mt-1 flex items-center justify-between text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
+              <span>AT · 2016 — {new Date().getFullYear()}</span>
+              <span className="id-card__hint tracking-normal">hover ▾</span>
             </div>
           </div>
         </div>
@@ -118,55 +107,6 @@ function IdCard() {
         </div>
       </div>
     </div>
-  )
-}
-
-// Renders the real headshot when identity.photo resolves; otherwise the
-// stylised silhouette. Dropping public/<identity.photo> is all it takes.
-function Portrait() {
-  const [failed, setFailed] = useState(false)
-  if (identity.photo && !failed) {
-    return (
-      <img
-        src={asset(identity.photo)}
-        alt={identity.name}
-        onError={() => setFailed(true)}
-        className="photo-bw relative z-10 h-[15rem] w-[11rem] rounded-xl"
-      />
-    )
-  }
-  return <Silhouette />
-}
-
-function Silhouette() {
-  return (
-    <svg
-      viewBox="0 0 200 250"
-      className="relative z-10 h-[15rem] w-auto"
-      aria-label="Ankita Thatte"
-      role="img"
-      preserveAspectRatio="xMidYMax meet"
-    >
-      <defs>
-        <linearGradient id="bw" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#4a4a47" />
-          <stop offset="1" stopColor="#0e0e0d" />
-        </linearGradient>
-      </defs>
-      {/* shoulders — bleed to the bottom edge */}
-      <path d="M18 250c0-52 36-80 82-80s82 28 82 80z" fill="url(#bw)" />
-      {/* neck */}
-      <rect x="84" y="120" width="32" height="46" rx="14" fill="url(#bw)" />
-      {/* head */}
-      <ellipse cx="100" cy="92" rx="42" ry="50" fill="url(#bw)" />
-      {/* hair */}
-      <path
-        d="M56 96c-8-42 20-70 44-70s54 24 46 68c-3-10-8-18-15-24 3 8 3 16 1 24-6-20-20-32-40-32-22 0-36 16-40 40-1-6-1-12 0-18-2 4-2 8-1 12z"
-        fill="#060605"
-      />
-      {/* soft cheek highlight so it reads as a photo, not an icon */}
-      <ellipse cx="116" cy="104" rx="9" ry="14" fill="#e8e4db" opacity="0.12" />
-    </svg>
   )
 }
 
