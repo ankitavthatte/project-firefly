@@ -67,7 +67,7 @@ export default function FunStuff() {
                 loading="lazy"
                 className="aspect-square w-full rounded-sm object-cover"
               />
-              <figcaption className="mono mt-2 text-center text-[0.66rem] text-[color:var(--color-ink-soft)]">
+              <figcaption className="mono mt-2 text-center text-[0.66rem] text-[#5c554c]">
                 {p.cap}
               </figcaption>
             </figure>

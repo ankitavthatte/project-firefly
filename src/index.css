@@ -10,23 +10,24 @@
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --color-paper: #eee8dd;      /* warm ivory canvas */
-  --color-paper-deep: #e4ddce; /* recessed panels */
-  --color-card: #f7f2e8;       /* raised card surface */
-  --color-card-hi: #fdfaf2;    /* brightest surface */
-  --color-ink: #241c15;        /* warm espresso near-black */
-  --color-ink-soft: #6e6458;   /* muted warm labels */
-  --color-line: #d9d0c0;       /* warm hairline borders */
-  /* PRIMARY ACCENT — terracotta (named 'orange' for historical reasons; it
-     is the single accent used across cards, headings and marquees) */
-  --color-orange: #93381e;
-  --color-orange-deep: #6e2915;
-  --color-pop: #dfa23e;        /* warm amber-gold pop — details & fun card */
-  --color-pop-deep: #bf8329;
-  --color-green: #3fac79;      /* console jade */
-  --color-green-deep: #237552;
-  --color-lime: #e8b24c;       /* fun-stuff card — warm honey */
-  --color-sky: #ecd0bd;        /* warm clay top strip */
+  /* DARK THEME — near-black canvas, blue + orange glowing on top */
+  --color-paper: #101116;      /* near-black canvas */
+  --color-paper-deep: #16181f; /* recessed panels */
+  --color-card: #1a1c24;       /* raised card surface */
+  --color-card-hi: #23252f;    /* brightest (still dark) surface */
+  --color-ink: #f1ede3;        /* warm off-white text */
+  --color-ink-soft: #a29e95;   /* muted light labels */
+  --color-line: #34363f;       /* dark hairline borders */
+  /* PRIMARY ACCENT — orange (named 'orange' historically); the single accent
+     across cards, headings and marquees */
+  --color-orange: #f2611f;
+  --color-orange-deep: #d24d12;
+  --color-pop: #4f7bff;        /* electric-blue pop — details & fun card */
+  --color-pop-deep: #325fe0;
+  --color-green: #57c98a;      /* console green — pops on black */
+  --color-green-deep: #2f9c63;
+  --color-lime: #4f7bff;       /* fun-stuff card — electric blue */
+  --color-sky: #1d2b60;        /* night-blue top strip */
 }
 
 html,
@@ -359,14 +360,14 @@ body {
 .sky {
   background: linear-gradient(
     180deg,
-    #e7c4ad 0%,
-    #edd3c0 18%,
-    #ecdfd0 38%,
-    var(--color-paper) 62%
+    #1d2b60 0%,
+    #171c34 20%,
+    #121420 46%,
+    var(--color-paper) 66%
   );
 }
 .dotgrid {
-  background-image: radial-gradient(rgba(22, 21, 15, 0.16) 1px, transparent 1.4px);
+  background-image: radial-gradient(rgba(241, 237, 227, 0.1) 1px, transparent 1.4px);
   background-size: 27px 27px;
 }
 

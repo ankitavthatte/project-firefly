@@ -111,7 +111,7 @@ function WorkCard({ project, index, orange, stackIndex }) {
         )}
 
         {/* open affordance */}
-        <span className="mono absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-[0.62rem] text-[color:var(--color-ink)]">
+        <span className="mono absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-[0.62rem] text-[#161116]">
           Open case study ↗
         </span>
       </div>

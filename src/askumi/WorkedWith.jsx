@@ -138,7 +138,7 @@ function Console() {
               go(screen + 1)
             }
           }}
-          className="relative cursor-pointer select-none rounded-[20px] bg-[color:var(--color-ink)] p-5 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--color-green)]"
+          className="relative cursor-pointer select-none rounded-[20px] bg-[#14161f] p-5 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--color-green)]"
         >
           {/* screen header */}
           <div className="mono mb-4 flex items-center justify-between text-[0.6rem] tracking-[0.2em] text-white/45">
@@ -187,7 +187,7 @@ function Console() {
                             i === 0 ? 'col-span-2' : ''
                           }`}
                         >
-                          <span className="display text-[0.95rem] leading-tight text-[color:var(--color-paper)]">
+                          <span className="display text-[0.95rem] leading-tight text-[#f4f1ea]">
                             {r}
                           </span>
                         </div>
@@ -201,7 +201,7 @@ function Console() {
                           key={t}
                           className="flex min-h-[42px] items-center justify-center rounded-lg bg-white/5 px-2 text-center"
                         >
-                          <span className="mono text-[0.72rem] leading-tight text-[color:var(--color-paper)]">
+                          <span className="mono text-[0.72rem] leading-tight text-[#f4f1ea]">
                             {t}
                           </span>
                         </div>
