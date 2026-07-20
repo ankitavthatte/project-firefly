@@ -54,7 +54,7 @@ function WorkCard({ project, index, orange, stackIndex }) {
   const meta = WORK[project.id] || { title: project.name.toUpperCase(), category: project.kind }
   return (
     <article
-      className={`stack-card mb-5 cursor-pointer p-3 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] sm:p-4 ${
+      className={`stack-card cursor-hand-lg mb-5 p-3 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] sm:p-4 ${
         orange
           ? 'bg-[color:var(--color-orange)]'
           : 'border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)]'
@@ -163,7 +163,7 @@ function MoreWorkCard({ index, orange, stackIndex }) {
         {named.map((e) => (
           <div
             key={e.name}
-            className="cursor-pointer rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-paper)] p-4 transition hover:border-[color:var(--color-orange)]"
+            className="cursor-hand-lg rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-paper)] p-4 transition hover:border-[color:var(--color-orange)]"
           >
             <div className="display text-lg">{e.name}</div>
             <div className="mono mt-1 text-[0.72rem] text-[color:var(--color-ink-soft)]">{e.note}</div>
