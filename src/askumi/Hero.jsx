@@ -45,7 +45,7 @@ function CircleArrow() {
 function IdCard() {
   const strip = Array.from({ length: 6 })
   return (
-    <div className="relative w-full max-w-3xl">
+    <div className="relative mx-auto w-full max-w-2xl">
       {/* `group` + focusable so the reveal opens on hover, keyboard focus,
           or tap (touch devices get it open via CSS below). */}
       <div
