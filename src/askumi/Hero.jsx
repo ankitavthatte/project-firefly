@@ -49,8 +49,8 @@ function IdCard() {
         tabIndex={0}
         className="id-card group overflow-hidden rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card)] shadow-[0_30px_70px_-30px_rgba(0,0,0,0.45)] outline-none transition-shadow duration-300 hover:shadow-[0_40px_90px_-30px_rgba(0,0,0,0.55)]"
       >
-        {/* orange marquee strip */}
-        <div className="marquee bg-[color:var(--color-orange)] py-2.5 text-[color:var(--color-ink)]">
+        {/* accent marquee strip */}
+        <div className="marquee bg-[color:var(--color-orange)] py-2.5 text-white">
           <div className="marquee__track">
             {strip.map((_, i) => (
               <span key={i} className="mono inline-flex items-center gap-4 text-[0.8rem]">

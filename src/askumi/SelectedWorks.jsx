@@ -65,7 +65,11 @@ function WorkCard({ project, index, orange, stackIndex }) {
     >
       {/* title bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-3 pt-2 sm:px-3">
-        <h3 className="mono text-[0.95rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.15rem]">
+        <h3
+          className={`mono text-[0.95rem] font-bold tracking-tight sm:text-[1.15rem] ${
+            orange ? 'text-white' : 'text-[color:var(--color-ink)]'
+          }`}
+        >
           <span>{index}.</span>
           {meta.title}
         </h3>
@@ -151,7 +155,11 @@ function MoreWorkCard({ index, orange, stackIndex }) {
       style={{ top: `${20 + stackIndex * 58}px` }}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h3 className="mono text-[0.95rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.15rem]">
+        <h3
+          className={`mono text-[0.95rem] font-bold tracking-tight sm:text-[1.15rem] ${
+            orange ? 'text-white' : 'text-[color:var(--color-ink)]'
+          }`}
+        >
           <span>{index}.</span>COLLECTION OF SIDE PROJECTS
         </h3>
         {behance && (

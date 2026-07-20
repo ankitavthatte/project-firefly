@@ -10,19 +10,23 @@
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --color-paper: #e9e6df;      /* the warm canvas */
-  --color-paper-deep: #ddd9d0; /* recessed panels */
-  --color-card: #f7f5f0;       /* raised card surface */
-  --color-card-hi: #fdfcf9;    /* brightest surface */
-  --color-ink: #16150f;        /* near-black text */
-  --color-ink-soft: #6a675d;   /* muted labels */
-  --color-line: #cbc7bd;       /* hairline borders */
-  --color-orange: #ff5a1f;     /* the one accent */
-  --color-orange-deep: #e8410a;
+  --color-paper: #eceae4;      /* cool-neutral canvas */
+  --color-paper-deep: #e0ded6; /* recessed panels */
+  --color-card: #f7f6f2;       /* raised card surface */
+  --color-card-hi: #fcfcf9;    /* brightest surface */
+  --color-ink: #14151a;        /* near-black, faint blue bias */
+  --color-ink-soft: #63656f;   /* muted labels */
+  --color-line: #cfcdc5;       /* hairline borders */
+  /* PRIMARY ACCENT — cobalt (named 'orange' for historical reasons; it is
+     the single accent used across cards, headings and marquees) */
+  --color-orange: #2a3bd0;
+  --color-orange-deep: #1e2ca8;
+  --color-pop: #ffc24b;        /* butter-yellow pop — details & the fun card */
+  --color-pop-deep: #e9a72e;
   --color-green: #57c98a;      /* sticker / console green */
   --color-green-deep: #2f9c63;
-  --color-lime: #c9f24e;       /* fun-stuff portrait card */
-  --color-sky: #bcd9ec;        /* top strip sky */
+  --color-lime: #ffce54;       /* fun-stuff portrait card — now butter */
+  --color-sky: #c7d0f0;        /* periwinkle top strip */
 }
 
 html,
@@ -355,9 +359,9 @@ body {
 .sky {
   background: linear-gradient(
     180deg,
-    #a6d0e8 0%,
-    #bfdcee 18%,
-    #d8e6ec 38%,
+    #b3bdef 0%,
+    #c8cff1 18%,
+    #dfe2ef 38%,
     var(--color-paper) 62%
   );
 }

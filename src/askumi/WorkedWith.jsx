@@ -215,7 +215,7 @@ function Console() {
                           key={s.l}
                           className="flex min-h-[78px] flex-col items-center justify-center rounded-lg bg-white/5"
                         >
-                          <span className="display text-2xl text-[color:var(--color-green)]">{s.v}</span>
+                          <span className="display text-2xl text-[color:var(--color-pop)]">{s.v}</span>
                           <span className="mono mt-0.5 text-[0.6rem] uppercase tracking-[0.15em] text-white/50">
                             {s.l}
                           </span>
