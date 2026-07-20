@@ -75,7 +75,8 @@ function IdCard() {
 
           <p className="mono text-[0.88rem] leading-relaxed text-[color:var(--color-ink)]">
             Hostin Services · Cloud.in
-            <span className="text-[color:var(--color-ink-soft)]"> · [Currently designing Evalix AI]</span>
+            <br />
+            <span className="text-[color:var(--color-ink-soft)]">[Currently designing Evalix AI]</span>
           </p>
 
           <div className="mt-3 w-full max-w-sm">
