@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { awards, identity } from '../data/content.js'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
@@ -72,7 +73,10 @@ export default function WorkedWith() {
 
 function Console() {
   const [screen, setScreen] = useState(0)
+  const [height, setHeight] = useState('auto')
   const pausedRef = useRef(false)
+  const contentRef = useRef(null)
+  const reduce = useReducedMotion()
 
   // Auto-cycle the cartridges, pausing on hover/focus and for reduced motion.
   useEffect(() => {
@@ -83,9 +87,21 @@ function Console() {
     return () => clearInterval(id)
   }, [])
 
+  // Track the active cartridge's natural height so the screen morphs to it.
+  useLayoutEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+    const measure = () => setHeight(el.offsetHeight)
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
   const go = (i) => setScreen(((i % SCREENS.length) + SCREENS.length) % SCREENS.length)
   const pause = () => (pausedRef.current = true)
   const resume = () => (pausedRef.current = false)
+  const fade = { duration: reduce ? 0 : 0.3, ease: [0.4, 0, 0.2, 1] }
 
   return (
     <div
@@ -126,7 +142,9 @@ function Console() {
         >
           {/* screen header */}
           <div className="mono mb-4 flex items-center justify-between text-[0.6rem] tracking-[0.2em] text-white/45">
-            <span>{SCREENS[screen].app}</span>
+            <motion.span key={screen} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={fade}>
+              {SCREENS[screen].app}
+            </motion.span>
             <span className="flex items-center gap-1.5">
               {SCREENS.map((_, i) => (
                 <button
@@ -144,58 +162,77 @@ function Console() {
             </span>
           </div>
 
-          {/* cartridge content */}
-          <div key={screen} className="screen-swap min-h-[172px]">
-            {screen === 0 && (
-              <div className="grid grid-cols-2 gap-2.5">
-                {ROSTER.map((r, i) => (
-                  <div
-                    key={r}
-                    className={`flex min-h-[54px] items-center justify-center rounded-lg bg-white/5 px-2 text-center ${
-                      i === 0 ? 'col-span-2' : ''
-                    }`}
-                  >
-                    <span className="display text-[0.95rem] leading-tight text-[color:var(--color-paper)]">
-                      {r}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-            {screen === 1 && (
-              <div className="grid grid-cols-2 gap-2">
-                {TOOLS.map((t) => (
-                  <div
-                    key={t}
-                    className="flex min-h-[42px] items-center justify-center rounded-lg bg-white/5 px-2 text-center"
-                  >
-                    <span className="mono text-[0.72rem] leading-tight text-[color:var(--color-paper)]">
-                      {t}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-            {screen === 2 && (
-              <div className="grid grid-cols-2 gap-2.5">
-                {STATS.map((s) => (
-                  <div
-                    key={s.l}
-                    className="flex min-h-[78px] flex-col items-center justify-center rounded-lg bg-white/5"
-                  >
-                    <span className="display text-2xl text-[color:var(--color-green)]">{s.v}</span>
-                    <span className="mono mt-0.5 text-[0.6rem] uppercase tracking-[0.15em] text-white/50">
-                      {s.l}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* cartridge content — the screen morphs to each layout's height
+              while the content cross-fades and scrolls between cartridges */}
+          <motion.div
+            animate={{ height }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+            className="overflow-hidden"
+          >
+            <div ref={contentRef}>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={screen}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={reduce ? { duration: 0 } : { duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                >
+                  {screen === 0 && (
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {ROSTER.map((r, i) => (
+                        <div
+                          key={r}
+                          className={`flex min-h-[54px] items-center justify-center rounded-lg bg-white/5 px-2 text-center ${
+                            i === 0 ? 'col-span-2' : ''
+                          }`}
+                        >
+                          <span className="display text-[0.95rem] leading-tight text-[color:var(--color-paper)]">
+                            {r}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {screen === 1 && (
+                    <div className="grid grid-cols-2 gap-2">
+                      {TOOLS.map((t) => (
+                        <div
+                          key={t}
+                          className="flex min-h-[42px] items-center justify-center rounded-lg bg-white/5 px-2 text-center"
+                        >
+                          <span className="mono text-[0.72rem] leading-tight text-[color:var(--color-paper)]">
+                            {t}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {screen === 2 && (
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {STATS.map((s) => (
+                        <div
+                          key={s.l}
+                          className="flex min-h-[78px] flex-col items-center justify-center rounded-lg bg-white/5"
+                        >
+                          <span className="display text-2xl text-[color:var(--color-green)]">{s.v}</span>
+                          <span className="mono mt-0.5 text-[0.6rem] uppercase tracking-[0.15em] text-white/50">
+                            {s.l}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </motion.div>
 
           {/* footer */}
           <div className="mono mt-4 flex items-center justify-between text-[0.6rem] text-white/40">
-            <span>{SCREENS[screen].foot}</span>
+            <motion.span key={screen} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={fade}>
+              {SCREENS[screen].foot}
+            </motion.span>
             <span className="text-[color:var(--color-green)]">tap ▸</span>
           </div>
         </div>
