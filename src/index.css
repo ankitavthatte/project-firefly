@@ -19,8 +19,8 @@
   --color-line: #d9d0c0;       /* warm hairline borders */
   /* PRIMARY ACCENT — terracotta (named 'orange' for historical reasons; it
      is the single accent used across cards, headings and marquees) */
-  --color-orange: #bc4b2e;
-  --color-orange-deep: #96371d;
+  --color-orange: #93381e;
+  --color-orange-deep: #6e2915;
   --color-pop: #dfa23e;        /* warm amber-gold pop — details & fun card */
   --color-pop-deep: #bf8329;
   --color-green: #3fac79;      /* console jade */
