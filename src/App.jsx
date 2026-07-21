@@ -14,11 +14,13 @@ import SiteFooter from './askumi/SiteFooter.jsx'
 import ProjectPage, { findWork } from './askumi/ProjectPage.jsx'
 import AboutPage from './askumi/AboutPage.jsx'
 import WorksPage from './askumi/WorksPage.jsx'
+import FunStuffPage from './askumi/FunStuffPage.jsx'
 import GridBackground from './askumi/GridBackground.jsx'
 
 const WORK_ROUTE = /^#\/work\/(.+)$/
 const ABOUT_ROUTE = '#/about'
 const WORKS_ROUTE = '#/works'
+const FUN_ROUTE = '#/fun'
 
 function useHashRoute() {
   const [hash, setHash] = useState(() => window.location.hash)
@@ -49,6 +51,7 @@ export default function App() {
   const item = match ? findWork(match[1]) : null
   const isAbout = hash === ABOUT_ROUTE
   const isWorks = hash === WORKS_ROUTE
+  const isFun = hash === FUN_ROUTE
 
   return (
     <>
@@ -60,6 +63,8 @@ export default function App() {
         <AboutPage />
       ) : isWorks ? (
         <WorksPage />
+      ) : isFun ? (
+        <FunStuffPage />
       ) : (
         <div className="grain relative z-10 min-h-full">
           <Hero />

@@ -1,5 +1,6 @@
 import { projects, experiments, identity } from '../data/content.js'
-import { Asterisk, TechLabel } from './bits.jsx'
+import { TechLabel } from './bits.jsx'
+import Masthead from './Masthead.jsx'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 const behance = identity.links.find((l) => l.label === 'Behance')?.href
@@ -16,21 +17,12 @@ export default function ProjectPage({ item }) {
   const intro = item.summary || item.intro
   return (
     <div className="grain relative z-10 min-h-full">
-      {/* nav */}
-      <nav className="wrap flex items-center justify-between pt-6">
-        <a
-          href="#top"
-          className="inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--color-ink)] bg-[color:var(--color-card-hi)] px-4 py-2 font-extrabold tracking-tight"
-        >
-          <Asterisk size={18} />
-          <span className="text-base">ANKITA</span>
-        </a>
-        <a href="#/works" className="pill pill-ghost">
-          ← All work
-        </a>
-      </nav>
+      <Masthead active="works" />
 
       <article className="wrap max-w-3xl pb-20 pt-10">
+        <a href="#/works" className="pill pill-ghost mb-6 inline-flex">
+          ← All work
+        </a>
         {/* title block */}
         <TechLabel>{item.kind || 'Selected work'}</TechLabel>
         <h1 className="display mt-3 text-[2.6rem] leading-[0.98] sm:text-[3.6rem]">{item.name}</h1>

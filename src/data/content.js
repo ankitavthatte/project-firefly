@@ -478,6 +478,36 @@ export const nowBoard = {
   ],
 }
 
+// "Fun Stuff" — the creative side-quests that live outside client work. Each
+// card shows a title, a blurb and a visual; an optional href makes it clickable.
+export const funStuff = [
+  {
+    title: 'The Nook',
+    emoji: '🍵',
+    desc: 'A café & co-working brand identity — logo, illustration, signage and merch, all hand-drawn first.',
+    img: 'art/nook.jpg',
+    href: '#/work/nook',
+  },
+  {
+    title: 'Setu · India Post',
+    emoji: '🕊️',
+    desc: 'A friendly postal mascot — “a bridge that connects every heart” — with a full set of expressions, poses and a brand story.',
+    img: 'art/setu.jpg',
+  },
+  {
+    title: 'Adoption is Love',
+    emoji: '💛',
+    desc: 'A myth-vs-reality awareness poster that makes legal adoption clear, warm and easy to share.',
+    img: 'art/adoption.jpg',
+  },
+  {
+    title: 'Daily Doodles',
+    emoji: '✏️',
+    desc: 'Little drawings and design bits, posted (almost) daily over at @punedoodlerr.',
+    href: 'https://www.instagram.com/punedoodlerr',
+  },
+]
+
 // Recommendations carry more senior-hire weight than any animation. Add real
 // quotes from managers, PMs or engineers and they'll render automatically; while
 // this is empty, the section stays hidden (no placeholder ships). Shape:

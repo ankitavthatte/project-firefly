@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { identity, chapters, travel } from '../data/content.js'
-import { Asterisk, TechLabel } from './bits.jsx'
+import { TechLabel } from './bits.jsx'
+import Masthead from './Masthead.jsx'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
@@ -25,19 +26,7 @@ export default function AboutPage() {
 
   return (
     <div className="grain relative z-10 min-h-full">
-      {/* nav */}
-      <nav className="wrap flex items-center justify-between pt-6">
-        <a
-          href="#top"
-          className="inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--color-ink)] bg-[color:var(--color-card-hi)] px-4 py-2 font-extrabold tracking-tight"
-        >
-          <Asterisk size={18} />
-          <span className="text-base">ANKITA</span>
-        </a>
-        <a href="#top" className="pill pill-ghost">
-          ← Back home
-        </a>
-      </nav>
+      <Masthead active="about" />
 
       <div className="wrap pb-24 pt-8">
         {/* header strip */}
