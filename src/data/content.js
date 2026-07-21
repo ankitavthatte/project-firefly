@@ -419,7 +419,7 @@ export const processSteps = [
 export const chapters = [
   {
     title: 'Architecture',
-    detail: 'Venkatramanan Associates & other firms · 2017–2024',
+    detail: 'Venkatramanan Associates & other firms · 2015–2024',
     color: 'wood',
     body: 'Trained as an architect (BArch, 2015). Learned that every structure is really a set of human decisions — circulation, light, hierarchy. Buildings taught me systems thinking before I knew the term.',
   },
