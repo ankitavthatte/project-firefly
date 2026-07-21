@@ -9,6 +9,7 @@ import FunStuff from './askumi/FunStuff.jsx'
 import WorkedWith from './askumi/WorkedWith.jsx'
 import SiteFooter from './askumi/SiteFooter.jsx'
 import ProjectPage, { findWork } from './askumi/ProjectPage.jsx'
+import GridBackground from './askumi/GridBackground.jsx'
 
 const WORK_ROUTE = /^#\/work\/(.+)$/
 
@@ -36,23 +37,27 @@ function useHashRoute() {
 
 export default function App() {
   const hash = useHashRoute()
-
   const match = hash.match(WORK_ROUTE)
-  if (match) {
-    const item = findWork(match[1])
-    if (item) return <ProjectPage item={item} />
-  }
+  const item = match ? findWork(match[1]) : null
 
   return (
-    <div className="grain min-h-full bg-[color:var(--color-paper)]">
-      <Hero />
-      <main>
-        <IntroBand />
-        <SelectedWorks />
-        <FunStuff />
-        <WorkedWith />
-      </main>
-      <SiteFooter />
-    </div>
+    <>
+      {/* the grid mesh sits behind the whole site */}
+      <GridBackground />
+      {item ? (
+        <ProjectPage item={item} />
+      ) : (
+        <div className="grain relative z-10 min-h-full">
+          <Hero />
+          <main>
+            <IntroBand />
+            <SelectedWorks />
+            <FunStuff />
+            <WorkedWith />
+          </main>
+          <SiteFooter />
+        </div>
+      )}
+    </>
   )
 }

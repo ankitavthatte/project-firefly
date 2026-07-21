@@ -23,8 +23,6 @@ const doodle = nowBoard.items.find((i) => i.href)?.href
 export default function FunStuff() {
   return (
     <section id="fun" className="relative overflow-hidden py-16">
-      <div className="dotgrid pointer-events-none absolute inset-0 opacity-60" />
-
       <div className="wrap relative">
         {/* floating critters */}
         <Sticker rot={-14} className="left-3 top-6" size="2rem">🐝</Sticker>

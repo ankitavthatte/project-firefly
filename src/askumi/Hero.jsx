@@ -1,14 +1,12 @@
 import { identity } from '../data/content.js'
 import Masthead from './Masthead.jsx'
-import GridBackground from './GridBackground.jsx'
 
-// The landing: a minimal full-screen scene — an interactive grid mesh that
-// warps toward the cursor, a centered "studio ID card" as the hero object,
-// and a technical toolbar pinned along the bottom.
+// The landing: a minimal full-screen scene — a centered "studio ID card" as
+// the hero object over the site-wide grid mesh, and a technical toolbar
+// pinned along the bottom.
 export default function Hero() {
   return (
-    <section id="top" className="relative min-h-screen overflow-hidden bg-[color:var(--color-paper)]">
-      <GridBackground />
+    <section id="top" className="relative min-h-screen overflow-hidden">
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <Masthead />

@@ -13,7 +13,7 @@ export default function ProjectPage({ item }) {
   const subtitle = item.tagline || item.note
   const intro = item.summary || item.intro
   return (
-    <div className="grain min-h-full bg-[color:var(--color-paper)]">
+    <div className="grain relative z-10 min-h-full">
       {/* nav */}
       <nav className="wrap flex items-center justify-between pt-6">
         <a
