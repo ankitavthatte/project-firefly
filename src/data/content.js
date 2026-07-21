@@ -318,7 +318,6 @@ export const experiments = [
   },
   { name: 'Vfort', note: 'Security product exploration — trust as a visual language.' },
   { name: 'Niyantrac', note: 'Control-and-monitoring dashboard concepts.' },
-  { name: 'Luma', note: 'Light, ambient interface experiments.' },
 ]
 
 // The architecture years. Items use the same media shapes as experiments —

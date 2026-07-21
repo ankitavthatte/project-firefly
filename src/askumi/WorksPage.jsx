@@ -33,7 +33,6 @@ const PREVIEW = {
 const LOCKED_CATEGORY = {
   Vfort: 'Product Exploration',
   Niyantrac: 'Dashboard Concepts',
-  Luma: 'Interface Experiments',
 }
 
 const PREVIEW_H = 300 // px — kept in sync with the image height below
