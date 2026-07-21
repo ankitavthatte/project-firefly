@@ -97,7 +97,7 @@ function IdCard() {
               rescues. Equal parts systems thinker and curious maker.
             </p>
             <a
-              href="#about"
+              href="#/about"
               className="pill mt-6 bg-[color:var(--color-ink)] border-[color:var(--color-ink)] hover:bg-white hover:text-[color:var(--color-orange)]"
             >
               more about me ↗

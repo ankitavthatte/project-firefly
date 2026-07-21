@@ -12,9 +12,11 @@ import ArchPlay from './askumi/ArchPlay.jsx'
 import Conversation from './askumi/Conversation.jsx'
 import SiteFooter from './askumi/SiteFooter.jsx'
 import ProjectPage, { findWork } from './askumi/ProjectPage.jsx'
+import AboutPage from './askumi/AboutPage.jsx'
 import GridBackground from './askumi/GridBackground.jsx'
 
 const WORK_ROUTE = /^#\/work\/(.+)$/
+const ABOUT_ROUTE = '#/about'
 
 function useHashRoute() {
   const [hash, setHash] = useState(() => window.location.hash)
@@ -27,7 +29,8 @@ function useHashRoute() {
   // Manage scroll: a work page jumps to the top; a section anchor scrolls
   // to its element once the home page has rendered.
   useEffect(() => {
-    if (WORK_ROUTE.test(hash)) {
+    if (hash.startsWith('#/')) {
+      // a routed page (work / about) always opens at the top
       window.scrollTo(0, 0)
     } else if (hash && hash.length > 1) {
       const el = document.querySelector(hash)
@@ -42,6 +45,7 @@ export default function App() {
   const hash = useHashRoute()
   const match = hash.match(WORK_ROUTE)
   const item = match ? findWork(match[1]) : null
+  const isAbout = hash === ABOUT_ROUTE
 
   return (
     <>
@@ -49,6 +53,8 @@ export default function App() {
       <GridBackground />
       {item ? (
         <ProjectPage item={item} />
+      ) : isAbout ? (
+        <AboutPage />
       ) : (
         <div className="grain relative z-10 min-h-full">
           <Hero />
