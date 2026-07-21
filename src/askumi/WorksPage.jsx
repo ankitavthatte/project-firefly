@@ -22,20 +22,24 @@ const TITLE = {
   moneyminds: 'GAMIFYING FINANCIAL LITERACY',
   shiftcare: 'SCHEDULING HEALTHCARE WITHOUT THE CHAOS',
 }
-const PREVIEW = {
-  moneyminds: 'projects/moneyminds/intro.jpg',
-  shiftcare: 'projects/shiftcare/slide-17.jpg',
-  irctc: 'projects/irctc/redesign-1.jpg',
-  chownow: 'projects/chownow/board-1.jpg',
-  nook: 'projects/nook/nook-01.jpg',
-  logofolio: 'projects/logofolio/board-1.jpg',
-}
 const LOCKED_CATEGORY = {
   Vfort: 'Product Exploration',
   Niyantrac: 'Dashboard Concepts',
 }
 
 const PREVIEW_H = 300 // px — kept in sync with the image height below
+
+// The hover preview should be each project's FIRST main image — the first
+// thing shown on its page — not a random middle slide. Derive it from the
+// project's own media so it always matches (skipping video intros).
+function firstImage(item) {
+  if (!item.media) return undefined
+  for (const m of item.media) {
+    if (m.type === 'image' && m.src) return m.src
+    if (m.type === 'board' && m.srcs?.length) return m.srcs[0]
+  }
+  return undefined
+}
 
 function buildRows() {
   const rows = []
@@ -46,7 +50,7 @@ function buildRows() {
       id: p.id,
       title: TITLE[p.id] || p.name.toUpperCase(),
       category: CATEGORY[p.id] || p.kind,
-      preview: PREVIEW[p.id],
+      preview: firstImage(p),
     }),
   )
   experiments.forEach((e) => {
@@ -55,7 +59,7 @@ function buildRows() {
         id: e.id,
         title: e.name.toUpperCase(),
         category: CATEGORY[e.id] || 'Case study',
-        preview: PREVIEW[e.id],
+        preview: firstImage(e),
       })
     } else {
       rows.push({
