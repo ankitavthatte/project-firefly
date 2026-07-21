@@ -26,6 +26,11 @@ const LOCKED_CATEGORY = {
   Vfort: 'Product Exploration',
   Niyantrac: 'Dashboard Concepts',
 }
+// Where to anchor the preview crop. MoneyMinds' first image is a tall board
+// whose cover (the phone mockup) sits at the very top, so anchor it there.
+const PREVIEW_POS = {
+  moneyminds: 'top',
+}
 
 const PREVIEW_H = 300 // px — kept in sync with the image height below
 
@@ -51,6 +56,7 @@ function buildRows() {
       title: TITLE[p.id] || p.name.toUpperCase(),
       category: CATEGORY[p.id] || p.kind,
       preview: firstImage(p),
+      pos: PREVIEW_POS[p.id],
     }),
   )
   experiments.forEach((e) => {
@@ -60,6 +66,7 @@ function buildRows() {
         title: e.name.toUpperCase(),
         category: CATEGORY[e.id] || 'Case study',
         preview: firstImage(e),
+        pos: PREVIEW_POS[e.id],
       })
     } else {
       rows.push({
@@ -86,7 +93,7 @@ export default function WorksPage() {
     const r = el.getBoundingClientRect()
     const centre = r.top - list.top + r.height / 2
     const top = Math.max(0, Math.min(centre - PREVIEW_H / 2, list.height - PREVIEW_H))
-    setHover({ src: row.preview, top })
+    setHover({ src: row.preview, top, pos: row.pos })
   }
 
   return (
@@ -133,7 +140,7 @@ export default function WorksPage() {
           }`}
           style={{ top: hover ? hover.top : 0 }}
         >
-          <Preview src={hover?.src} />
+          <Preview src={hover?.src} pos={hover?.pos} />
         </div>
       </div>
 
@@ -205,11 +212,16 @@ function WorkRow({ row, onHover }) {
   )
 }
 
-function Preview({ src }) {
+function Preview({ src, pos }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] shadow-[0_30px_70px_-24px_rgba(0,0,0,0.8)]">
       {src ? (
-        <img src={asset(src)} alt="Work preview" className="h-[300px] w-full object-cover" />
+        <img
+          src={asset(src)}
+          alt="Work preview"
+          className="h-[300px] w-full object-cover"
+          style={{ objectPosition: pos || 'center' }}
+        />
       ) : (
         <div className="grid h-[300px] w-full place-items-center bg-[color:var(--color-card-hi)] px-6 text-center">
           <span className="mono text-[0.72rem] tracking-[0.15em] text-[color:var(--color-ink-soft)]">
