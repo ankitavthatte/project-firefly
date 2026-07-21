@@ -23,7 +23,7 @@ export default function ProjectPage({ item }) {
           <Asterisk size={18} />
           <span className="text-base">ANKITA</span>
         </a>
-        <a href="#work" className="pill pill-ghost">
+        <a href="#/works" className="pill pill-ghost">
           ← All work
         </a>
       </nav>
@@ -146,7 +146,7 @@ export default function ProjectPage({ item }) {
 
         {/* footer nav */}
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-dashed border-[color:var(--color-line)] pt-8">
-          <a href="#work" className="pill pill-ghost">
+          <a href="#/works" className="pill pill-ghost">
             ← Back to all work
           </a>
           {behance && (

@@ -8,7 +8,7 @@ const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 export default function Masthead() {
   const links = [
     { label: 'About', href: '#/about' },
-    { label: 'Works', href: '#work' },
+    { label: 'Works', href: '#/works' },
     { label: 'Fun Stuff', href: '#fun' },
     { label: 'Resume', href: asset(identity.resumeFile), external: true },
   ]

@@ -103,7 +103,7 @@ export default function AboutPage() {
 
         {/* footer nav */}
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-          <a href="#work" className="pill pill-ghost">
+          <a href="#/works" className="pill pill-ghost">
             See selected work →
           </a>
           <a href={`mailto:${identity.email}`} className="pill pill-orange">
