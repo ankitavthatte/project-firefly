@@ -8,7 +8,7 @@ const LIFTS = [24, 0, 40, 8, 32]
 
 export default function Journey() {
   return (
-    <section id="journey" className="relative overflow-hidden py-16">
+    <section id="journey" className="relative overflow-hidden py-24">
       <div className="wrap">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="mono text-4xl font-bold tracking-tight sm:text-5xl">My Journey</h2>

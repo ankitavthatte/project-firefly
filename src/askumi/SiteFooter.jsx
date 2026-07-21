@@ -27,7 +27,7 @@ const TICKER = ['And… that was my portfolio', '✳', 'And… that was my portf
 export default function SiteFooter() {
   const socials = identity.links.filter((l) => ICONS[l.label])
   return (
-    <footer id="say-hey" className="wrap py-16">
+    <footer id="say-hey" className="wrap pt-24 pb-16">
       <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.5fr_1fr]">
         {/* THE END */}
         <div className="order-2 lg:order-1">

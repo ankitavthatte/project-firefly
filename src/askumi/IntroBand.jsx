@@ -6,7 +6,7 @@ import { TechLabel, Asterisk } from './bits.jsx'
 // landing card so the first scroll lands on the promise.
 export default function IntroBand() {
   return (
-    <section id="about" className="wrap scroll-mt-6 pt-14 pb-6">
+    <section id="about" className="wrap scroll-mt-6 pt-20 pb-10">
       <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr] lg:items-end">
         <div>
           <TechLabel index="00">the promise</TechLabel>

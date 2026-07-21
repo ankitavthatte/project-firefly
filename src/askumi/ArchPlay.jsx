@@ -158,7 +158,7 @@ export default function ArchPlay() {
   const onActivate = () => nextRef.current && nextRef.current()
 
   return (
-    <section className="wrap py-16">
+    <section className="wrap py-24">
       <div className="mx-auto max-w-3xl text-center">
         <span className="tech text-[color:var(--color-orange)]">
           [ before pixels, there were buildings ]

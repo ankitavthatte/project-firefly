@@ -28,7 +28,7 @@ export default function WorkedWith() {
   const left = awards.slice(0, 2)
   const right = awards.slice(2)
   return (
-    <section className="relative overflow-hidden py-14">
+    <section className="relative overflow-hidden py-24">
       <div className="wrap relative">
         <div className="text-center">
           <div className="mono text-[0.9rem] text-[color:var(--color-ink-soft)]">

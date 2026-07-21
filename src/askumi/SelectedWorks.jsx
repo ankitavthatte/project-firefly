@@ -23,7 +23,7 @@ const behance = identity.links.find((l) => l.label === 'Behance')?.href
 export default function SelectedWorks() {
   const count = projects.length + 1
   return (
-    <section id="work" className="relative pt-6 pb-8">
+    <section id="work" className="relative pt-12 pb-16">
       <SideStickers />
 
       <div className="wrap relative z-10">

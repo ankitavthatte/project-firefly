@@ -16,7 +16,7 @@ export default function Conversation() {
     })
 
   return (
-    <section id="talk" className="wrap py-16">
+    <section id="talk" className="wrap py-24">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="mono text-4xl font-bold tracking-tight sm:text-5xl">Start a Conversation</h2>
         <p className="mono mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-[color:var(--color-ink-soft)]">
