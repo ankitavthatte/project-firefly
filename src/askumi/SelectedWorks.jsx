@@ -20,6 +20,9 @@ const WORK = {
 
 const behance = identity.links.find((l) => l.label === 'Behance')?.href
 
+// Each card gets a bold frame in a different accent, cycling down the stack.
+const CARD_ACCENTS = ['var(--color-orange)', 'var(--color-pop)', 'var(--color-green)']
+
 export default function SelectedWorks() {
   const visible = projects.filter((p) => !p.hidden)
   const count = visible.length + 1
@@ -42,44 +45,42 @@ export default function SelectedWorks() {
         {/* stacked cards */}
         <div className="mx-auto flex max-w-4xl flex-col">
           {visible.map((p, i) => (
-            <WorkCard key={p.id} project={p} index={i + 1} orange={i % 2 === 0} stackIndex={i} />
+            <WorkCard
+              key={p.id}
+              project={p}
+              index={i + 1}
+              accent={CARD_ACCENTS[i % CARD_ACCENTS.length]}
+              stackIndex={i}
+            />
           ))}
-          <MoreWorkCard index={count} orange={visible.length % 2 === 0} stackIndex={visible.length} />
+          <MoreWorkCard
+            index={count}
+            accent={CARD_ACCENTS[visible.length % CARD_ACCENTS.length]}
+            stackIndex={visible.length}
+          />
         </div>
       </div>
     </section>
   )
 }
 
-function WorkCard({ project, index, orange, stackIndex }) {
+function WorkCard({ project, index, accent, stackIndex }) {
   const meta = WORK[project.id] || { title: project.name.toUpperCase(), category: project.kind }
   return (
     <a
       href={`#/work/${project.id}`}
       aria-label={`Open ${project.name} case study`}
-      className={`stack-card cursor-hand-lg mb-5 block p-3 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] transition-transform hover:-translate-y-0.5 sm:p-4 ${
-        orange
-          ? 'bg-[color:var(--color-orange)]'
-          : 'border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)]'
-      }`}
-      style={{ top: `${20 + stackIndex * 58}px` }}
+      className="stack-card cursor-hand-lg mb-5 block rounded-[20px] border-[3px] bg-[color:var(--color-card-hi)] p-3 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] transition-transform hover:-translate-y-0.5 sm:p-4"
+      style={{ top: `${20 + stackIndex * 58}px`, borderColor: accent }}
     >
       {/* title bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-3 pt-2 sm:px-3">
-        <h3
-          className={`mono text-[0.95rem] font-bold tracking-tight sm:text-[1.15rem] ${
-            orange ? 'text-white' : 'text-[color:var(--color-ink)]'
-          }`}
-        >
-          <span>{index}.</span>
-          {meta.title}
+        <h3 className="mono text-[0.95rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.15rem]">
+          <span style={{ color: accent }}>{index}.</span> {meta.title}
         </h3>
         <span
-          className={`mono rounded-full px-3.5 py-1.5 text-[0.72rem] text-[color:var(--color-ink)] ${
-            orange
-              ? 'border border-[color:var(--color-ink)]/25 bg-[color:var(--color-card-hi)]'
-              : 'border border-[color:var(--color-line)] bg-[color:var(--color-paper)]'
-          }`}
+          className="mono rounded-full border bg-[color:var(--color-paper)] px-3.5 py-1.5 text-[0.72rem] text-[color:var(--color-ink)]"
+          style={{ borderColor: accent }}
         >
           {meta.category}
         </span>
@@ -144,24 +145,16 @@ function SystemMap() {
   )
 }
 
-function MoreWorkCard({ index, orange, stackIndex }) {
+function MoreWorkCard({ index, accent, stackIndex }) {
   const named = experiments.filter((e) => e.note).slice(0, 6)
   return (
     <article
-      className={`stack-card mb-5 p-6 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] sm:p-8 ${
-        orange
-          ? 'bg-[color:var(--color-orange)]'
-          : 'border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)]'
-      }`}
-      style={{ top: `${20 + stackIndex * 58}px` }}
+      className="stack-card mb-5 rounded-[20px] border-[3px] bg-[color:var(--color-card-hi)] p-6 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] sm:p-8"
+      style={{ top: `${20 + stackIndex * 58}px`, borderColor: accent }}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h3
-          className={`mono text-[0.95rem] font-bold tracking-tight sm:text-[1.15rem] ${
-            orange ? 'text-white' : 'text-[color:var(--color-ink)]'
-          }`}
-        >
-          <span>{index}.</span>COLLECTION OF SIDE PROJECTS
+        <h3 className="mono text-[0.95rem] font-bold tracking-tight text-[color:var(--color-ink)] sm:text-[1.15rem]">
+          <span style={{ color: accent }}>{index}.</span> COLLECTION OF SIDE PROJECTS
         </h3>
         {behance && (
           <a
