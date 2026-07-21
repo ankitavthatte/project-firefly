@@ -516,6 +516,28 @@ export const faqs = [
   },
 ]
 
+// Mentee-facing conversation prompts — the warm, honest questions someone
+// nervous about reaching out actually wants answered before they book time.
+// Written in Ankita's own voice.
+export const conversationFaqs = [
+  {
+    q: 'My portfolio is messy (or non-existent). Should I wait to book?',
+    a: 'Please don’t wait. A blank or messy portfolio is exactly the right starting point — it means we get to shape it together from scratch, without unlearning anything. The people who come “when it’s ready” usually just wait forever.',
+  },
+  {
+    q: 'I’m switching from Engineering (or another field) to Design. Can you help?',
+    a: 'Yes — this is my favourite kind of conversation. I switched into product design from architecture, so I know how it feels to carry a past life into a new craft. That background isn’t baggage; it’s an unfair advantage once you learn to frame it.',
+  },
+  {
+    q: 'What is your feedback style? Will you be nice?',
+    a: 'Kind, but honest. I won’t pretend something works when it doesn’t — that helps no one — but I’ll always tell you the “why” behind the critique and what to try next. You’ll leave with a clearer head, not a bruised ego.',
+  },
+  {
+    q: 'How can I make sure I don’t waste our time?',
+    a: 'Bring one specific thing — a screen, a decision you’re stuck on, a portfolio section that feels off. Specific beats broad every time. We’ll go deep on that instead of skimming ten things at the surface.',
+  },
+]
+
 export const whyNotes = {
   studio: 'This studio is the navigation. Curiosity makes people explore further than menus ever do.',
   laptop: 'Work opens from the laptop because work is the center of a designer’s studio — placement is hierarchy.',

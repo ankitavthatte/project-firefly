@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { faqs, contact, identity } from '../data/content.js'
+import { conversationFaqs as faqs, contact, identity } from '../data/content.js'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
@@ -20,9 +20,9 @@ export default function Conversation() {
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="mono text-4xl font-bold tracking-tight sm:text-5xl">Start a Conversation</h2>
         <p className="mono mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-[color:var(--color-ink-soft)]">
-          No gatekeepers, just open channels — whether you want to talk enterprise
-          UX, a design-systems deep-dive, or argue about the best way to onboard a
-          nervous first-time user. Tap a question, or say hi directly.
+          Thinking about reaching out but not sure you’re “ready”? These are the
+          things people ask me most before we talk. Tap a question, or just say hi
+          directly.
         </p>
       </div>
 
