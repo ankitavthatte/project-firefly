@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { projects, experiments, identity } from '../data/content.js'
 import { Asterisk } from './bits.jsx'
 
@@ -7,7 +7,7 @@ const behance = identity.links.find((l) => l.label === 'Behance')?.href
 
 // The full works index, in the reference's list style. Each row links to its
 // case study; a few explorations stay locked. Hovering a row lights it up and
-// swaps the preview image pinned in the header.
+// reveals a big preview image from that project, tracking the row's position.
 const CATEGORY = {
   evalix: 'Enterprise AI · UX',
   moneyminds: 'Gamified Product Design',
@@ -35,6 +35,8 @@ const LOCKED_CATEGORY = {
   Niyantrac: 'Dashboard Concepts',
   Luma: 'Interface Experiments',
 }
+
+const PREVIEW_H = 300 // px — kept in sync with the image height below
 
 function buildRows() {
   const rows = []
@@ -67,8 +69,20 @@ function buildRows() {
 
 export default function WorksPage() {
   const rows = buildRows()
-  const firstPreview = rows.find((r) => r.preview)?.preview
-  const [active, setActive] = useState(firstPreview)
+  const listRef = useRef(null)
+  // { src, top } while a row is hovered; null when the pointer leaves the list.
+  const [hover, setHover] = useState(null)
+
+  // Align the preview's vertical centre with the hovered row, clamped to the
+  // list bounds so it never spills past the top or bottom.
+  const onRowHover = (row, el) => {
+    if (!listRef.current) return
+    const list = listRef.current.getBoundingClientRect()
+    const r = el.getBoundingClientRect()
+    const centre = r.top - list.top + r.height / 2
+    const top = Math.max(0, Math.min(centre - PREVIEW_H / 2, list.height - PREVIEW_H))
+    setHover({ src: row.preview, top })
+  }
 
   return (
     <div className="grain relative z-10 min-h-full">
@@ -86,29 +100,37 @@ export default function WorksPage() {
         </a>
       </nav>
 
-      {/* header with pinned preview */}
-      <div className="wrap relative pt-6">
+      {/* header */}
+      <div className="wrap pt-6">
         <div className="text-center">
           <h1 className="mono text-2xl font-bold tracking-[0.15em] sm:text-3xl">COLLECTION OF WORKS</h1>
           <p className="mono mt-2 text-[0.9rem] text-[color:var(--color-orange)]">
             Things I’ve Built, Shipped, and Celebrated
           </p>
         </div>
-
-        {/* preview image, pinned top-right on desktop, overlapping the rule */}
-        <div className="pointer-events-none absolute right-4 top-6 hidden w-[22rem] lg:block xl:right-0">
-          <Preview src={active} />
-        </div>
       </div>
 
       <hr className="mt-6 border-[color:var(--color-ink)]" />
 
-      {/* the list — rows bleed to the viewport edge on hover */}
-      <ul className="border-b border-[color:var(--color-line)]">
-        {rows.map((row, i) => (
-          <WorkRow key={row.id || row.title} row={row} onHover={setActive} first={i === 0} />
-        ))}
-      </ul>
+      {/* list + floating preview */}
+      <div ref={listRef} className="relative" onMouseLeave={() => setHover(null)}>
+        <ul className="border-b border-[color:var(--color-line)]">
+          {rows.map((row) => (
+            <WorkRow key={row.id || row.title} row={row} onHover={onRowHover} />
+          ))}
+        </ul>
+
+        {/* the prominent project image — fades/slides in beside the hovered row */}
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute right-4 z-20 hidden w-[clamp(24rem,34vw,34rem)] transition-all duration-300 ease-out lg:block xl:right-[max(1.5rem,calc(50%-560px+1.5rem))] ${
+            hover ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
+          }`}
+          style={{ top: hover ? hover.top : 0 }}
+        >
+          <Preview src={hover?.src} />
+        </div>
+      </div>
 
       <div className="wrap flex flex-wrap items-center justify-between gap-4 py-10">
         {behance && (
@@ -168,8 +190,8 @@ function WorkRow({ row, onHover }) {
       <a
         href={`#/work/${row.id}`}
         aria-label={`Open ${row.title}`}
-        onMouseEnter={() => row.preview && onHover(row.preview)}
-        onFocus={() => row.preview && onHover(row.preview)}
+        onMouseEnter={(e) => onHover(row, e.currentTarget)}
+        onFocus={(e) => onHover(row, e.currentTarget)}
         className="cursor-hand-lg block outline-none"
       >
         {inner}
@@ -180,12 +202,12 @@ function WorkRow({ row, onHover }) {
 
 function Preview({ src }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)]">
+    <div className="overflow-hidden rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] shadow-[0_30px_70px_-24px_rgba(0,0,0,0.8)]">
       {src ? (
-        <img src={asset(src)} alt="Work preview" className="h-52 w-full object-cover" />
+        <img src={asset(src)} alt="Work preview" className="h-[300px] w-full object-cover" />
       ) : (
-        <div className="grid h-52 w-full place-items-center bg-[color:var(--color-card-hi)]">
-          <span className="mono text-[0.7rem] tracking-[0.15em] text-[color:var(--color-ink-soft)]">
+        <div className="grid h-[300px] w-full place-items-center bg-[color:var(--color-card-hi)] px-6 text-center">
+          <span className="mono text-[0.72rem] tracking-[0.15em] text-[color:var(--color-ink-soft)]">
             LIVE ENTERPRISE PRODUCT · UNDER NDA
           </span>
         </div>
