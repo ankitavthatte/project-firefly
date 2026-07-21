@@ -86,6 +86,9 @@ export const projects = [
   {
     id: 'evalix',
     name: 'Evalix AI',
+    // Temporarily hidden from the works listing + its case-study page. All data
+    // and design are kept intact — flip this to false (or remove it) to unhide.
+    hidden: true,
     flagship: true,
     kind: 'Shipped · live enterprise product',
     role: 'Sole product designer — research & interviews, information architecture, both portals, the 8-report analytics suite, the end-to-end design system, and engineering hand-off.',

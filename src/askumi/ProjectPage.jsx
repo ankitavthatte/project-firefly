@@ -6,7 +6,9 @@ const behance = identity.links.find((l) => l.label === 'Behance')?.href
 
 // Resolve a work id to its data — case studies first, then experiments.
 export function findWork(id) {
-  return projects.find((p) => p.id === id) || experiments.find((e) => e.id === id) || null
+  return (
+    projects.find((p) => p.id === id && !p.hidden) || experiments.find((e) => e.id === id) || null
+  )
 }
 
 export default function ProjectPage({ item }) {

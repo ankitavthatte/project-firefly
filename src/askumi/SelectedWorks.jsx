@@ -21,7 +21,8 @@ const WORK = {
 const behance = identity.links.find((l) => l.label === 'Behance')?.href
 
 export default function SelectedWorks() {
-  const count = projects.length + 1
+  const visible = projects.filter((p) => !p.hidden)
+  const count = visible.length + 1
   return (
     <section id="work" className="relative pt-12 pb-16">
       <SideStickers />
@@ -40,10 +41,10 @@ export default function SelectedWorks() {
 
         {/* stacked cards */}
         <div className="mx-auto flex max-w-4xl flex-col">
-          {projects.map((p, i) => (
+          {visible.map((p, i) => (
             <WorkCard key={p.id} project={p} index={i + 1} orange={i % 2 === 0} stackIndex={i} />
           ))}
-          <MoreWorkCard index={count} orange={projects.length % 2 === 0} stackIndex={projects.length} />
+          <MoreWorkCard index={count} orange={visible.length % 2 === 0} stackIndex={visible.length} />
         </div>
       </div>
     </section>

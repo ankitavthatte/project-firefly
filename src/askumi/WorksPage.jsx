@@ -40,7 +40,9 @@ const PREVIEW_H = 300 // px — kept in sync with the image height below
 
 function buildRows() {
   const rows = []
-  projects.forEach((p) =>
+  projects
+    .filter((p) => !p.hidden)
+    .forEach((p) =>
     rows.push({
       id: p.id,
       title: TITLE[p.id] || p.name.toUpperCase(),
