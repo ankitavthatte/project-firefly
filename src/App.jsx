@@ -8,6 +8,7 @@ import SelectedWorks from './askumi/SelectedWorks.jsx'
 import FunStuff from './askumi/FunStuff.jsx'
 import WorkedWith from './askumi/WorkedWith.jsx'
 import ArchPlay from './askumi/ArchPlay.jsx'
+import Conversation from './askumi/Conversation.jsx'
 import SiteFooter from './askumi/SiteFooter.jsx'
 import ProjectPage, { findWork } from './askumi/ProjectPage.jsx'
 import GridBackground from './askumi/GridBackground.jsx'
@@ -56,6 +57,7 @@ export default function App() {
             <FunStuff />
             <WorkedWith />
             <ArchPlay />
+            <Conversation />
           </main>
           <SiteFooter />
         </div>
