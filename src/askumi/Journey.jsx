@@ -27,7 +27,7 @@ export default function Journey() {
           {chapters.map((c, i) => (
             <article
               key={c.title}
-              className="journey-card relative w-52 shrink-0 rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-5 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] transition-transform duration-300 hover:z-10"
+              className="journey-card relative flex h-64 w-56 shrink-0 flex-col overflow-hidden rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-4 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] transition-transform duration-300 hover:z-10"
               style={{
                 '--r': `${TILTS[i % TILTS.length]}deg`,
                 transform: `rotate(${TILTS[i % TILTS.length]}deg)`,
@@ -36,11 +36,11 @@ export default function Journey() {
             >
               {c.detail && (
                 <div className="flex items-baseline justify-between gap-2">
-                  <span className="display text-[1.05rem] leading-tight">
+                  <span className="display text-[0.9rem] leading-tight">
                     {c.detail.split('·')[0].trim()}
                   </span>
                   {c.detail.includes('·') && (
-                    <span className="mono shrink-0 text-[0.62rem] text-[color:var(--color-ink-soft)]">
+                    <span className="mono shrink-0 text-[0.56rem] text-[color:var(--color-ink-soft)]">
                       {c.detail.split('·').slice(1).join('·').trim()}
                     </span>
                   )}
@@ -48,14 +48,14 @@ export default function Journey() {
               )}
 
               <h3
-                className={`mono text-[0.95rem] font-bold text-[color:var(--color-orange)] ${
-                  c.detail ? 'mt-2' : ''
+                className={`mono text-[0.88rem] font-bold text-[color:var(--color-orange)] ${
+                  c.detail ? 'mt-1.5' : ''
                 }`}
               >
                 {c.title}
               </h3>
 
-              <p className="mono mt-2 text-[0.76rem] leading-relaxed text-[color:var(--color-ink-soft)]">
+              <p className="mono mt-1.5 text-[0.68rem] leading-snug text-[color:var(--color-ink-soft)]">
                 {c.body}
               </p>
             </article>
