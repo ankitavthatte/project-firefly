@@ -22,12 +22,12 @@ export default function Journey() {
           </p>
         </div>
 
-        {/* the hand of cards */}
-        <div className="mt-12 flex flex-wrap items-start justify-center gap-2 sm:-space-x-6">
+        {/* the hand of cards — always a single row (scrolls on narrow screens) */}
+        <div className="mt-12 flex flex-nowrap items-start justify-start gap-3 overflow-x-auto pb-6 lg:justify-center lg:gap-2 lg:overflow-visible lg:-space-x-6">
           {chapters.map((c, i) => (
             <article
               key={c.title}
-              className="journey-card relative w-64 max-w-full rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-5 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] transition-transform duration-300 hover:z-10"
+              className="journey-card relative w-52 shrink-0 rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-5 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] transition-transform duration-300 hover:z-10"
               style={{
                 '--r': `${TILTS[i % TILTS.length]}deg`,
                 transform: `rotate(${TILTS[i % TILTS.length]}deg)`,
