@@ -7,6 +7,7 @@ import IntroBand from './askumi/IntroBand.jsx'
 import SelectedWorks from './askumi/SelectedWorks.jsx'
 import FunStuff from './askumi/FunStuff.jsx'
 import WorkedWith from './askumi/WorkedWith.jsx'
+import Journey from './askumi/Journey.jsx'
 import ArchPlay from './askumi/ArchPlay.jsx'
 import Conversation from './askumi/Conversation.jsx'
 import SiteFooter from './askumi/SiteFooter.jsx'
@@ -56,6 +57,7 @@ export default function App() {
             <SelectedWorks />
             <FunStuff />
             <WorkedWith />
+            <Journey />
             <ArchPlay />
             <Conversation />
           </main>

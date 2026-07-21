@@ -300,6 +300,16 @@ body {
   object-fit: cover;
 }
 
+/* ---- Journey cards: straighten + lift on hover ------------ */
+.journey-card:hover {
+  transform: rotate(0deg) scale(1.05) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .journey-card:hover {
+    transform: rotate(var(--r, 0deg)) !important;
+  }
+}
+
 /* ---- Console cartridge screen swap ------------------------ */
 @keyframes screenIn {
   from {
