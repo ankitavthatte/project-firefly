@@ -120,7 +120,7 @@ export default function AboutPage() {
 function Basics() {
   return (
     <div className="max-w-2xl">
-      <p className="text-[1.15rem] leading-relaxed sm:text-[1.25rem]">
+      <p className="mono text-[0.9rem] leading-relaxed">
         Hey there, I’m <B>Ankita</B> — a{' '}
         <B>Senior Product Designer with 10+ years</B> of experience. I’m{' '}
         <B>based in Pune, India</B>, and right now I’m the sole designer behind{' '}
@@ -129,7 +129,7 @@ function Basics() {
 
       <hr className="my-6 border-[color:var(--color-line)]" />
 
-      <p className="text-[1.15rem] leading-relaxed sm:text-[1.25rem]">
+      <p className="mono text-[0.9rem] leading-relaxed">
         I started out as an <B>architect</B> — a decade spent learning how
         structure makes complex things usable, first in buildings, now in
         enterprise software. My current obsession: <B>AI-first design workflows</B>.
