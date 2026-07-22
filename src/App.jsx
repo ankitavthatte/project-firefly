@@ -16,6 +16,7 @@ import AboutPage from './askumi/AboutPage.jsx'
 import WorksPage from './askumi/WorksPage.jsx'
 import FunStuffPage from './askumi/FunStuffPage.jsx'
 import GridBackground from './askumi/GridBackground.jsx'
+import BackToTop from './askumi/BackToTop.jsx'
 
 const WORK_ROUTE = /^#\/work\/(.+)$/
 const ABOUT_ROUTE = '#/about'
@@ -80,6 +81,8 @@ export default function App() {
           <SiteFooter />
         </div>
       )}
+      {/* floating "back to top" — appears near the bottom of any page */}
+      <BackToTop />
     </>
   )
 }
