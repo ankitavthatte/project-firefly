@@ -1,7 +1,7 @@
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { identity, contact } from '../data/content.js'
-import { Marquee, Asterisk } from './bits.jsx'
-
-const asset = (p) => `${import.meta.env.BASE_URL}${p}`
+import { Asterisk } from './bits.jsx'
 
 const ICONS = {
   Email: (
@@ -22,10 +22,40 @@ const ICONS = {
   ),
 }
 
-const TICKER = ['And… that was my portfolio', '✳', 'And… that was my portfolio', '✳']
+// Tappable sign-offs — the emoji cycles through these on click.
+const SIGNOFFS = [
+  { emoji: '🤝', line: contact.goodbye },
+  { emoji: '👋', line: 'Still scrolling? I already like you.' },
+  { emoji: '✌️', line: 'Go on — the email button really doesn’t bite.' },
+  { emoji: '☕', line: 'Coffee’s on me if you’re ever in Pune.' },
+  { emoji: '🐱', line: 'Eleven rescue cats say hi, by the way.' },
+]
+
+// Live local time in Pune, refreshed every half-minute — a small "I'm a real
+// person, currently awake-ish" signal next to the availability line.
+function usePuneTime() {
+  const fmt = () =>
+    new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(new Date())
+  const [time, setTime] = useState(fmt)
+  useEffect(() => {
+    const id = setInterval(() => setTime(fmt()), 30000)
+    return () => clearInterval(id)
+  }, [])
+  return time
+}
 
 export default function SiteFooter() {
   const socials = identity.links.filter((l) => ICONS[l.label])
+  const [idx, setIdx] = useState(0)
+  const signoff = SIGNOFFS[idx]
+  const time = usePuneTime()
+  const cycle = () => setIdx((i) => (i + 1) % SIGNOFFS.length)
+
   return (
     <footer id="say-hey" className="wrap pt-24 pb-16">
       <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.5fr_1fr]">
@@ -37,28 +67,60 @@ export default function SiteFooter() {
           </p>
         </div>
 
-        {/* center marquee card */}
-        <div className="order-1 overflow-hidden rounded-[20px] border border-[color:var(--color-line)] lg:order-2">
+        {/* center card — interactive sign-off */}
+        <div className="order-1 overflow-hidden rounded-[20px] border border-[color:var(--color-line)] shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)] lg:order-2">
           <div className="marquee bg-[color:var(--color-ink)] py-2 text-[color:var(--color-paper)]">
             <div className="marquee__track">
-              {[...TICKER, ...TICKER].map((t, i) => (
-                <span key={i} className="mono text-[0.78rem]">
-                  {t}
+              {Array.from({ length: 8 }).map((_, i) => (
+                <span key={i} className="mono inline-flex items-center gap-3 text-[0.78rem]">
+                  And… that was my portfolio
+                  <Asterisk size={11} />
                 </span>
               ))}
             </div>
           </div>
-          <div className="relative flex min-h-[220px] flex-col items-center justify-center bg-[color:var(--color-orange)] px-6 py-10 text-center text-white">
-            <div className="text-5xl" aria-hidden>
-              🤝
-            </div>
-            <p className="mono mt-4 max-w-sm text-[0.9rem] leading-relaxed">
-              {contact.goodbye}
-            </p>
+
+          <button
+            type="button"
+            onClick={cycle}
+            aria-label="Show another sign-off"
+            className="group relative flex min-h-[240px] w-full flex-col items-center justify-center bg-[color:var(--color-orange)] px-6 py-10 text-center text-white outline-none"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={idx}
+                initial={{ scale: 0.5, opacity: 0, rotate: -18 }}
+                animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                exit={{ scale: 0.5, opacity: 0, rotate: 12 }}
+                transition={{ type: 'spring', stiffness: 420, damping: 16 }}
+                className="text-5xl transition-transform group-hover:scale-110"
+                aria-hidden
+              >
+                {signoff.emoji}
+              </motion.div>
+            </AnimatePresence>
+
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.p
+                key={idx + '-line'}
+                initial={{ y: 8, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -8, opacity: 0 }}
+                transition={{ duration: 0.24 }}
+                className="mono mt-4 max-w-sm text-[0.9rem] leading-relaxed"
+              >
+                {signoff.line}
+              </motion.p>
+            </AnimatePresence>
+
+            <span className="mono mt-4 text-[0.62rem] uppercase tracking-[0.2em] text-white/75 transition-opacity group-hover:text-white">
+              tap for another ↻
+            </span>
+
             <span className="mono absolute bottom-3 right-4 text-[0.66rem] text-white/85">
               © {identity.name.toUpperCase()}
             </span>
-          </div>
+          </button>
         </div>
 
         {/* SAY HEY */}
@@ -67,6 +129,16 @@ export default function SiteFooter() {
           <p className="mono mt-4 text-[0.82rem] leading-relaxed text-[color:var(--color-orange)] lg:ml-auto lg:max-w-xs">
             [ available for roles, chats, or a really long debate about UX ]
           </p>
+
+          {/* live availability indicator */}
+          <div className="mono mt-4 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] px-3 py-1.5 text-[0.7rem] text-[color:var(--color-ink-soft)] lg:ml-auto">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--color-green)] opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[color:var(--color-green)]" />
+            </span>
+            {time} in Pune — usually replies same day
+          </div>
+
           <div className="mt-5 flex gap-2.5 lg:justify-end">
             {socials.map((l) => (
               <a
@@ -74,7 +146,7 @@ export default function SiteFooter() {
                 href={l.href}
                 aria-label={l.label}
                 {...(l.external ? { target: '_blank', rel: 'noreferrer' } : {})}
-                className="grid h-11 w-11 place-items-center rounded-full border border-[color:var(--color-ink)] text-[color:var(--color-ink)] transition hover:bg-[color:var(--color-ink)] hover:text-[color:var(--color-paper)]"
+                className="grid h-11 w-11 place-items-center rounded-full border border-[color:var(--color-ink)] text-[color:var(--color-ink)] transition hover:-translate-y-0.5 hover:bg-[color:var(--color-ink)] hover:text-[color:var(--color-paper)]"
               >
                 {ICONS[l.label]}
               </a>
