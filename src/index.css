@@ -238,6 +238,31 @@ body {
   }
 }
 
+/* ---- Continuously scrolling card rail (Fun Stuff board) ---- */
+.card-scroll {
+  overflow: hidden;
+  /* room so pinned paperclips + tilted corners + shadows aren't clipped */
+  padding-top: 38px;
+  padding-bottom: 30px;
+}
+.card-scroll__track {
+  display: inline-flex;
+  gap: 1.5rem;
+  animation: marquee 48s linear infinite;
+  will-change: transform;
+}
+.card-scroll:hover .card-scroll__track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-scroll {
+    overflow-x: auto;
+  }
+  .card-scroll__track {
+    animation: none;
+  }
+}
+
 /* ---- Barcode strip for the ID badge ----------------------- */
 .barcode {
   height: 34px;

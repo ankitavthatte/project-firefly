@@ -25,11 +25,13 @@ export default function FunStuffPage() {
             </h1>
           </div>
 
-          {/* card rail */}
-          <div className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto px-1 pb-4 pt-10 [scrollbar-width:thin]">
-            {funStuff.map((item, i) => (
-              <FunCard key={item.title} item={item} i={i} />
-            ))}
+          {/* card rail — scrolls continuously, pauses on hover */}
+          <div className="card-scroll mt-6">
+            <div className="card-scroll__track">
+              {[...funStuff, ...funStuff].map((item, i) => (
+                <FunCard key={item.title + i} item={item} i={i} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
