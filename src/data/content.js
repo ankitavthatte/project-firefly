@@ -484,6 +484,7 @@ export const funStuff = [
   {
     title: 'The Nook',
     emoji: '🍵',
+    tint: '#f6d365',
     desc: 'A café & co-working brand identity — logo, illustration, signage and merch, all hand-drawn first.',
     img: 'art/nook.jpg',
     href: '#/work/nook',
@@ -491,8 +492,27 @@ export const funStuff = [
   {
     title: 'Daily Doodles',
     emoji: '✏️',
-    desc: 'Little drawings and design bits, posted (almost) daily over at @punedoodlerr.',
+    tint: '#a7c7ff',
+    desc: 'Small drawings and design bits, posted (almost) daily over at @punedoodlerr.',
     href: 'https://www.instagram.com/punedoodlerr',
+  },
+  {
+    title: 'Sketchbook Stories',
+    emoji: '✍️',
+    tint: '#a8e6cf',
+    desc: 'Handcrafted little worlds — characters, lettering and scenes, drawn on location wherever I happen to be.',
+  },
+  {
+    title: 'Eleven Art Directors',
+    emoji: '🐈',
+    tint: '#ffb3ba',
+    desc: 'Design breaks powered by eleven very opinionated rescue cats. They approve most of my colour palettes.',
+  },
+  {
+    title: 'Field Notes',
+    emoji: '🧭',
+    tint: '#d5c1f0',
+    desc: 'Travel as field research — signage, queues and street-food rituals, collected as little design patterns.',
   },
 ]
 

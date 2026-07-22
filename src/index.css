@@ -109,6 +109,13 @@ body {
   line-height: 0.94;
 }
 
+/* elegant serif italic — used for the "Fun Experiments" board titles */
+.fancy {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
 /* ---- Software-UI card frame ------------------------------- */
 
 .card {
