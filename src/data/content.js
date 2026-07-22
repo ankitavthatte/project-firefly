@@ -489,18 +489,6 @@ export const funStuff = [
     href: '#/work/nook',
   },
   {
-    title: 'Setu · India Post',
-    emoji: '🕊️',
-    desc: 'A friendly postal mascot — “a bridge that connects every heart” — with a full set of expressions, poses and a brand story.',
-    img: 'art/setu.jpg',
-  },
-  {
-    title: 'Adoption is Love',
-    emoji: '💛',
-    desc: 'A myth-vs-reality awareness poster that makes legal adoption clear, warm and easy to share.',
-    img: 'art/adoption.jpg',
-  },
-  {
     title: 'Daily Doodles',
     emoji: '✏️',
     desc: 'Little drawings and design bits, posted (almost) daily over at @punedoodlerr.',

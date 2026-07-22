@@ -20,11 +20,13 @@ export default function FunStuffPage() {
 
       <hr className="mt-6 border-[color:var(--color-ink)]" />
 
-      {/* grid */}
-      <div className="wrap grid gap-x-8 gap-y-12 pb-24 pt-12 sm:grid-cols-2 lg:grid-cols-4">
-        {funStuff.map((item) => (
-          <FunCard key={item.title} item={item} />
-        ))}
+      {/* grid — centered, adapts to the number of cards */}
+      <div className="wrap">
+        <div className="mx-auto grid max-w-3xl gap-x-8 gap-y-12 pb-24 pt-12 sm:grid-cols-2">
+          {funStuff.map((item) => (
+            <FunCard key={item.title} item={item} />
+          ))}
+        </div>
       </div>
     </div>
   )
