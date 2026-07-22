@@ -19,7 +19,13 @@ const SCREENS = [
   { app: 'TOOLKIT.EXE', foot: 'DESIGNS AI-FIRST, EVERY DAY' },
   { app: 'STATS.EXE', foot: 'THE RECEIPTS' },
 ]
-const AVATAR = ['bg-[#e0583a]', 'bg-[#7a6ff0]', 'bg-[#2f9c63]', 'bg-[#c79f4f]']
+// Avatar tints drawn from the site's accent family (orange · blue · green).
+const AVATAR = [
+  'bg-[color:var(--color-orange)]',
+  'bg-[color:var(--color-pop)]',
+  'bg-[color:var(--color-green)]',
+  'bg-[color:var(--color-orange-deep)]',
+]
 
 const REDUCE =
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
