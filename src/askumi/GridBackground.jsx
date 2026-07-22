@@ -14,6 +14,12 @@ export default function GridBackground() {
     const SPACING = 48
     const mouse = { x: 0, y: 0, tx: 0, ty: 0, active: false }
     let W = 0, H = 0, dpr = 1, raf = 0
+    let light = document.documentElement.dataset.theme !== 'dark'
+    function onTheme() {
+      light = document.documentElement.dataset.theme !== 'dark'
+      if (reduce) render(true)
+    }
+    window.addEventListener('themechange', onTheme)
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -61,9 +67,9 @@ export default function GridBackground() {
         nodes.push(row)
       }
 
-      // base grid — one faint path
+      // base grid — one faint path (dark-blue lines on white, faint on black)
       ctx.lineWidth = 1
-      ctx.strokeStyle = 'rgba(150,168,205,0.045)'
+      ctx.strokeStyle = light ? 'rgba(60,84,150,0.10)' : 'rgba(150,168,205,0.045)'
       ctx.beginPath()
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -92,7 +98,7 @@ export default function GridBackground() {
             const seg = (m) => {
               const h = Math.min(1, ((n.heat + m.heat) / 2) * 1.05)
               if (h < 0.06) return
-              ctx.strokeStyle = `rgba(96,146,255,${h * 0.32})`
+              ctx.strokeStyle = light ? `rgba(52,104,240,${h * 0.34})` : `rgba(96,146,255,${h * 0.32})`
               ctx.lineWidth = 1 + h * 0.5
               ctx.beginPath()
               ctx.moveTo(n.x, n.y)
@@ -112,7 +118,11 @@ export default function GridBackground() {
           ctx.beginPath()
           ctx.fillStyle =
             n.heat > 0.1
-              ? `rgba(130,178,255,${Math.min(1, n.heat * 0.5)})`
+              ? light
+                ? `rgba(48,98,232,${Math.min(1, n.heat * 0.55)})`
+                : `rgba(130,178,255,${Math.min(1, n.heat * 0.5)})`
+              : light
+              ? 'rgba(60,84,150,0.16)'
               : 'rgba(160,178,215,0.09)'
           ctx.arc(n.x, n.y, 1 + n.heat * 1, 0, 6.283)
           ctx.fill()
@@ -122,7 +132,7 @@ export default function GridBackground() {
       // very soft focal glow at the cursor
       if (!staticOnly) {
         const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 140)
-        g.addColorStop(0, 'rgba(70,120,255,0.04)')
+        g.addColorStop(0, light ? 'rgba(60,110,250,0.06)' : 'rgba(70,120,255,0.04)')
         g.addColorStop(1, 'rgba(70,120,255,0)')
         ctx.fillStyle = g
         ctx.beginPath()
@@ -164,7 +174,10 @@ export default function GridBackground() {
 
     if (reduce) {
       render(true)
-      return () => window.removeEventListener('resize', resize)
+      return () => {
+        window.removeEventListener('resize', resize)
+        window.removeEventListener('themechange', onTheme)
+      }
     }
 
     window.addEventListener('mousemove', onMove)
@@ -177,6 +190,7 @@ export default function GridBackground() {
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('touchmove', onTouch)
+      window.removeEventListener('themechange', onTheme)
       document.removeEventListener('visibilitychange', onVisibility)
     }
   }, [])

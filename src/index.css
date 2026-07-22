@@ -10,24 +10,38 @@
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* DARK THEME — near-black canvas, blue + orange glowing on top */
-  --color-paper: #101116;      /* near-black canvas */
-  --color-paper-deep: #16181f; /* recessed panels */
-  --color-card: #1a1c24;       /* raised card surface */
-  --color-card-hi: #23252f;    /* brightest (still dark) surface */
-  --color-ink: #f1ede3;        /* warm off-white text */
-  --color-ink-soft: #a29e95;   /* muted light labels */
-  --color-line: #34363f;       /* dark hairline borders */
+  /* LIGHT THEME (default) — white canvas, warm neutrals, same bright accents.
+     The dark theme overrides these tokens under :root[data-theme="dark"]. */
+  --color-paper: #ffffff;      /* white canvas */
+  --color-paper-deep: #f2efe7; /* recessed panels */
+  --color-card: #f7f5ef;       /* raised card surface */
+  --color-card-hi: #fbfaf6;    /* brightest surface */
+  --color-ink: #18181b;        /* near-black text */
+  --color-ink-soft: #6c675e;   /* muted warm-grey labels */
+  --color-line: #e4e0d6;       /* light hairline borders */
   /* PRIMARY ACCENT — orange (named 'orange' historically); the single accent
      across cards, headings and marquees */
   --color-orange: #f2611f;
   --color-orange-deep: #d24d12;
   --color-pop: #4f7bff;        /* electric-blue pop — details & fun card */
   --color-pop-deep: #325fe0;
-  --color-green: #57c98a;      /* console green — pops on black */
-  --color-green-deep: #2f9c63;
+  --color-green: #2f9c63;      /* green accent — reads on white */
+  --color-green-deep: #237a4d;
   --color-lime: #4f7bff;       /* fun-stuff card — electric blue */
   --color-sky: #1d2b60;        /* night-blue top strip */
+}
+
+/* DARK THEME — near-black canvas, blue + orange glowing on top */
+:root[data-theme="dark"] {
+  --color-paper: #101116;
+  --color-paper-deep: #16181f;
+  --color-card: #1a1c24;
+  --color-card-hi: #23252f;
+  --color-ink: #f1ede3;
+  --color-ink-soft: #a29e95;
+  --color-line: #34363f;
+  --color-green: #57c98a;
+  --color-green-deep: #2f9c63;
 }
 
 html,
