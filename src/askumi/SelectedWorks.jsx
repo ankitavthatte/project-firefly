@@ -70,7 +70,7 @@ function WorkCard({ project, index, accent, stackIndex }) {
     <a
       href={`#/work/${project.id}`}
       aria-label={`Open ${project.name} case study`}
-      className="stack-card cursor-hand-lg mb-5 block rounded-[20px] border-[3px] bg-[color:var(--color-card-hi)] p-3 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] transition-transform hover:-translate-y-0.5 sm:p-4"
+      className="stack-card cursor-hand-lg mb-5 block rounded-[20px] border-[6px] bg-[color:var(--color-card-hi)] p-3 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] transition-transform hover:-translate-y-0.5 sm:p-4"
       style={{ top: `${20 + stackIndex * 58}px`, borderColor: accent }}
     >
       {/* title bar */}
@@ -149,7 +149,7 @@ function MoreWorkCard({ index, accent, stackIndex }) {
   const named = experiments.filter((e) => e.note).slice(0, 6)
   return (
     <article
-      className="stack-card mb-5 rounded-[20px] border-[3px] bg-[color:var(--color-card-hi)] p-6 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] sm:p-8"
+      className="stack-card mb-5 rounded-[20px] border-[6px] bg-[color:var(--color-card-hi)] p-6 shadow-[0_-8px_30px_-18px_rgba(0,0,0,0.4)] sm:p-8"
       style={{ top: `${20 + stackIndex * 58}px`, borderColor: accent }}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
