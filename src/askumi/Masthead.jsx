@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { identity } from '../data/content.js'
 import { Asterisk } from './bits.jsx'
 
@@ -63,8 +63,16 @@ export default function Masthead({ active }) {
     { id: 'fun', label: 'Fun Stuff', href: '#/fun' },
     { id: 'resume', label: 'Resume', href: asset(identity.resumeFile), external: true },
   ]
+  const [menu, setMenu] = useState(false)
+  // close the mobile menu on route change
+  useEffect(() => {
+    const close = () => setMenu(false)
+    window.addEventListener('hashchange', close)
+    return () => window.removeEventListener('hashchange', close)
+  }, [])
+
   return (
-    <nav className="wrap flex items-center justify-between pt-6">
+    <nav className="wrap relative flex items-center justify-between pt-6">
       <a
         href="#top"
         className="inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--color-ink)] bg-[color:var(--color-card-hi)] px-4 py-2 font-extrabold tracking-tight"
@@ -73,7 +81,8 @@ export default function Masthead({ active }) {
         <span className="text-base">ANKITA</span>
       </a>
 
-      <div className="flex items-center gap-4 sm:gap-6">
+      {/* desktop links */}
+      <div className="hidden items-center gap-4 md:flex lg:gap-6">
         {links.map((l) => {
           const on = l.id === active
           return (
@@ -94,6 +103,53 @@ export default function Masthead({ active }) {
         })}
         <ThemeToggle />
       </div>
+
+      {/* mobile: theme toggle + hamburger */}
+      <div className="flex items-center gap-2.5 md:hidden">
+        <ThemeToggle />
+        <button
+          type="button"
+          onClick={() => setMenu((m) => !m)}
+          aria-label={menu ? 'Close menu' : 'Open menu'}
+          aria-expanded={menu}
+          className="grid h-9 w-9 place-items-center rounded-full border border-[color:var(--color-ink)] text-[color:var(--color-ink)] transition hover:bg-[color:var(--color-ink)] hover:text-[color:var(--color-paper)]"
+        >
+          {menu ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* mobile dropdown */}
+      {menu && (
+        <div className="absolute right-4 top-full z-50 mt-2 flex w-52 flex-col gap-1 rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-paper)] p-2 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)] md:hidden">
+          {links.map((l) => {
+            const on = l.id === active
+            return (
+              <a
+                key={l.label}
+                href={l.href}
+                {...(l.external ? { target: '_blank', rel: 'noreferrer' } : {})}
+                onClick={() => setMenu(false)}
+                className={`mono rounded-xl px-4 py-2.5 text-[0.9rem] transition ${
+                  on
+                    ? 'bg-[color:var(--color-ink)] text-[color:var(--color-paper)]'
+                    : 'text-[color:var(--color-ink)] hover:bg-[color:var(--color-card-hi)]'
+                }`}
+              >
+                {on && <span className="text-[color:var(--color-orange)]">• </span>}
+                {l.label}
+              </a>
+            )
+          })}
+        </div>
+      )}
     </nav>
   )
 }

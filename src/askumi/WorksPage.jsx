@@ -148,11 +148,11 @@ export default function WorksPage() {
 
 function WorkRow({ row, onHover }) {
   const inner = (
-    <div className="wrap flex items-center justify-between gap-4 py-6">
-      <div className="flex min-w-0 items-center gap-4 sm:gap-6">
+    <div className="wrap flex flex-col items-start gap-3 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-6">
+      <div className="flex min-w-0 items-center gap-3 sm:gap-6">
         {row.locked ? <LockIcon /> : <ArrowIcon />}
         <span
-          className={`mono truncate text-[0.95rem] font-bold tracking-tight sm:text-[1.35rem] ${
+          className={`mono text-[1.05rem] font-bold tracking-tight sm:truncate sm:text-[1.35rem] ${
             row.locked
               ? 'text-[color:var(--color-ink-soft)] group-hover:text-[color:var(--color-ink-soft)]'
               : 'text-[color:var(--color-ink)] group-hover:text-[#161116]'
@@ -163,7 +163,7 @@ function WorkRow({ row, onHover }) {
       </div>
 
       <span
-        className={`mono shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-[0.72rem] transition-opacity ${
+        className={`mono ml-11 shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-[0.72rem] transition-opacity sm:ml-0 ${
           row.locked
             ? 'border-[color:var(--color-line)] text-[color:var(--color-ink-soft)]'
             : 'border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] text-[color:var(--color-ink)] group-hover:opacity-0'
