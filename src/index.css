@@ -390,7 +390,8 @@ body {
 }
 .id-card:hover .id-card__reveal,
 .id-card:focus-visible .id-card__reveal,
-.id-card:focus-within .id-card__reveal {
+.id-card:focus-within .id-card__reveal,
+.id-card--open .id-card__reveal {
   grid-template-rows: 1fr;
   opacity: 1;
 }
@@ -398,19 +399,12 @@ body {
   transition: opacity 0.25s ease;
 }
 .id-card:hover .id-card__hint,
-.id-card:focus-within .id-card__hint {
+.id-card:focus-within .id-card__hint,
+.id-card--open .id-card__hint {
   opacity: 0;
 }
-/* touch devices have no hover — keep the panel open there */
-@media (hover: none) {
-  .id-card__reveal {
-    grid-template-rows: 1fr;
-    opacity: 1;
-  }
-  .id-card__hint {
-    display: none;
-  }
-}
+/* Touch devices get the same reveal as a tap-to-open interaction, driven by
+   the .id-card--open class (see Hero.jsx) instead of hover. */
 
 /* ---- Landing backdrop: sky fading to paper + dotted grid --- */
 .sky {

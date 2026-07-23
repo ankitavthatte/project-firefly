@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { identity } from '../data/content.js'
 import Masthead from './Masthead.jsx'
 
@@ -40,13 +41,32 @@ function CircleArrow() {
 
 function IdCard() {
   const strip = Array.from({ length: 6 })
+  const cardRef = useRef(null)
+  const [open, setOpen] = useState(false)
+  const coarse =
+    typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+
+  // On touch devices (no hover), tap the card to toggle the reveal — the same
+  // interaction hover gives on desktop. Blur on close so :focus-within releases.
+  const onTap = () => {
+    if (!coarse) return
+    setOpen((o) => {
+      if (o && cardRef.current) cardRef.current.blur()
+      return !o
+    })
+  }
+
   return (
     <div className="relative mx-auto w-full max-w-[38rem]">
       {/* `group` + focusable so the reveal opens on hover, keyboard focus,
-          or tap (touch devices get it open via CSS below). */}
+          or a tap (touch devices toggle it via the .id-card--open class). */}
       <div
+        ref={cardRef}
         tabIndex={0}
-        className="id-card group overflow-hidden rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card)] shadow-[0_30px_70px_-30px_rgba(0,0,0,0.45)] outline-none transition-shadow duration-300 hover:shadow-[0_40px_90px_-30px_rgba(0,0,0,0.55)]"
+        onClick={onTap}
+        className={`id-card group overflow-hidden rounded-[20px] border border-[color:var(--color-line)] bg-[color:var(--color-card)] shadow-[0_30px_70px_-30px_rgba(0,0,0,0.45)] outline-none transition-shadow duration-300 hover:shadow-[0_40px_90px_-30px_rgba(0,0,0,0.55)] ${
+          open ? 'id-card--open' : ''
+        }`}
       >
         {/* accent marquee strip */}
         <div className="marquee bg-[color:var(--color-orange)] py-2.5 text-white">
@@ -82,7 +102,7 @@ function IdCard() {
             <div className="barcode" />
             <div className="mono mt-1 flex items-center justify-between text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
               <span>AT · 2016 — {new Date().getFullYear()}</span>
-              <span className="id-card__hint tracking-normal">hover ▾</span>
+              <span className="id-card__hint tracking-normal">{coarse ? 'tap ▾' : 'hover ▾'}</span>
             </div>
           </div>
         </div>
