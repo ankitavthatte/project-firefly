@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 
 // A closing "architect" toy: an isometric block on a platform. Each tap
-// rebuilds it into a different architectural form (cube, tower, ziggurat,
-// slab, twins, L-plan) and shifts it to a new spot — a nod to a past life
-// designing in mass, light and structure. Canvas 2D, DPR-aware, eased.
+// rebuilds it into a different architectural form — cube, tower, ziggurat,
+// slab, twins, L-plan, bridge, spire, staircase, courtyard, cantilever,
+// skyline, cross, pinwheel, setback, parallel slabs, grid, obelisk, jenga —
+// and shifts it to a new spot. Canvas 2D, DPR-aware, eased.
 
-// Six states — each is exactly 4 boxes {x,y,z,w,d,h} on a 6×6 platform
-// (padded with zero-size boxes so morphs interpolate cleanly).
+// Each state is exactly 4 boxes {x,y,z,w,d,h} on a 6×6 platform, padded with
+// zero-size Z boxes (at centre) so morphs interpolate — and collapse — cleanly.
 const Z = { x: 3, y: 3, z: 0, w: 0, d: 0, h: 0 }
 const STATES = [
   // 1 — a single cube, centre
@@ -44,6 +45,97 @@ const STATES = [
     { x: 1.4, y: 1, z: 0, w: 1.2, d: 3.4, h: 1.5 },
     { x: 2.6, y: 1, z: 0, w: 2.4, d: 1.2, h: 1.5 },
     Z,
+    Z,
+  ],
+  // 7 — a bridge: two piers and a span
+  [
+    { x: 1, y: 2.4, z: 0, w: 0.9, d: 1.2, h: 2 },
+    { x: 4.1, y: 2.4, z: 0, w: 0.9, d: 1.2, h: 2 },
+    { x: 1, y: 2.4, z: 2, w: 4, d: 1.2, h: 0.6 },
+    Z,
+  ],
+  // 8 — a tapering spire
+  [
+    { x: 2, y: 2, z: 0, w: 2, d: 2, h: 0.8 },
+    { x: 2.3, y: 2.3, z: 0.8, w: 1.4, d: 1.4, h: 0.8 },
+    { x: 2.55, y: 2.55, z: 1.6, w: 0.9, d: 0.9, h: 0.8 },
+    { x: 2.75, y: 2.75, z: 2.4, w: 0.5, d: 0.5, h: 1.3 },
+  ],
+  // 9 — a rising staircase, on the diagonal
+  [
+    { x: 0.6, y: 0.6, z: 0, w: 1.1, d: 1.1, h: 0.8 },
+    { x: 1.8, y: 1.8, z: 0, w: 1.1, d: 1.1, h: 1.6 },
+    { x: 3.0, y: 3.0, z: 0, w: 1.1, d: 1.1, h: 2.4 },
+    { x: 4.2, y: 4.2, z: 0, w: 1.1, d: 1.1, h: 3.2 },
+  ],
+  // 10 — a hollow courtyard of four walls
+  [
+    { x: 1, y: 1, z: 0, w: 4, d: 0.7, h: 1.4 },
+    { x: 1, y: 4.3, z: 0, w: 4, d: 0.7, h: 1.4 },
+    { x: 1, y: 1.7, z: 0, w: 0.7, d: 2.6, h: 1.4 },
+    { x: 4.3, y: 1.7, z: 0, w: 0.7, d: 2.6, h: 1.4 },
+  ],
+  // 11 — a cantilever: base with an offset overhang
+  [
+    { x: 1.2, y: 2, z: 0, w: 1.6, d: 2, h: 1.6 },
+    { x: 1.2, y: 2.2, z: 1.6, w: 3.6, d: 1.6, h: 0.8 },
+    Z,
+    Z,
+  ],
+  // 12 — a three-tower skyline
+  [
+    { x: 1, y: 2.2, z: 0, w: 1.1, d: 1.1, h: 3.2 },
+    { x: 2.5, y: 2.2, z: 0, w: 1.1, d: 1.1, h: 2 },
+    { x: 4, y: 2.2, z: 0, w: 1.1, d: 1.1, h: 2.6 },
+    Z,
+  ],
+  // 13 — a cross / plus plan
+  [
+    { x: 0.8, y: 2.4, z: 0, w: 4.4, d: 1.2, h: 1.4 },
+    { x: 2.4, y: 0.8, z: 0, w: 1.2, d: 4.4, h: 1.4 },
+    Z,
+    Z,
+  ],
+  // 14 — a pinwheel of four offset arms
+  [
+    { x: 2.4, y: 0.8, z: 0, w: 1.3, d: 1.8, h: 1.3 },
+    { x: 3.4, y: 2.4, z: 0, w: 1.8, d: 1.3, h: 1.3 },
+    { x: 2.3, y: 3.4, z: 0, w: 1.3, d: 1.8, h: 1.3 },
+    { x: 0.8, y: 2.3, z: 0, w: 1.8, d: 1.3, h: 1.3 },
+  ],
+  // 15 — a setback tower (wide base stepping in)
+  [
+    { x: 1.4, y: 1.4, z: 0, w: 3.2, d: 3.2, h: 0.8 },
+    { x: 2, y: 2, z: 0.8, w: 2, d: 2, h: 1.2 },
+    { x: 2.4, y: 2.4, z: 2, w: 1.2, d: 1.2, h: 1.8 },
+    Z,
+  ],
+  // 16 — two parallel slabs, offset heights
+  [
+    { x: 0.8, y: 1, z: 0, w: 4.4, d: 1, h: 1.8 },
+    { x: 0.8, y: 3.4, z: 0, w: 4.4, d: 1, h: 1 },
+    Z,
+    Z,
+  ],
+  // 17 — a 2×2 grid of cubes
+  [
+    { x: 1, y: 1, z: 0, w: 1.5, d: 1.5, h: 1.5 },
+    { x: 3.5, y: 1, z: 0, w: 1.5, d: 1.5, h: 1.5 },
+    { x: 1, y: 3.5, z: 0, w: 1.5, d: 1.5, h: 1.5 },
+    { x: 3.5, y: 3.5, z: 0, w: 1.5, d: 1.5, h: 1.5 },
+  ],
+  // 18 — an obelisk on a plinth
+  [
+    { x: 2.2, y: 2.2, z: 0, w: 1.6, d: 1.6, h: 0.4 },
+    { x: 2.6, y: 2.6, z: 0.4, w: 0.8, d: 0.8, h: 3.4 },
+    Z,
+    Z,
+  ],
+  // 19 — an offset "jenga" stack, quarter-turning
+  [
+    { x: 1.4, y: 1.8, z: 0, w: 2.6, d: 1.4, h: 0.9 },
+    { x: 2, y: 2, z: 0.9, w: 1.4, d: 2.6, h: 0.9 },
+    { x: 1.6, y: 2.2, z: 1.8, w: 2.4, d: 1.2, h: 0.9 },
     Z,
   ],
 ]
