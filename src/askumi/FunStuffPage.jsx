@@ -43,7 +43,9 @@ export default function FunStuffPage() {
 
 function FunCard({ item, i }) {
   const tilt = (i % 2 ? 1 : -1) * (1.4 + (i % 3) * 0.4)
-  const external = item.href?.startsWith('http')
+  // Open in a new tab for off-site links and for items that opt in (e.g. a
+  // self-hosted playable that should not replace the portfolio tab).
+  const newTab = item.href?.startsWith('http') || item.newTab
 
   // The card's full visual — a real photo/video if we have one, otherwise a
   // tinted panel built from the item's accent colour with its emoji as the
@@ -115,7 +117,7 @@ function FunCard({ item, i }) {
       {item.href ? (
         <a
           href={item.href}
-          {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
+          {...(newTab ? { target: '_blank', rel: 'noreferrer' } : {})}
           aria-label={`Open ${item.title}`}
           className="cursor-hand-lg block"
         >
