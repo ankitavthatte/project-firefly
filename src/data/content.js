@@ -482,6 +482,15 @@ export const nowBoard = {
 // card shows a title, a blurb and a visual; an optional href makes it clickable.
 export const funStuff = [
   {
+    title: 'Flappy Aura',
+    emoji: '🎮',
+    tint: '#9d4edd',
+    desc: 'A build-it-in-a-weekend game — a customizable Flappy Bird with 6 bird skins, 6 themes, procedural Web Audio sound and particle effects. Click to play.',
+    img: 'play/flappy-aura.png',
+    href: 'play/flappy-aura.html',
+    newTab: true,
+  },
+  {
     title: 'The Nook',
     emoji: '🍵',
     tint: '#f6a15a',
