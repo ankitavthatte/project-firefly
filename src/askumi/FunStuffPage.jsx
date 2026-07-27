@@ -4,9 +4,11 @@ import Masthead from './Masthead.jsx'
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
 // "Fun Stuff" as a pinned-card board: a big yellow panel titled "Fun
-// Experiments at 2 AM" holding white index cards, each clipped on with a
-// paperclip, tilted slightly, with an italic title, a coloured quote mark,
-// a blurb and an image. The board is deliberately bright in both themes.
+// Experiments at 2 AM" holding photo cards, each clipped on with a
+// paperclip and tilted slightly. Each card IS the product image (or a
+// tinted panel when no photo exists), with the title, quote mark and blurb
+// written directly on top of it over a dark scrim. The board is
+// deliberately bright in both themes.
 export default function FunStuffPage() {
   return (
     <div className="grain relative z-10 min-h-full">
@@ -43,36 +45,66 @@ function FunCard({ item, i }) {
   const tilt = (i % 2 ? 1 : -1) * (1.4 + (i % 3) * 0.4)
   const external = item.href?.startsWith('http')
 
+  // The card's full visual — a real photo/video if we have one, otherwise a
+  // tinted panel built from the item's accent colour with its emoji as the
+  // graphic. Either way this fills the entire card; text sits on top of it.
+  const visual = item.video ? (
+    <video
+      src={asset(item.video)}
+      poster={item.img ? asset(item.img) : undefined}
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="absolute inset-0 h-full w-full object-cover"
+    />
+  ) : item.img ? (
+    <img
+      src={asset(item.img)}
+      alt={item.title}
+      loading="lazy"
+      className="absolute inset-0 h-full w-full object-cover"
+    />
+  ) : (
+    <div
+      className="absolute inset-0 grid place-items-center"
+      style={{ background: `linear-gradient(160deg, ${item.tint}, ${item.tint}cc 55%, #201a12)` }}
+      aria-hidden
+    >
+      <span className="text-[5rem] opacity-90 drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]">
+        {item.emoji}
+      </span>
+    </div>
+  )
+
   const content = (
-    <>
-      <h3 className="fancy text-[1.35rem] leading-tight text-[#211c15]">{item.title}</h3>
-      <div className="fancy -mb-2 mt-1 text-[3.4rem] leading-[0.5]" style={{ color: item.tint }} aria-hidden>
-        “
+    <div className="relative h-72 w-full overflow-hidden rounded-[14px]">
+      {visual}
+      {/* scrim so the white text stays legible over any photo */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/25" />
+
+      <div className="absolute inset-x-0 bottom-0 p-5">
+        <div className="fancy text-[2.6rem] leading-[0.5] text-white/70" aria-hidden>
+          “
+        </div>
+        <h3 className="fancy mt-1 text-[1.35rem] leading-tight text-white">{item.title}</h3>
+        <p className="mt-2 text-[0.82rem] leading-relaxed text-white/85">{item.desc}</p>
       </div>
-      <p className="mt-3 text-[0.9rem] leading-relaxed text-[#4c473e]">{item.desc}</p>
-      <div className="mt-4 overflow-hidden rounded-lg">
-        {item.img ? (
-          <img
-            src={asset(item.img)}
-            alt={item.title}
-            loading="lazy"
-            className="h-40 w-full object-cover"
-          />
-        ) : (
-          <div
-            className="grid h-40 w-full place-items-center text-5xl"
-            style={{ background: `${item.tint}66` }}
-          >
-            <span aria-hidden>{item.emoji}</span>
-          </div>
-        )}
-      </div>
-    </>
+
+      {item.emoji && (item.img || item.video) && (
+        <span
+          aria-hidden
+          className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-black/35 text-[1.05rem] backdrop-blur-sm"
+        >
+          {item.emoji}
+        </span>
+      )}
+    </div>
   )
 
   return (
     <article
-      className="relative w-[18.5rem] shrink-0 snap-center rounded-[14px] bg-[#fbfaf4] p-6 pt-7 shadow-[0_16px_34px_-14px_rgba(0,0,0,0.4)]"
+      className="relative w-[18.5rem] shrink-0 snap-center rounded-[16px] shadow-[0_16px_34px_-14px_rgba(0,0,0,0.5)]"
       style={{ transform: `rotate(${tilt}deg)` }}
     >
       <Clip
