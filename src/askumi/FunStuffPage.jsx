@@ -80,7 +80,7 @@ function FunCard({ item, i }) {
   )
 
   const content = (
-    <div className="relative h-72 w-full overflow-hidden rounded-[14px]">
+    <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[14px]">
       {visual}
       {/* scrim so the white text stays legible over any photo */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/25" />
@@ -106,7 +106,7 @@ function FunCard({ item, i }) {
 
   return (
     <article
-      className="relative w-[18.5rem] shrink-0 snap-center rounded-[16px] shadow-[0_16px_34px_-14px_rgba(0,0,0,0.5)]"
+      className="relative w-56 shrink-0 snap-center rounded-[16px] shadow-[0_16px_34px_-14px_rgba(0,0,0,0.5)] sm:w-64"
       style={{ transform: `rotate(${tilt}deg)` }}
     >
       <Clip
