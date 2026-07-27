@@ -220,7 +220,7 @@ export const projects = [
       { value: 'End-to-end', label: 'UX case study' },
       { value: 'Shift board', label: 'coverage readable at a glance' },
       { value: 'Conflict alerts', label: 'gaps flagged before they happen' },
-      { value: '35 pages', label: 'of process — full PDF below' },
+      { value: '35 pages', label: 'of process — shown in full below' },
     ],
     chips: ['Healthcare workflows', 'Shift planning', 'Operational UX', 'Scheduling systems', 'Clarity under pressure'],
     story: [
@@ -240,13 +240,8 @@ export const projects = [
     media: [
       {
         type: 'board',
-        label: 'The case study — the essentials',
-        // Curated cut: problem → research → ideation → IA/flows → testing →
-        // before/after → final screens → accessibility → reflection.
-        // All 35 pages remain in the PDF below.
-        srcs: [3, 8, 10, 14, 17, 19, 20, 22, 25, 28, 30, 31, 33].map(
-          (n) => `projects/shiftcare/slide-${String(n).padStart(2, '0')}.jpg`,
-        ),
+        label: 'The full case study — all 35 pages',
+        srcs: Array.from({ length: 35 }, (_, i) => `projects/shiftcare/slide-${String(i + 1).padStart(2, '0')}.jpg`),
         deck: true,
       },
     ],
