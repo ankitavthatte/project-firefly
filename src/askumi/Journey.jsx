@@ -1,4 +1,5 @@
 import { chapters } from '../data/content.js'
+import { Sticker } from './bits.jsx'
 
 // "My Journey" — the career chapters as a hand of scattered, tilted cards.
 // Each card straightens and lifts on hover; data comes from chapters in
@@ -6,9 +7,21 @@ import { chapters } from '../data/content.js'
 const TILTS = [-7, 4, -3, 6, -5]
 const LIFTS = [24, 0, 40, 8, 32]
 
+// A little stamp per era — a quiet illustration on an otherwise text-only card.
+const ERA_EMOJI = {
+  Architecture: '🏛️',
+  'The Turn to UX': '🔀',
+  'Product Design': '🖥️',
+  'AI-first Workflows': '🤖',
+  'What’s Next': '🚀',
+}
+
 export default function Journey() {
   return (
     <section id="journey" className="relative overflow-hidden py-24">
+      <Sticker rot={-10} className="left-3 top-8 hidden sm:block" size="1.7rem">🧭</Sticker>
+      <Sticker rot={12} drift="b" className="right-4 bottom-10 hidden sm:block" size="1.6rem">🛤️</Sticker>
+
       <div className="wrap">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="mono text-4xl font-bold tracking-tight sm:text-5xl">My Journey</h2>
@@ -34,6 +47,15 @@ export default function Journey() {
                 marginTop: `${LIFTS[i % LIFTS.length]}px`,
               }}
             >
+              {ERA_EMOJI[c.title] && (
+                <span
+                  aria-hidden
+                  className="absolute right-3 top-3 text-lg opacity-80"
+                >
+                  {ERA_EMOJI[c.title]}
+                </span>
+              )}
+
               {c.detail && (
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="display text-[0.9rem] leading-tight">
