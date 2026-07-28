@@ -18,7 +18,7 @@ export const identity = {
   // systems) and the scale proof (Evalix). See BRAND_STRATEGY.md §9.
   heroLine: 'I make complex systems feel obvious.',
   heroSub:
-    'Ten years spanning architecture, product design and design systems. Most recently the sole designer on Evalix AI — 300+ screens of an enterprise assessment platform. This studio is the portfolio: everything on the desk opens.',
+    'Ten years spanning architecture, product design and design systems. Most recently the sole designer on Evalix AI — 300+ screens of an enterprise assessment platform. Architect-trained and systems-obsessed, happiest turning tangled enterprise flows into something that feels obvious.',
   about:
     'I’m Ankita — an architect turned Senior Product Designer. For a decade I’ve been learning the same craft in two mediums: how structure makes complex things usable. First in buildings, now in enterprise software. I design digital products because a building changes one street; a product can change millions of days.',
   aboutExtra:
