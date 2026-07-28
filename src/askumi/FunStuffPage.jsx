@@ -15,13 +15,10 @@ export default function FunStuffPage() {
       <Masthead active="fun" />
 
       <div className="wrap py-10 sm:py-14">
-        <div className="relative mx-auto max-w-3xl rounded-[28px] bg-[#f2a44e] px-3 pb-10 pt-9 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.5)] sm:px-8">
-          {/* corner paperclip */}
-          <Clip className="absolute -top-3 right-8 rotate-12 drop-shadow" width={32} height={52} />
-
+        <div className="relative mx-auto max-w-3xl px-3 pb-10 pt-9 sm:px-8">
           {/* header */}
           <div className="text-center">
-            <h1 className="fancy text-[2.1rem] leading-tight text-[#241a0d] sm:text-[3rem]">
+            <h1 className="fancy text-[2.1rem] leading-tight text-[color:var(--color-ink)] sm:text-[3rem]">
               Fun Experiments at 2 AM
             </h1>
           </div>
