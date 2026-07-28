@@ -1,3 +1,6 @@
+// ASKUMI-style redesign (branch: askumi-version).
+// A single-scroll, software-UI-flavoured portfolio built on the same
+// content.js as the studio version — so copy stays in one place.
 import { identity, nowBoard } from '../data/content.js'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
@@ -72,11 +75,16 @@ export default function FunStuff() {
           {/* the butterfly, fluttering across the collage */}
           <Butterfly />
 
-          {/* the media cards — a scroll rail on mobile, a scatter on desktop */}
-          <div className="mt-10 flex snap-x gap-4 overflow-x-auto pb-2 lg:mt-0 lg:block lg:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {COLLAGE.map((item, i) => (
-              <FloatCard key={item.src} item={item} i={i} />
-            ))}
+          {/* the media cards — a scroll rail on mobile, a marquee on desktop that
+              runs from the right edge of the viewport to fully off the left edge */}
+          <div className="mt-10 lg:mt-0">
+            <div className="fun-cards-wrap">
+              <div className="fun-cards-track mt-2 flex snap-x gap-4 pb-2 overflow-x-auto lg:block lg:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {COLLAGE.map((item, i) => (
+                  <FloatCard key={item.src} item={item} i={i} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -111,7 +119,7 @@ function FloatCard({ item, i }) {
   const floatCls = i % 2 ? 'float-b' : 'float-a'
   return (
     <figure
-      className={`group relative w-44 shrink-0 snap-center rounded-[18px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-2 pb-3 shadow-[0_16px_34px_-14px_rgba(0,0,0,0.42)] ${item.cls} ${floatCls}`}
+      className={`group relative w-44 shrink-0 snap-center rounded-[18px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-2 pb-3 shadow-[0_16px_34px_-14px_rgba(0,0,0,0.4] ${floatCls} ${item.cls}`}
       style={{ '--r': `${item.rot}deg`, transform: `rotate(${item.rot}deg)` }}
     >
       <div className="overflow-hidden rounded-[12px]">
@@ -200,8 +208,27 @@ function FunMotionStyles() {
         80%  { transform: translate(30vw, 58px) rotate(-6deg); }
         100% { transform: translate(0, 0) rotate(-6deg); }
       }
+
+      /* Marquee-style edge-to-edge animation for the fun-stuff cards on large screens */
+      .fun-cards-wrap { width: 100vw; max-width: 100vw; margin: 0 auto; overflow: hidden; box-sizing: border-box; }
+      .fun-cards-track { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); white-space: nowrap; flex-wrap: nowrap; will-change: transform; }
+      .fun-cards-track:hover { animation-play-state: paused; }
+      .fun-cards-track > * { flex: 0 0 auto; }
+
+      @keyframes fun-scroll {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+
+      /* Apply animation only on large screens (match Tailwind lg breakpoint: 1024px) */
+      @media (min-width: 1024px) {
+        .fun-cards-track { animation: fun-scroll 28s linear infinite; }
+      }
+
+      /* Respect reduced-motion preference */
       @media (prefers-reduced-motion: reduce) {
         .bfly, .bfly-body, .bfly-wing--l, .bfly-wing--r { animation: none !important; }
+        .fun-cards-track { animation: none !important; overflow-x: auto; -webkit-overflow-scrolling: touch; }
       }
     `}</style>
   )
