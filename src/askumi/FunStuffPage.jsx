@@ -43,19 +43,33 @@ function FunCard({ item, i }) {
   // self-hosted playable that should not replace the portfolio tab).
   const newTab = item.href?.startsWith('http') || item.newTab
 
+  // Screen recordings (e.g. the game) opt into `fit: 'contain'` so the whole
+  // frame stays visible instead of being cropped to fill the card; the tint
+  // fills the letterbox area behind it so it still reads as a solid card.
+  const contain = item.fit === 'contain'
+
   // The card's full visual — a real photo/video if we have one, otherwise a
   // tinted panel built from the item's accent colour. Either way this fills
   // the entire card; text sits on top of it.
   const visual = item.video ? (
-    <video
-      src={asset(item.video)}
-      poster={item.img ? asset(item.img) : undefined}
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="absolute inset-0 h-full w-full object-cover"
-    />
+    <>
+      {contain && (
+        <div
+          className="absolute inset-0"
+          style={{ background: `linear-gradient(160deg, ${item.tint}, ${item.tint}cc 55%, #201a12)` }}
+          aria-hidden
+        />
+      )}
+      <video
+        src={asset(item.video)}
+        poster={item.img ? asset(item.img) : undefined}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={`absolute inset-0 h-full w-full ${contain ? 'object-contain' : 'object-cover'}`}
+      />
+    </>
   ) : item.img ? (
     <img
       src={asset(item.img)}

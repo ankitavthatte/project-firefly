@@ -484,6 +484,7 @@ export const funStuff = [
     img: 'play/flappy-aura.png',
     href: 'play/flappy-aura.html',
     newTab: true,
+    fit: 'contain',
   },
   {
     title: 'Daily Doodles',
