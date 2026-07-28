@@ -346,6 +346,94 @@ body {
   object-fit: cover;
 }
 
+/* ---- About page: holographic AR portrait ------------------ */
+.holo-stage {
+  transform-style: preserve-3d;
+}
+.holo-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+/* drifting scanlines over the image */
+.holo-scan {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.08) 0 1px,
+    transparent 1px 4px
+  );
+  mix-blend-mode: overlay;
+  animation: holoScan 4.5s linear infinite;
+}
+@keyframes holoScan {
+  to {
+    background-position: 0 8px;
+  }
+}
+/* faint HUD grid */
+.holo-grid {
+  background-image: linear-gradient(rgba(140, 190, 255, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 190, 255, 0.18) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mix-blend-mode: overlay;
+}
+/* an "acquiring" light bar that sweeps down when the card is hovered */
+.holo-sweep {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 48%,
+    rgba(140, 190, 255, 0.18) 52%,
+    transparent 100%
+  );
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.holo-card:hover .holo-sweep {
+  animation: holoSweep 1.5s ease-in-out;
+}
+@keyframes holoSweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+/* pulsing "tracking" dot in the HUD readout */
+.holo-dot {
+  box-shadow: 0 0 0 0 rgba(242, 97, 31, 0.6);
+  animation: holoPulse 1.8s ease-out infinite;
+}
+@keyframes holoPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(242, 97, 31, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(242, 97, 31, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(242, 97, 31, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .holo-scan,
+  .holo-sweep,
+  .holo-dot {
+    animation: none;
+  }
+  .holo-sweep {
+    display: none;
+  }
+}
+
 /* ---- Journey cards: straighten + lift on hover ------------ */
 .journey-card:hover {
   transform: rotate(0deg) scale(1.05) !important;
