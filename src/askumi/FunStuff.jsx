@@ -75,13 +75,14 @@ export default function FunStuff() {
           {/* the butterfly, fluttering across the collage */}
           <Butterfly />
 
-          {/* the media cards — a scroll rail on mobile, a marquee on desktop that
-              runs from the right edge of the viewport to fully off the left edge */}
+          {/* the media cards — a scroll rail on mobile, a seamless marquee on desktop that
+              runs continuously from right to left */}
           <div className="mt-10 lg:mt-0">
             <div className="fun-cards-wrap">
+              {/* Duplicate the COLLAGE in the DOM to create a seamless loop */}
               <div className="fun-cards-track mt-2 flex snap-x gap-4 pb-2 overflow-x-auto lg:block lg:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                {COLLAGE.map((item, i) => (
-                  <FloatCard key={item.src} item={item} i={i} />
+                {[...COLLAGE, ...COLLAGE].map((item, i) => (
+                  <FloatCard key={`${item.src}-${i}`} item={item} i={i} />
                 ))}
               </div>
             </div>
@@ -215,9 +216,10 @@ function FunMotionStyles() {
       .fun-cards-track:hover { animation-play-state: paused; }
       .fun-cards-track > * { flex: 0 0 auto; }
 
+      /* With duplicated content we animate by half the track width to loop seamlessly */
       @keyframes fun-scroll {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
       }
 
       /* Apply animation only on large screens (match Tailwind lg breakpoint: 1024px) */
