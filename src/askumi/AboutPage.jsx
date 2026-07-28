@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   AnimatePresence,
   motion,
@@ -317,6 +317,61 @@ function HoloPortrait({ reduce }) {
     my.set(0)
   }
 
+  // --- Mobile: drive the same tilt from the device gyroscope ---------------
+  // On touch devices there's no cursor, so we map the phone's orientation
+  // (gamma = left/right, beta = front/back) onto the same motion values. iOS
+  // 13+ gates the sensor behind a permission prompt that must come from a
+  // user gesture, so there we surface a small "Enable AR tilt" button.
+  const [needsMotionPerm, setNeedsMotionPerm] = useState(false)
+  const [tiltOn, setTiltOn] = useState(false)
+  const cleanupRef = useRef(null)
+
+  const startGyro = () => {
+    const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v))
+    const handler = (e) => {
+      if (e.gamma == null || e.beta == null) return
+      // gamma ~ -90..90 left/right; beta ~ -180..180 front/back. 42° is a
+      // comfortable neutral holding tilt, so we centre around it.
+      mx.set(clamp(e.gamma / 28, -0.5, 0.5))
+      my.set(clamp((e.beta - 42) / 32, -0.5, 0.5))
+    }
+    window.addEventListener('deviceorientation', handler)
+    cleanupRef.current = () => window.removeEventListener('deviceorientation', handler)
+    setTiltOn(true)
+  }
+
+  const enableTilt = async () => {
+    try {
+      const res = await DeviceOrientationEvent.requestPermission()
+      if (res === 'granted') {
+        startGyro()
+        setNeedsMotionPerm(false)
+      }
+    } catch {
+      /* permission denied or unavailable — the static card still works */
+    }
+  }
+
+  useEffect(() => {
+    if (reduce || typeof window === 'undefined') return undefined
+    const coarse = window.matchMedia?.('(pointer: coarse)').matches
+    if (!coarse) return undefined
+    const needsPerm =
+      typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function'
+    if (needsPerm) {
+      setNeedsMotionPerm(true)
+      return undefined
+    }
+    startGyro()
+    return () => cleanupRef.current?.()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduce])
+
+  // Always detach the sensor listener on unmount, even if it was started
+  // later from the permission button.
+  useEffect(() => () => cleanupRef.current?.(), [])
+
   const image =
     identity.photo && !failed ? (
       <img
@@ -421,8 +476,20 @@ function HoloPortrait({ reduce }) {
       </motion.div>
 
       <p className="mono mt-4 text-center text-[0.55rem] tracking-[0.22em] text-[color:var(--color-ink-soft)]">
-        {reduce ? 'PORTRAIT' : 'MOVE TO ROTATE ◇ AR MODE'}
+        {reduce ? 'PORTRAIT' : tiltOn ? 'TILT TO ROTATE ◇ AR MODE' : 'MOVE TO ROTATE ◇ AR MODE'}
       </p>
+
+      {needsMotionPerm && (
+        <div className="mt-2 text-center">
+          <button
+            type="button"
+            onClick={enableTilt}
+            className="mono inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-orange)] bg-[color:var(--color-card-hi)] px-3.5 py-1.5 text-[0.6rem] font-bold tracking-[0.12em] text-[color:var(--color-orange)]"
+          >
+            ✦ ENABLE AR TILT
+          </button>
+        </div>
+      )}
     </div>
   )
 }
