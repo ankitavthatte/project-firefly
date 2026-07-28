@@ -146,12 +146,12 @@ function Avatar() {
         src={asset(identity.photo)}
         alt={identity.name}
         onError={() => setFailed(true)}
-        className="photo-bw h-24 w-24 shrink-0 rounded-full border-[3px] border-white object-cover shadow-[0_8px_22px_-8px_rgba(0,0,0,0.55)] ring-1 ring-[color:var(--color-line)] sm:h-28 sm:w-28"
+        className="photo-bw h-32 w-32 shrink-0 rounded-full border-[3px] border-white object-cover shadow-[0_8px_22px_-8px_rgba(0,0,0,0.55)] ring-1 ring-[color:var(--color-line)] sm:h-40 sm:w-40"
       />
     )
   }
   return (
-    <div className="grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-full border-[3px] border-white bg-[color:var(--color-card-hi)] ring-1 ring-[color:var(--color-line)] sm:h-28 sm:w-28">
+    <div className="grid h-32 w-32 shrink-0 place-items-center overflow-hidden rounded-full border-[3px] border-white bg-[color:var(--color-card-hi)] ring-1 ring-[color:var(--color-line)] sm:h-40 sm:w-40">
       <svg viewBox="0 0 200 240" className="h-full w-full" role="img" aria-label={identity.name} preserveAspectRatio="xMidYMax meet">
         <path d="M22 240c0-50 34-78 78-78s78 28 78 78z" fill="#0d0d0c" />
         <rect x="85" y="118" width="30" height="44" rx="13" fill="#0d0d0c" />
