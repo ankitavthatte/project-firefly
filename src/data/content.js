@@ -480,6 +480,7 @@ export const funStuff = [
     title: 'Flappy Aura',
     tint: '#9d4edd',
     desc: 'A build-it-in-a-weekend game — a customizable Flappy Bird with 6 bird skins, 6 themes, procedural Web Audio sound and particle effects. Click to play.',
+    video: 'play/flappy-aura.mp4',
     img: 'play/flappy-aura.png',
     href: 'play/flappy-aura.html',
     newTab: true,
