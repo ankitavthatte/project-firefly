@@ -9,7 +9,7 @@ const WORK = {
   moneyminds: {
     title: 'GAMIFYING FINANCIAL LITERACY',
     category: 'Gamified product design',
-    img: 'projects/moneyminds/intro.jpg',
+    img: 'projects/moneyminds/cover.jpg',
   },
   shiftcare: {
     title: 'SCHEDULING HEALTHCARE WITHOUT THE CHAOS',
