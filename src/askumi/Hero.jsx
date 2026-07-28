@@ -2,6 +2,8 @@ import { useRef, useState } from 'react'
 import { identity } from '../data/content.js'
 import Masthead from './Masthead.jsx'
 
+const asset = (p) => `${import.meta.env.BASE_URL}${p}`
+
 // The landing: a minimal full-screen scene — a centered "studio ID card" as
 // the hero object over the site-wide grid mesh, and a technical toolbar
 // pinned along the bottom.
@@ -80,10 +82,12 @@ function IdCard() {
           </div>
         </div>
 
-        {/* card body — name centred, no portrait */}
+        {/* card body — headshot + name, ID-badge style */}
         <div className="relative flex flex-col items-center px-8 py-4 text-center sm:px-12">
           {/* green sticker sits at the body's bottom-right, overlapping the reveal */}
           <Paw className="absolute -bottom-6 right-5 z-20 h-12 w-12 rotate-[18deg]" />
+
+          <Avatar />
 
           <h1 className="mono text-xl font-bold tracking-tight text-[color:var(--color-orange)]">
             {identity.name.toUpperCase()}
@@ -125,6 +129,32 @@ function IdCard() {
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+// The ID-badge headshot: a circular, B&W-treated portrait centred at the top
+// of the card body. Falls back to the stylised silhouette when no photo file
+// exists (or fails to load), matching the Fun Stuff and About portraits.
+function Avatar() {
+  const [failed, setFailed] = useState(false)
+  if (identity.photo && !failed) {
+    return (
+      <img
+        src={asset(identity.photo)}
+        alt={identity.name}
+        onError={() => setFailed(true)}
+        className="photo-bw mx-auto mb-3 mt-1 h-24 w-24 rounded-full border-[3px] border-white object-cover shadow-[0_8px_22px_-8px_rgba(0,0,0,0.55)] ring-1 ring-[color:var(--color-line)]"
+      />
+    )
+  }
+  return (
+    <div className="mx-auto mb-3 mt-1 grid h-24 w-24 place-items-center overflow-hidden rounded-full border-[3px] border-white bg-[color:var(--color-card-hi)] ring-1 ring-[color:var(--color-line)]">
+      <svg viewBox="0 0 200 240" className="h-full w-full" role="img" aria-label={identity.name} preserveAspectRatio="xMidYMax meet">
+        <path d="M22 240c0-50 34-78 78-78s78 28 78 78z" fill="#0d0d0c" />
+        <rect x="85" y="118" width="30" height="44" rx="13" fill="#0d0d0c" />
+        <ellipse cx="100" cy="90" rx="40" ry="48" fill="#0d0d0c" />
+      </svg>
     </div>
   )
 }
