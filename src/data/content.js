@@ -485,13 +485,6 @@ export const funStuff = [
     newTab: true,
   },
   {
-    title: 'The Nook',
-    tint: '#f6a15a',
-    desc: 'A café & co-working brand identity — logo, illustration, signage and merch, all hand-drawn first.',
-    img: 'art/nook.jpg',
-    href: '#/work/nook',
-  },
-  {
     title: 'Daily Doodles',
     tint: '#8fb2ff',
     desc: 'Small drawings and design bits, posted (almost) daily over at @punedoodlerr.',
