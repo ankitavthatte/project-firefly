@@ -248,6 +248,9 @@ body {
 .card-scroll__track {
   display: inline-flex;
   gap: 1.5rem;
+  /* trailing gap so the -50% loop point aligns exactly with the start of the
+     duplicated set — makes the marquee seamless, no half-gap jump */
+  padding-right: 1.5rem;
   animation: marquee 48s linear infinite;
   will-change: transform;
 }
