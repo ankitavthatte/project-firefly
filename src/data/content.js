@@ -501,6 +501,7 @@ export const funStuff = [
     title: 'Sketchbook Stories',
     tint: '#74cca0',
     desc: 'Handcrafted little worlds — characters, lettering and scenes, drawn on location wherever I happen to be.',
+    img: 'fun/sketching.jpg',
   },
   {
     title: 'Eleven Art Directors',
@@ -511,6 +512,35 @@ export const funStuff = [
     title: 'Field Notes',
     tint: '#8fb2ff',
     desc: 'Travel as field research — signage, queues and street-food rituals, collected as little design patterns.',
+    video: 'fun/market.mp4',
+    img: 'fun/market.jpg',
+  },
+  {
+    title: 'Flea-Market Finds',
+    tint: '#f6a15a',
+    desc: 'Sunday-morning treasure hunts through tables of brass — every worn little object is a lesson in form and craft.',
+    video: 'fun/flea-market.mp4',
+    img: 'fun/flea-market.jpg',
+  },
+  {
+    title: 'Weekend Builds',
+    tint: '#9d4edd',
+    desc: 'A wooden mechanical Ferris wheel, assembled gear by gear. Building physical things keeps my hands honest.',
+    video: 'fun/ferris-build.mp4',
+    img: 'fun/ferris-build.jpg',
+  },
+  {
+    title: 'Farm Days',
+    tint: '#74cca0',
+    desc: 'Off the grid with the animals — the antidote to a week of screens, and the best kind of field research.',
+    video: 'fun/farm.mp4',
+    img: 'fun/farm.jpg',
+  },
+  {
+    title: 'Tried the Future',
+    tint: '#8fb2ff',
+    desc: 'Testing a VR learning experience at an education expo — a designer has to feel new interaction models first-hand.',
+    img: 'fun/vr-expo.jpg',
   },
 ]
 

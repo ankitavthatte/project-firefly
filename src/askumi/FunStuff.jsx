@@ -1,10 +1,50 @@
-import { useState } from 'react'
 import { identity, nowBoard } from '../data/content.js'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
-const POLAROIDS = [
-  { src: 'art/nook.jpg', cap: 'The Nook', rot: -6 },
+// The home-page Fun Stuff section: a scattered scrapbook collage. A kaomoji
+// heading sits in the middle while real off-the-clock photos and short videos
+// drift around it at playful angles, and a blue butterfly flutters across the
+// whole thing. On small screens the scatter tidies into a scrollable rail.
+const COLLAGE = [
+  {
+    kind: 'image',
+    src: 'fun/sketching.jpg',
+    cap: 'Sketchbook · on location',
+    rot: -5,
+    cls: 'lg:absolute lg:left-[2%] lg:top-2 lg:w-52',
+  },
+  {
+    kind: 'video',
+    src: 'fun/market.mp4',
+    poster: 'fun/market.jpg',
+    cap: 'Flea-market field notes',
+    rot: 4,
+    cls: 'lg:absolute lg:right-[4%] lg:top-0 lg:w-48',
+  },
+  {
+    kind: 'video',
+    src: 'fun/ferris-build.mp4',
+    poster: 'fun/ferris-build.jpg',
+    cap: 'Weekend build',
+    rot: -3,
+    cls: 'lg:absolute lg:bottom-1 lg:right-[15%] lg:w-44',
+  },
+  {
+    kind: 'video',
+    src: 'fun/farm.mp4',
+    poster: 'fun/farm.jpg',
+    cap: 'Farm days',
+    rot: 3,
+    cls: 'lg:absolute lg:bottom-0 lg:left-[8%] lg:w-48',
+  },
+  {
+    kind: 'image',
+    src: 'fun/vr-expo.jpg',
+    cap: 'Tried the future',
+    rot: 6,
+    cls: 'lg:absolute lg:right-[1%] lg:top-[44%] lg:w-40',
+  },
 ]
 
 const doodle = nowBoard.items.find((i) => i.href)?.href
@@ -12,52 +52,36 @@ const doodle = nowBoard.items.find((i) => i.href)?.href
 export default function FunStuff() {
   return (
     <section id="fun" className="relative overflow-hidden py-24">
+      <FunMotionStyles />
       <div className="wrap relative">
-        {/* heading */}
-        <div className="text-center">
-          <div className="mono text-2xl text-[color:var(--color-orange)] sm:text-3xl">
-            Fun Stuff
-          </div>
-          <p className="mono mx-auto mt-4 max-w-xl text-[0.85rem] leading-relaxed text-[color:var(--color-ink-soft)]">
-            What happens when I’m left alone with a sketchbook and a laptop — the
-            traveling, gaming, painting and eleven-cat chaos that keeps the pixels
-            honest.
-          </p>
-        </div>
-
-        {/* collage */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
-          {/* lime portrait card */}
-          <div className="float-a w-52 shrink-0 rounded-[20px] bg-[color:var(--color-lime)] p-3" style={{ '--r': '-3deg', transform: 'rotate(-3deg)' }}>
-            <div className="flex h-56 items-end justify-center overflow-hidden">
-              <LimePortrait />
+        {/* the collage stage — heading centered, cards scattered around it */}
+        <div className="relative lg:min-h-[44rem]">
+          {/* heading + blurb (centered on desktop, in-flow on mobile) */}
+          <div className="flex flex-col items-center justify-center text-center lg:absolute lg:inset-0">
+            <div className="display text-3xl text-[color:var(--color-orange)] sm:text-4xl">
+              <span className="mono align-middle text-2xl">٩(^ᴗ^)۶</span> Fun stuff{' '}
+              <span className="mono align-middle text-2xl">(๑&gt;ᴗ&lt;)๑</span>
             </div>
-            <div className="mono px-1 pb-1 pt-2 text-[0.7rem] font-bold text-[color:var(--color-ink)]">
-              off the clock ↗
-            </div>
+            <p className="mono mx-auto mt-4 max-w-md text-[0.85rem] leading-relaxed text-[color:var(--color-ink-soft)]">
+              What happens when I’m left alone with my laptop — the traveling,
+              building, sketching and eleven-cat chaos. Projects that exist purely
+              because I said “what if?”
+            </p>
           </div>
 
-          {POLAROIDS.map((p) => (
-            <figure
-              key={p.src}
-              className="float-b w-44 rounded-md bg-white p-2 pb-4 shadow-[0_12px_34px_rgba(0,0,0,0.14)] sm:w-48"
-              style={{ '--r': `${p.rot}deg`, transform: `rotate(${p.rot}deg)` }}
-            >
-              <img
-                src={asset(p.src)}
-                alt={p.cap}
-                loading="lazy"
-                className="aspect-square w-full rounded-sm object-cover"
-              />
-              <figcaption className="mono mt-2 text-center text-[0.66rem] text-[#5c554c]">
-                {p.cap}
-              </figcaption>
-            </figure>
-          ))}
+          {/* the butterfly, fluttering across the collage */}
+          <Butterfly />
+
+          {/* the media cards — a scroll rail on mobile, a scatter on desktop */}
+          <div className="mt-10 flex snap-x gap-4 overflow-x-auto pb-2 lg:mt-0 lg:block lg:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {COLLAGE.map((item, i) => (
+              <FloatCard key={item.src} item={item} i={i} />
+            ))}
+          </div>
         </div>
 
-        {/* tag stickers + doodle link */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
+        {/* tag stickers + daily-doodle link */}
+        <div className="relative mt-12 flex flex-wrap items-center justify-center gap-2.5">
           {identity.tags.map((t, i) => (
             <span
               key={t}
@@ -70,7 +94,7 @@ export default function FunStuff() {
         </div>
 
         {doodle && (
-          <div className="mt-8 text-center">
+          <div className="relative mt-8 text-center">
             <a href={doodle} target="_blank" rel="noreferrer" className="pill">
               Daily doodles @punedoodlerr →
             </a>
@@ -81,24 +105,104 @@ export default function FunStuff() {
   )
 }
 
-function LimePortrait() {
-  const [failed, setFailed] = useState(false)
-  if (identity.photo && !failed) {
-    return (
-      <img
-        src={asset(identity.photo)}
-        alt={identity.name}
-        onError={() => setFailed(true)}
-        className="photo-bw h-56 w-full rounded-lg"
-      />
-    )
-  }
+// One drifting card in the collage. Floats gently (via floaty) keeping its tilt,
+// and the media inside lifts a touch on hover.
+function FloatCard({ item, i }) {
+  const floatCls = i % 2 ? 'float-b' : 'float-a'
   return (
-    <svg viewBox="0 0 200 240" className="h-56 w-auto" aria-label="Ankita, off the clock" role="img" preserveAspectRatio="xMidYMax meet">
-      <path d="M22 240c0-50 34-78 78-78s78 28 78 78z" fill="#0d0d0c" />
-      <rect x="85" y="118" width="30" height="44" rx="13" fill="#0d0d0c" />
-      <ellipse cx="100" cy="90" rx="40" ry="48" fill="#0d0d0c" />
-      <path d="M58 94c-8-40 20-66 42-66s52 22 44 64c-4-22-20-34-42-34S62 72 58 94z" fill="#000" />
-    </svg>
+    <figure
+      className={`group relative w-44 shrink-0 snap-center rounded-[18px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-2 pb-3 shadow-[0_16px_34px_-14px_rgba(0,0,0,0.42)] ${item.cls} ${floatCls}`}
+      style={{ '--r': `${item.rot}deg`, transform: `rotate(${item.rot}deg)` }}
+    >
+      <div className="overflow-hidden rounded-[12px]">
+        {item.kind === 'video' ? (
+          <video
+            src={asset(item.src)}
+            poster={item.poster ? asset(item.poster) : undefined}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+          />
+        ) : (
+          <img
+            src={asset(item.src)}
+            alt={item.cap}
+            loading="lazy"
+            className="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+          />
+        )}
+      </div>
+      <figcaption className="mono px-1 pt-2 text-[0.62rem] leading-tight text-[color:var(--color-ink-soft)]">
+        {item.cap}
+      </figcaption>
+    </figure>
+  )
+}
+
+// A little blue morpho butterfly. The two wing halves flap (scaleX toward the
+// body) while the whole thing wanders a slow looping path across the section.
+function Butterfly() {
+  return (
+    <div className="bfly pointer-events-none absolute left-[8%] top-20 z-20 hidden sm:block" aria-hidden="true">
+      <svg width="58" height="58" viewBox="0 0 80 80" className="bfly-body">
+        <defs>
+          <linearGradient id="bflyWing" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#7aa2ff" />
+            <stop offset="0.55" stopColor="#4f7bff" />
+            <stop offset="1" stopColor="#2f4fb8" />
+          </linearGradient>
+        </defs>
+        {/* left wing pair */}
+        <g className="bfly-wing bfly-wing--l">
+          <path d="M40 31 C21 11 5 18 9 34 C11 43 30 41 40 41 Z" fill="url(#bflyWing)" stroke="#43371f" strokeWidth="1.4" strokeLinejoin="round" />
+          <path d="M40 43 C23 47 13 57 22 63 C29 67 39 52 40 48 Z" fill="url(#bflyWing)" stroke="#43371f" strokeWidth="1.4" strokeLinejoin="round" />
+          <circle cx="18" cy="29" r="2.6" fill="#dbe6ff" opacity="0.85" />
+          <circle cx="24" cy="56" r="1.8" fill="#dbe6ff" opacity="0.7" />
+        </g>
+        {/* right wing pair */}
+        <g className="bfly-wing bfly-wing--r">
+          <path d="M40 31 C59 11 75 18 71 34 C69 43 50 41 40 41 Z" fill="url(#bflyWing)" stroke="#43371f" strokeWidth="1.4" strokeLinejoin="round" />
+          <path d="M40 43 C57 47 67 57 58 63 C51 67 41 52 40 48 Z" fill="url(#bflyWing)" stroke="#43371f" strokeWidth="1.4" strokeLinejoin="round" />
+          <circle cx="62" cy="29" r="2.6" fill="#dbe6ff" opacity="0.85" />
+          <circle cx="56" cy="56" r="1.8" fill="#dbe6ff" opacity="0.7" />
+        </g>
+        {/* body + antennae */}
+        <path d="M38.5 27 Q34 22 33 17" stroke="#23252f" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+        <path d="M41.5 27 Q46 22 47 17" stroke="#23252f" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+        <circle cx="32.6" cy="16.4" r="1.4" fill="#23252f" />
+        <circle cx="47.4" cy="16.4" r="1.4" fill="#23252f" />
+        <ellipse cx="40" cy="41" rx="2.4" ry="14" fill="#23252f" />
+      </svg>
+    </div>
+  )
+}
+
+// Scoped keyframes for the butterfly's flap + wander, reduced-motion aware.
+function FunMotionStyles() {
+  return (
+    <style>{`
+      .bfly { animation: bflyPath 22s ease-in-out infinite; }
+      .bfly-body { transform-origin: center; animation: bflyBob 2.6s ease-in-out infinite; }
+      .bfly-wing { transform-box: fill-box; }
+      .bfly-wing--l { transform-origin: right center; animation: bflyFlapL 0.42s ease-in-out infinite; }
+      .bfly-wing--r { transform-origin: left center; animation: bflyFlapR 0.42s ease-in-out infinite; }
+      @keyframes bflyFlapL { 0%,100% { transform: scaleX(1); } 50% { transform: scaleX(0.28); } }
+      @keyframes bflyFlapR { 0%,100% { transform: scaleX(1); } 50% { transform: scaleX(0.28); } }
+      @keyframes bflyBob { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+      @keyframes bflyPath {
+        0%   { transform: translate(0, 0) rotate(-6deg); }
+        20%  { transform: translate(16vw, -46px) rotate(6deg); }
+        45%  { transform: translate(38vw, 26px) rotate(-4deg); }
+        62%  { transform: translate(52vw, -18px) rotate(8deg); }
+        80%  { transform: translate(30vw, 58px) rotate(-6deg); }
+        100% { transform: translate(0, 0) rotate(-6deg); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .bfly, .bfly-body, .bfly-wing--l, .bfly-wing--r { animation: none !important; }
+      }
+    `}</style>
   )
 }
