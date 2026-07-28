@@ -72,24 +72,24 @@ function FunCard({ item, i }) {
   )
 
   const content = (
-    <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[14px]">
+    <div className="relative aspect-[3/5] w-full overflow-hidden rounded-[16px]">
       {visual}
       {/* scrim so the white text stays legible over any photo */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/25" />
 
-      <div className="absolute inset-x-0 bottom-0 p-5">
-        <div className="fancy text-[2.6rem] leading-[0.5] text-white/70" aria-hidden>
+      <div className="absolute inset-x-0 bottom-0 p-6">
+        <div className="fancy text-[3rem] leading-[0.5] text-white/70" aria-hidden>
           “
         </div>
-        <h3 className="fancy mt-1 text-[1.35rem] leading-tight text-white">{item.title}</h3>
-        <p className="mt-2 text-[0.82rem] leading-relaxed text-white/85">{item.desc}</p>
+        <h3 className="fancy mt-1 text-[1.6rem] leading-tight text-white">{item.title}</h3>
+        <p className="mt-2.5 text-[0.9rem] leading-relaxed text-white/85">{item.desc}</p>
       </div>
     </div>
   )
 
   return (
     <article
-      className="relative w-44 shrink-0 snap-center rounded-[16px] shadow-[0_16px_34px_-14px_rgba(0,0,0,0.5)] sm:w-48"
+      className="relative w-60 shrink-0 snap-center rounded-[18px] shadow-[0_28px_54px_-18px_rgba(0,0,0,0.6)] sm:w-72"
       style={{ transform: `rotate(${tilt}deg)` }}
     >
       <Clip
