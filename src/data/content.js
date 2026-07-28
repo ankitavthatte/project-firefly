@@ -577,25 +577,32 @@ export const faqs = [
   },
 ]
 
-// Mentee-facing conversation prompts — the warm, honest questions someone
-// nervous about reaching out actually wants answered before they book time.
-// Written in Ankita's own voice.
+// "About me" FAQ — the questions people actually ask about who I am and how I
+// work, a mix of personal and professional. Written in Ankita's own voice.
 export const conversationFaqs = [
   {
-    q: 'My portfolio is messy (or non-existent). Should I wait to book?',
-    a: 'Please don’t wait. A blank or messy portfolio is exactly the right starting point — it means we get to shape it together from scratch, without unlearning anything. The people who come “when it’s ready” usually just wait forever.',
+    q: 'How does an architect end up designing software?',
+    a: 'Slowly, then all at once. I trained and practised as an architect for years, and the whole time I was really learning one thing — how structure makes complex things usable. Buildings taught me systems thinking before I had the word for it. Product design is the same craft in a faster medium: a building changes one street, a product can change millions of days.',
   },
   {
-    q: 'I’m switching from Engineering (or another field) to Design. Can you help?',
-    a: 'Yes — this is my favourite kind of conversation. I switched into product design from architecture, so I know how it feels to carry a past life into a new craft. That background isn’t baggage; it’s an unfair advantage once you learn to frame it.',
+    q: 'What do you actually mean by “making complex systems feel obvious”?',
+    a: 'Most enterprise tools aren’t hard because the work is hard — they’re hard because nobody gave them hierarchy. On Evalix AI I rebuilt the information architecture first, so every role had one shortest path, then designed 300+ screens on top of that. When it’s done right you don’t notice the design at all. That “of course it works this way” feeling is the whole job.',
   },
   {
-    q: 'What is your feedback style? Will you be nice?',
-    a: 'Kind, but honest. I won’t pretend something works when it doesn’t — that helps no one — but I’ll always tell you the “why” behind the critique and what to try next. You’ll leave with a clearer head, not a bruised ego.',
+    q: 'Wait — eleven cats?',
+    a: 'Eleven adopted rescue cats, yes. I call them my art directors; they have strong opinions about most of my colour palettes and zero respect for deadlines. They’re also why “products that feel alive” isn’t just a tagline for me — I like things with a bit of warmth and personality.',
   },
   {
-    q: 'How can I make sure I don’t waste our time?',
-    a: 'Bring one specific thing — a screen, a decision you’re stuck on, a portfolio section that feels off. Specific beats broad every time. We’ll go deep on that instead of skimming ten things at the surface.',
+    q: 'What do you do when you’re not designing?',
+    a: 'I paint and sketch on location, travel as a kind of field research (signage, queues and street-food rituals are just interfaces), lose weekends to flea-market brass and little build kits, and play games for the interaction lessons. It all quietly shows up in the work — colour, composition, feedback, timing.',
+  },
+  {
+    q: 'How do you actually work, day to day?',
+    a: 'AI-first and “why” first. I won’t draw a screen until I understand who it’s really for, then I move fast — Figma, Claude Code and ChatGPT to prototype wide and reserve my time for the judgment calls machines can’t make. I think in systems and tokens, not one-off screens.',
+  },
+  {
+    q: 'What kind of role are you looking for — and where?',
+    a: 'Senior Product Designer, Senior UX Designer or Design Lead on enterprise SaaS, AI products or genuinely complex, workflow-heavy tools. The harder the system, the more interested I am. I’m based in Pune and open to remote or relocation for the right team.',
   },
 ]
 

@@ -20,9 +20,8 @@ export default function Conversation() {
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="mono text-4xl font-bold tracking-tight sm:text-5xl">Start a Conversation</h2>
         <p className="mono mx-auto mt-4 max-w-xl text-[0.9rem] leading-relaxed text-[color:var(--color-ink-soft)]">
-          Thinking about reaching out but not sure you’re “ready”? These are the
-          things people ask me most before we talk. Tap a question, or just say hi
-          directly.
+          A few things people tend to ask me — the career switch, the cats, and how
+          I actually work. Tap a question, or just say hi directly.
         </p>
       </div>
 
