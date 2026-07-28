@@ -14,7 +14,7 @@ const WORK = {
   shiftcare: {
     title: 'SCHEDULING HEALTHCARE WITHOUT THE CHAOS',
     category: 'Healthcare UX',
-    img: 'projects/shiftcare/slide-17.jpg',
+    img: 'projects/shiftcare/slide-01.jpg',
   },
 }
 
