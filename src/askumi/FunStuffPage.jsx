@@ -15,7 +15,7 @@ export default function FunStuffPage() {
       <Masthead active="fun" />
 
       <div className="wrap py-10 sm:py-14">
-        <div className="relative mx-auto max-w-3xl px-3 pb-10 pt-9 sm:px-8">
+        <div className="relative mx-auto max-w-6xl px-3 pb-10 pt-9 sm:px-8">
           {/* header */}
           <div className="text-center">
             <h1 className="fancy text-[2.1rem] leading-tight text-[color:var(--color-ink)] sm:text-[3rem]">
@@ -23,13 +23,11 @@ export default function FunStuffPage() {
             </h1>
           </div>
 
-          {/* card rail — scrolls continuously, pauses on hover */}
-          <div className="card-scroll mt-6">
-            <div className="card-scroll__track">
-              {[...funStuff, ...funStuff].map((item, i) => (
-                <FunCard key={item.title + i} item={item} i={i} />
-              ))}
-            </div>
+          {/* every card laid out in full — a pinned-card grid, no scrolling */}
+          <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+            {funStuff.map((item, i) => (
+              <FunCard key={item.title} item={item} i={i} />
+            ))}
           </div>
         </div>
       </div>
@@ -89,7 +87,7 @@ function FunCard({ item, i }) {
 
   return (
     <article
-      className="relative w-44 shrink-0 snap-center rounded-[16px] shadow-[0_16px_34px_-14px_rgba(0,0,0,0.5)] sm:w-48"
+      className="relative w-full rounded-[16px] shadow-[0_16px_34px_-14px_rgba(0,0,0,0.5)]"
       style={{ transform: `rotate(${tilt}deg)` }}
     >
       <Clip
