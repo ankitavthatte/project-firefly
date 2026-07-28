@@ -14,22 +14,22 @@ export default function FunStuffPage() {
     <div className="grain relative z-10 min-h-full">
       <Masthead active="fun" />
 
-      <div className="wrap py-10 sm:py-14">
-        <div className="relative mx-auto max-w-3xl px-3 pb-10 pt-9 sm:px-8">
-          {/* header */}
-          <div className="text-center">
+      <div className="py-10 sm:py-14">
+        {/* header stays centered within the reading column */}
+        <div className="wrap">
+          <div className="relative mx-auto max-w-3xl px-3 pt-9 text-center sm:px-8">
             <h1 className="fancy text-[2.1rem] leading-tight text-[color:var(--color-ink)] sm:text-[3rem]">
               Fun Experiments at 2 AM
             </h1>
           </div>
+        </div>
 
-          {/* card rail — scrolls continuously, pauses on hover */}
-          <div className="card-scroll mt-6">
-            <div className="card-scroll__track">
-              {[...funStuff, ...funStuff].map((item, i) => (
-                <FunCard key={item.title + i} item={item} i={i} />
-              ))}
-            </div>
+        {/* card rail — scrolls edge to edge across the full viewport, pauses on hover */}
+        <div className="card-scroll mt-6 pb-6">
+          <div className="card-scroll__track">
+            {[...funStuff, ...funStuff].map((item, i) => (
+              <FunCard key={item.title + i} item={item} i={i} />
+            ))}
           </div>
         </div>
       </div>
