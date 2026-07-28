@@ -34,17 +34,6 @@ export default function Conversation() {
             const accent = i % 3 === 1
             return (
               <div key={f.q} className="relative flex items-start gap-3">
-                {i === 0 && (
-                  <span aria-hidden className="float-a absolute -right-2 -top-3 text-2xl">
-                    💗
-                  </span>
-                )}
-                {i === faqs.length - 1 && (
-                  <span aria-hidden className="float-b absolute -left-3 top-3 text-xl">
-                    ⭐
-                  </span>
-                )}
-
                 <div
                   className={`flex-1 overflow-hidden rounded-[20px] rounded-bl-md border p-4 transition-colors ${
                     accent

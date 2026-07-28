@@ -22,13 +22,13 @@ const ICONS = {
   ),
 }
 
-// Tappable sign-offs — the emoji cycles through these on click.
+// Tappable sign-offs — the line cycles through these on click.
 const SIGNOFFS = [
-  { emoji: '🤝', line: contact.goodbye },
-  { emoji: '👋', line: 'Still scrolling? I already like you.' },
-  { emoji: '✌️', line: 'Go on — the email button really doesn’t bite.' },
-  { emoji: '☕', line: 'Coffee’s on me if you’re ever in Pune.' },
-  { emoji: '🐱', line: 'Eleven rescue cats say hi, by the way.' },
+  contact.goodbye,
+  'Still scrolling? I already like you.',
+  'Go on — the email button really doesn’t bite.',
+  'Coffee’s on me if you’re ever in Pune.',
+  'Eleven rescue cats say hi, by the way.',
 ]
 
 // Live local time in Pune, refreshed every half-minute — a small "I'm a real
@@ -52,7 +52,6 @@ function usePuneTime() {
 export default function SiteFooter() {
   const socials = identity.links.filter((l) => ICONS[l.label])
   const [idx, setIdx] = useState(0)
-  const signoff = SIGNOFFS[idx]
   const time = usePuneTime()
   const cycle = () => setIdx((i) => (i + 1) % SIGNOFFS.length)
 
@@ -93,10 +92,9 @@ export default function SiteFooter() {
                 animate={{ scale: 1, opacity: 1, rotate: 0 }}
                 exit={{ scale: 0.5, opacity: 0, rotate: 12 }}
                 transition={{ type: 'spring', stiffness: 420, damping: 16 }}
-                className="text-5xl transition-transform group-hover:scale-110"
-                aria-hidden
+                className="transition-transform group-hover:scale-110"
               >
-                {signoff.emoji}
+                <Asterisk size={44} className="text-white" />
               </motion.div>
             </AnimatePresence>
 
@@ -109,7 +107,7 @@ export default function SiteFooter() {
                 transition={{ duration: 0.24 }}
                 className="mono mt-4 max-w-sm text-[0.9rem] leading-relaxed"
               >
-                {signoff.line}
+                {SIGNOFFS[idx]}
               </motion.p>
             </AnimatePresence>
 
@@ -162,7 +160,7 @@ export default function SiteFooter() {
           <span className="text-sm">ANKITA THATTE</span>
         </a>
         <div className="mono text-[0.72rem] text-[color:var(--color-ink-soft)]">
-          Made with love, curiosity & 11 cats ♥ · {new Date().getFullYear()}
+          Made with love, curiosity & 11 cats · {new Date().getFullYear()}
         </div>
       </div>
     </footer>

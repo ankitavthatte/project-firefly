@@ -21,8 +21,7 @@ export default function FunStuffPage() {
 
           {/* header */}
           <div className="text-center">
-            <div className="text-4xl" aria-hidden>🍒</div>
-            <h1 className="fancy mt-2 text-[2.1rem] leading-tight text-[#241a0d] sm:text-[3rem]">
+            <h1 className="fancy text-[2.1rem] leading-tight text-[#241a0d] sm:text-[3rem]">
               Fun Experiments at 2 AM
             </h1>
           </div>
@@ -48,8 +47,8 @@ function FunCard({ item, i }) {
   const newTab = item.href?.startsWith('http') || item.newTab
 
   // The card's full visual — a real photo/video if we have one, otherwise a
-  // tinted panel built from the item's accent colour with its emoji as the
-  // graphic. Either way this fills the entire card; text sits on top of it.
+  // tinted panel built from the item's accent colour. Either way this fills
+  // the entire card; text sits on top of it.
   const visual = item.video ? (
     <video
       src={asset(item.video)}
@@ -69,14 +68,10 @@ function FunCard({ item, i }) {
     />
   ) : (
     <div
-      className="absolute inset-0 grid place-items-center"
+      className="absolute inset-0"
       style={{ background: `linear-gradient(160deg, ${item.tint}, ${item.tint}cc 55%, #201a12)` }}
       aria-hidden
-    >
-      <span className="text-[5rem] opacity-90 drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]">
-        {item.emoji}
-      </span>
-    </div>
+    />
   )
 
   const content = (
@@ -92,15 +87,6 @@ function FunCard({ item, i }) {
         <h3 className="fancy mt-1 text-[1.35rem] leading-tight text-white">{item.title}</h3>
         <p className="mt-2 text-[0.82rem] leading-relaxed text-white/85">{item.desc}</p>
       </div>
-
-      {item.emoji && (item.img || item.video) && (
-        <span
-          aria-hidden
-          className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-black/35 text-[1.05rem] backdrop-blur-sm"
-        >
-          {item.emoji}
-        </span>
-      )}
     </div>
   )
 

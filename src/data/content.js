@@ -455,10 +455,10 @@ export const travel = {
 export const drawer = {
   intro: 'Every studio has one drawer of almost-finished things. You found mine.',
   items: [
-    { emoji: '📄', title: 'Résumé', note: 'This drawer copy has coffee on it — take the clean PDF instead.', cta: true },
-    { emoji: '✏️', title: 'Three dried-out pens', note: 'Kept for sentimental reasons. They sketched the first Evalix flows.' },
-    { emoji: '🧵', title: 'One very important sketch', note: 'Folded four times. Every good product starts as a bad drawing.' },
-    { emoji: '🍬', title: 'Emergency toffees', note: 'For user interviews that run long.' },
+    { title: 'Résumé', note: 'This drawer copy has coffee on it — take the clean PDF instead.', cta: true },
+    { title: 'Three dried-out pens', note: 'Kept for sentimental reasons. They sketched the first Evalix flows.' },
+    { title: 'One very important sketch', note: 'Folded four times. Every good product starts as a bad drawing.' },
+    { title: 'Emergency toffees', note: 'For user interviews that run long.' },
   ],
 }
 
@@ -478,7 +478,6 @@ export const nowBoard = {
 export const funStuff = [
   {
     title: 'Flappy Aura',
-    emoji: '🎮',
     tint: '#9d4edd',
     desc: 'A build-it-in-a-weekend game — a customizable Flappy Bird with 6 bird skins, 6 themes, procedural Web Audio sound and particle effects. Click to play.',
     img: 'play/flappy-aura.png',
@@ -487,7 +486,6 @@ export const funStuff = [
   },
   {
     title: 'The Nook',
-    emoji: '🍵',
     tint: '#f6a15a',
     desc: 'A café & co-working brand identity — logo, illustration, signage and merch, all hand-drawn first.',
     img: 'art/nook.jpg',
@@ -495,26 +493,22 @@ export const funStuff = [
   },
   {
     title: 'Daily Doodles',
-    emoji: '✏️',
     tint: '#8fb2ff',
     desc: 'Small drawings and design bits, posted (almost) daily over at @punedoodlerr.',
     href: 'https://www.instagram.com/punedoodlerr',
   },
   {
     title: 'Sketchbook Stories',
-    emoji: '✍️',
     tint: '#74cca0',
     desc: 'Handcrafted little worlds — characters, lettering and scenes, drawn on location wherever I happen to be.',
   },
   {
     title: 'Eleven Art Directors',
-    emoji: '🐈',
     tint: '#f6a15a',
     desc: 'Design breaks powered by eleven very opinionated rescue cats. They approve most of my colour palettes.',
   },
   {
     title: 'Field Notes',
-    emoji: '🧭',
     tint: '#8fb2ff',
     desc: 'Travel as field research — signage, queues and street-food rituals, collected as little design patterns.',
   },

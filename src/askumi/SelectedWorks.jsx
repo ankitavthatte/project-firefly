@@ -28,8 +28,6 @@ export default function SelectedWorks() {
   const count = visible.length + 1
   return (
     <section id="work" className="relative pt-12 pb-16">
-      <SideStickers />
-
       <div className="wrap relative z-10">
         {/* header */}
         <div className="mx-auto mb-7 flex max-w-4xl flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -197,43 +195,5 @@ function MoreWorkCard({ index, accent, stackIndex }) {
         })}
       </div>
     </article>
-  )
-}
-
-// Decorative cut-outs down both margins (desktop only).
-function SideStickers() {
-  const L = [
-    { e: '👻', top: '8%' },
-    { e: '🌐', top: '34%' },
-    { e: '🚧', top: '58%' },
-    { e: '✦', top: '82%' },
-  ]
-  const R = [
-    { e: '👀', top: '10%' },
-    { e: '🌀', top: '40%' },
-    { e: '💀', top: '64%' },
-    { e: '💎', top: '86%' },
-  ]
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 z-0 hidden xl:block">
-      {L.map((s, i) => (
-        <span
-          key={i}
-          className={`float-${i % 2 ? 'b' : 'a'} absolute text-4xl`}
-          style={{ left: 'max(12px, calc(50% - 640px))', top: s.top, '--r': `${(i - 1) * 10}deg`, transform: `rotate(${(i - 1) * 10}deg)` }}
-        >
-          {s.e}
-        </span>
-      ))}
-      {R.map((s, i) => (
-        <span
-          key={i}
-          className={`float-${i % 2 ? 'a' : 'b'} absolute text-4xl`}
-          style={{ right: 'max(12px, calc(50% - 640px))', top: s.top, '--r': `${(1 - i) * 10}deg`, transform: `rotate(${(1 - i) * 10}deg)` }}
-        >
-          {s.e}
-        </span>
-      ))}
-    </div>
   )
 }

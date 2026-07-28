@@ -5,16 +5,6 @@ import Masthead from './Masthead.jsx'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
-const TAG_EMOJI = {
-  Traveler: '✈️',
-  Gamer: '🎮',
-  Creator: '🎨',
-  'Book Lover': '📚',
-  Painter: '🖌️',
-  Sketcher: '✏️',
-  'Cat Mom': '🐈',
-}
-
 const TABS = ['Basics', 'Work', 'Life']
 
 // The "About" page — opens on its own route (#/about) with the tabbed
@@ -68,12 +58,6 @@ export default function AboutPage() {
             {/* portrait column */}
             <div className="relative">
               <Portrait />
-              {/* sticker collage tucked at the base of the portrait */}
-              <div className="pointer-events-none absolute -bottom-3 left-1/2 flex -translate-x-1/2 gap-2 sm:left-auto sm:right-[-1.5rem] sm:translate-x-0">
-                <span className="float-a text-3xl" style={{ '--r': '-10deg', transform: 'rotate(-10deg)' }}>🐈</span>
-                <span className="float-b text-2xl" style={{ '--r': '8deg', transform: 'rotate(8deg)' }}>🎮</span>
-                <span className="float-a text-2xl" style={{ '--r': '-4deg', transform: 'rotate(-4deg)' }}>🎨</span>
-              </div>
             </div>
 
             {/* tab body + registration marks */}
@@ -165,7 +149,6 @@ function Life() {
             className="mono inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] px-3.5 py-2 text-[0.74rem]"
             style={{ transform: `rotate(${(i % 2 ? 1 : -1) * (2 + (i % 3))}deg)` }}
           >
-            <span aria-hidden>{TAG_EMOJI[t] || '★'}</span>
             {t}
           </span>
         ))}

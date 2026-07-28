@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { identity, atAGlance } from '../data/content.js'
-import { TechLabel, Asterisk, Sticker } from './bits.jsx'
+import { TechLabel, Asterisk } from './bits.jsx'
 
 // Per-card accents, cycling the site palette (orange · blue · green).
 const ACCENTS = [
@@ -20,12 +20,7 @@ const reduceMotion =
 // landing card so the first scroll lands on the promise.
 export default function IntroBand() {
   return (
-    <section id="about" className="relative wrap scroll-mt-6 pt-20 pb-10">
-      {/* the section was pure text before — a couple of quiet doodles echo the
-          architect-to-designer throughline without competing with the promise */}
-      <Sticker rot={-12} className="left-2 top-2 hidden lg:block" size="1.8rem">📐</Sticker>
-      <Sticker rot={10} drift="b" className="right-3 top-10 hidden lg:block" size="1.6rem">🎯</Sticker>
-
+    <section id="about" className="wrap scroll-mt-6 pt-20 pb-10">
       <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr] lg:items-end">
         <div>
           <TechLabel index="00">the promise</TechLabel>

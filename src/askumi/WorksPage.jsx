@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { projects, experiments, identity } from '../data/content.js'
 import Masthead from './Masthead.jsx'
-import { Sticker } from './bits.jsx'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 const behance = identity.links.find((l) => l.label === 'Behance')?.href
@@ -102,9 +101,7 @@ export default function WorksPage() {
       <Masthead active="works" />
 
       {/* header */}
-      <div className="relative wrap pt-6">
-        <Sticker rot={-10} className="left-2 top-0 hidden xl:block" size="1.8rem">📂</Sticker>
-        <Sticker rot={10} drift="b" className="right-2 top-2 hidden xl:block" size="1.7rem">🔖</Sticker>
+      <div className="wrap pt-6">
         <div className="text-center">
           <h1 className="mono text-2xl font-bold tracking-[0.15em] sm:text-3xl">COLLECTION OF WORKS</h1>
           <p className="mono mt-2 text-[0.9rem] text-[color:var(--color-orange)]">

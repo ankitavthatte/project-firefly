@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { identity, nowBoard } from '../data/content.js'
-import { Sticker } from './bits.jsx'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 
@@ -8,31 +7,16 @@ const POLAROIDS = [
   { src: 'art/nook.jpg', cap: 'The Nook', rot: -6 },
 ]
 
-const TAG_EMOJI = {
-  Traveler: '✈️',
-  Gamer: '🎮',
-  Creator: '🎨',
-  'Book Lover': '📚',
-  Painter: '🖌️',
-  Sketcher: '✏️',
-  'Cat Mom': '🐈',
-}
-
 const doodle = nowBoard.items.find((i) => i.href)?.href
 
 export default function FunStuff() {
   return (
     <section id="fun" className="relative overflow-hidden py-24">
       <div className="wrap relative">
-        {/* floating critters */}
-        <Sticker rot={-14} className="left-3 top-6" size="2rem">🐝</Sticker>
-        <Sticker rot={12} drift="b" className="right-6 bottom-24 hidden sm:block" size="2.2rem">🐦</Sticker>
-        <Sticker rot={-8} className="left-8 bottom-10 hidden sm:block" size="1.8rem">🦋</Sticker>
-
         {/* heading */}
         <div className="text-center">
           <div className="mono text-2xl text-[color:var(--color-orange)] sm:text-3xl">
-            ٩(^ᴗ^)۶ Fun Stuff (ﾉ◕ヮ◕)ﾉ
+            Fun Stuff
           </div>
           <p className="mono mx-auto mt-4 max-w-xl text-[0.85rem] leading-relaxed text-[color:var(--color-ink-soft)]">
             What happens when I’m left alone with a sketchbook and a laptop — the
@@ -80,7 +64,6 @@ export default function FunStuff() {
               className="mono inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] px-3.5 py-2 text-[0.74rem]"
               style={{ transform: `rotate(${(i % 2 ? 1 : -1) * (2 + (i % 3))}deg)` }}
             >
-              <span aria-hidden>{TAG_EMOJI[t] || '★'}</span>
               {t}
             </span>
           ))}

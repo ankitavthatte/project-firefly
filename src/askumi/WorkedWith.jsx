@@ -117,13 +117,6 @@ function Console() {
       onFocusCapture={pause}
       onBlurCapture={resume}
     >
-      <span aria-hidden className="float-a absolute -left-6 top-6 text-3xl">
-        🦋
-      </span>
-      <span aria-hidden className="float-b absolute -right-5 bottom-10 text-3xl">
-        🌊
-      </span>
-
       <div className="relative rounded-[30px] bg-gradient-to-b from-[color:var(--color-green)] to-[color:var(--color-green-deep)] p-3.5 shadow-[0_22px_50px_-18px_rgba(47,156,99,0.7)]">
         <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-white/10" />
         <div className="absolute -left-2 top-1/2 h-20 w-4 -translate-y-1/2 rounded-full bg-[color:var(--color-green-deep)]" />
