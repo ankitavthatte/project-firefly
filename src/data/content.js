@@ -503,13 +503,6 @@ export const funStuff = [
     desc: 'Design breaks powered by eleven very opinionated rescue cats. They approve most of my colour palettes.',
   },
   {
-    title: 'Field Notes',
-    tint: '#8fb2ff',
-    desc: 'Travel as field research — signage, queues and street-food rituals, collected as little design patterns.',
-    video: 'fun/market.mp4',
-    img: 'fun/market.jpg',
-  },
-  {
     title: 'Flea-Market Finds',
     tint: '#f6a15a',
     desc: 'Sunday-morning treasure hunts through tables of brass — every worn little object is a lesson in form and craft.',
