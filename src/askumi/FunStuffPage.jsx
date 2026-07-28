@@ -15,7 +15,7 @@ export default function FunStuffPage() {
       <Masthead active="fun" />
 
       <div className="wrap py-10 sm:py-14">
-        <div className="relative rounded-[28px] bg-[#f2a44e] px-3 pb-14 pt-12 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.5)] sm:px-8">
+        <div className="relative mx-auto max-w-3xl rounded-[28px] bg-[#f2a44e] px-3 pb-10 pt-9 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.5)] sm:px-8">
           {/* corner paperclip */}
           <Clip className="absolute -top-3 right-8 rotate-12 drop-shadow" width={32} height={52} />
 
@@ -92,7 +92,7 @@ function FunCard({ item, i }) {
 
   return (
     <article
-      className="relative w-56 shrink-0 snap-center rounded-[16px] shadow-[0_16px_34px_-14px_rgba(0,0,0,0.5)] sm:w-64"
+      className="relative w-44 shrink-0 snap-center rounded-[16px] shadow-[0_16px_34px_-14px_rgba(0,0,0,0.5)] sm:w-48"
       style={{ transform: `rotate(${tilt}deg)` }}
     >
       <Clip
