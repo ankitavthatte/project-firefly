@@ -82,31 +82,33 @@ function IdCard() {
           </div>
         </div>
 
-        {/* card body — headshot + name, ID-badge style */}
-        <div className="relative flex flex-col items-center px-8 py-4 text-center sm:px-12">
+        {/* card body — headshot on the left, details on the right (ID-badge style) */}
+        <div className="relative flex items-center gap-5 px-8 py-5 text-left sm:gap-7 sm:px-12">
           {/* green sticker sits at the body's bottom-right, overlapping the reveal */}
           <Paw className="absolute -bottom-6 right-5 z-20 h-12 w-12 rotate-[18deg]" />
 
           <Avatar />
 
-          <h1 className="mono text-xl font-bold tracking-tight text-[color:var(--color-orange)]">
-            {identity.name.toUpperCase()}
-          </h1>
-          <p className="mono mt-0.5 text-[0.85rem] text-[color:var(--color-ink)]">{identity.role}</p>
+          <div className="min-w-0 flex-1">
+            <h1 className="mono text-xl font-bold tracking-tight text-[color:var(--color-orange)]">
+              {identity.name.toUpperCase()}
+            </h1>
+            <p className="mono mt-0.5 text-[0.85rem] text-[color:var(--color-ink)]">{identity.role}</p>
 
-          <hr className="my-2.5 w-16 border-[color:var(--color-line)]" />
+            <hr className="my-2.5 w-16 border-[color:var(--color-line)]" />
 
-          <p className="mono text-[0.88rem] leading-relaxed text-[color:var(--color-ink)]">
-            Hostin Services · Cloud.in
-            <br />
-            <span className="text-[color:var(--color-ink-soft)]">[Currently designing Evalix AI]</span>
-          </p>
+            <p className="mono text-[0.88rem] leading-relaxed text-[color:var(--color-ink)]">
+              Hostin Services · Cloud.in
+              <br />
+              <span className="text-[color:var(--color-ink-soft)]">[Currently designing Evalix AI]</span>
+            </p>
 
-          <div className="mt-3 w-full max-w-sm">
-            <div className="barcode" />
-            <div className="mono mt-1 flex items-center justify-between text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
-              <span>AT · 2016 — {new Date().getFullYear()}</span>
-              <span className="id-card__hint tracking-normal">{coarse ? 'tap ▾' : 'hover ▾'}</span>
+            <div className="mt-3 w-full">
+              <div className="barcode" />
+              <div className="mono mt-1 flex items-center justify-between text-[0.6rem] tracking-[0.3em] text-[color:var(--color-ink-soft)]">
+                <span>AT · 2016 — {new Date().getFullYear()}</span>
+                <span className="id-card__hint tracking-normal">{coarse ? 'tap ▾' : 'hover ▾'}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -144,12 +146,12 @@ function Avatar() {
         src={asset(identity.photo)}
         alt={identity.name}
         onError={() => setFailed(true)}
-        className="photo-bw mx-auto mb-3 mt-1 h-24 w-24 rounded-full border-[3px] border-white object-cover shadow-[0_8px_22px_-8px_rgba(0,0,0,0.55)] ring-1 ring-[color:var(--color-line)]"
+        className="photo-bw h-24 w-24 shrink-0 rounded-full border-[3px] border-white object-cover shadow-[0_8px_22px_-8px_rgba(0,0,0,0.55)] ring-1 ring-[color:var(--color-line)] sm:h-28 sm:w-28"
       />
     )
   }
   return (
-    <div className="mx-auto mb-3 mt-1 grid h-24 w-24 place-items-center overflow-hidden rounded-full border-[3px] border-white bg-[color:var(--color-card-hi)] ring-1 ring-[color:var(--color-line)]">
+    <div className="grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-full border-[3px] border-white bg-[color:var(--color-card-hi)] ring-1 ring-[color:var(--color-line)] sm:h-28 sm:w-28">
       <svg viewBox="0 0 200 240" className="h-full w-full" role="img" aria-label={identity.name} preserveAspectRatio="xMidYMax meet">
         <path d="M22 240c0-50 34-78 78-78s78 28 78 78z" fill="#0d0d0c" />
         <rect x="85" y="118" width="30" height="44" rx="13" fill="#0d0d0c" />
