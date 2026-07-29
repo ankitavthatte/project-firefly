@@ -1,6 +1,3 @@
-// ASKUMI-style redesign (branch: askumi-version).
-// A single-scroll, software-UI-flavoured portfolio built on the same
-// content.js as the studio version — so copy stays in one place.
 import { identity, nowBoard } from '../data/content.js'
 
 const asset = (p) => `${import.meta.env.BASE_URL}${p}`
@@ -57,33 +54,32 @@ export default function FunStuff() {
     <section id="fun" className="relative overflow-hidden py-24">
       <FunMotionStyles />
       <div className="wrap relative">
-        {/* heading + blurb, with the butterfly fluttering around it */}
-        <div className="relative flex flex-col items-center justify-center text-center">
-          <Butterfly />
-          <div className="display text-3xl text-[color:var(--color-orange)] sm:text-4xl">
-            <span className="mono align-middle text-2xl">٩(^ᴗ^)۶</span> Fun stuff{' '}
-            <span className="mono align-middle text-2xl">(๑&gt;ᴗ&lt;)๑</span>
+        {/* the collage stage — heading centered, cards scattered around it */}
+        <div className="relative lg:min-h-[44rem]">
+          {/* heading + blurb (centered on desktop, in-flow on mobile) */}
+          <div className="flex flex-col items-center justify-center text-center lg:absolute lg:inset-0">
+            <div className="display text-3xl text-[color:var(--color-orange)] sm:text-4xl">
+              <span className="mono align-middle text-2xl">٩(^ᴗ^)۶</span> Fun stuff{' '}
+              <span className="mono align-middle text-2xl">(๑&gt;ᴗ&lt;)๑</span>
+            </div>
+            <p className="mono mx-auto mt-4 max-w-md text-[0.85rem] leading-relaxed text-[color:var(--color-ink-soft)]">
+              What happens when I’m left alone with my laptop — the traveling,
+              building, sketching and eleven-cat chaos. Projects that exist purely
+              because I said “what if?”
+            </p>
           </div>
-          <p className="mono mx-auto mt-4 max-w-md text-[0.85rem] leading-relaxed text-[color:var(--color-ink-soft)]">
-            What happens when I’m left alone with my laptop — the traveling,
-            building, sketching and eleven-cat chaos. Projects that exist purely
-            because I said “what if?”
-          </p>
-        </div>
-      </div>
 
-      {/* the media cards — a seamless marquee that runs edge to edge across the
-          whole viewport, right to left, pausing on hover. COLLAGE is duplicated
-          so the -50% loop point is seamless. */}
-      <div className="fun-cards mt-10">
-        <div className="fun-cards__track">
-          {[...COLLAGE, ...COLLAGE].map((item, i) => (
-            <FloatCard key={`${item.src}-${i}`} item={item} i={i} />
-          ))}
-        </div>
-      </div>
+          {/* the butterfly, fluttering across the collage */}
+          <Butterfly />
 
-      <div className="wrap relative">
+          {/* the media cards — a scroll rail on mobile, a scatter on desktop */}
+          <div className="mt-10 flex snap-x gap-4 overflow-x-auto pb-2 lg:mt-0 lg:block lg:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {COLLAGE.map((item, i) => (
+              <FloatCard key={item.src} item={item} i={i} />
+            ))}
+          </div>
+        </div>
+
         {/* tag stickers + daily-doodle link */}
         <div className="relative mt-12 flex flex-wrap items-center justify-center gap-2.5">
           {identity.tags.map((t, i) => (
@@ -115,7 +111,7 @@ function FloatCard({ item, i }) {
   const floatCls = i % 2 ? 'float-b' : 'float-a'
   return (
     <figure
-      className={`group relative w-44 shrink-0 snap-center rounded-[18px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-2 pb-3 shadow-[0_16px_34px_-14px_rgba(0,0,0,0.42)] sm:w-48 ${floatCls}`}
+      className={`group relative w-44 shrink-0 snap-center rounded-[18px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-2 pb-3 shadow-[0_16px_34px_-14px_rgba(0,0,0,0.42)] ${item.cls} ${floatCls}`}
       style={{ '--r': `${item.rot}deg`, transform: `rotate(${item.rot}deg)` }}
     >
       <div className="overflow-hidden rounded-[12px]">
@@ -204,8 +200,6 @@ function FunMotionStyles() {
         80%  { transform: translate(30vw, 58px) rotate(-6deg); }
         100% { transform: translate(0, 0) rotate(-6deg); }
       }
-
-      /* Respect reduced-motion preference */
       @media (prefers-reduced-motion: reduce) {
         .bfly, .bfly-body, .bfly-wing--l, .bfly-wing--r { animation: none !important; }
       }
