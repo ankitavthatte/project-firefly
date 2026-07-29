@@ -313,6 +313,9 @@ export const experiments = [
     note: 'Eight brands, eight personalities — a logo collection.',
     intro:
       'Selected logo and identity work: cosmetics, cycling, legal, wellness, audio, tech, coffee and craft. Every mark starts with the brand’s one true sentence.',
+    // Works-page display image — the project's title banner, so the hover
+    // preview shows the branding rather than a crop from the tall board.
+    coverImage: 'projects/logofolio/cover.jpg',
     media: [
       { type: 'board', label: 'The collection', srcs: Array.from({ length: 5 }, (_, i) => `projects/logofolio/board-${i + 1}.jpg`) },
     ],
