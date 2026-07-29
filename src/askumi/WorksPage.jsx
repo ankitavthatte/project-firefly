@@ -36,8 +36,11 @@ const PREVIEW_H = 300 // px — kept in sync with the image height below
 
 // The hover preview should be each project's FIRST main image — the first
 // thing shown on its page — not a random middle slide. Derive it from the
-// project's own media so it always matches (skipping video intros).
-function firstImage(item) {
+// project's own media so it always matches (skipping video intros). A project
+// can override this with an explicit `coverImage` when its first board is a
+// tall composite whose banner would otherwise get cropped out.
+function previewImage(item) {
+  if (item.coverImage) return item.coverImage
   if (!item.media) return undefined
   for (const m of item.media) {
     if (m.type === 'image' && m.src) return m.src
@@ -55,7 +58,7 @@ function buildRows() {
       id: p.id,
       title: TITLE[p.id] || p.name.toUpperCase(),
       category: CATEGORY[p.id] || p.kind,
-      preview: firstImage(p),
+      preview: previewImage(p),
       pos: PREVIEW_POS[p.id],
     }),
   )
@@ -65,7 +68,7 @@ function buildRows() {
         id: e.id,
         title: e.name.toUpperCase(),
         category: CATEGORY[e.id] || 'Case study',
-        preview: firstImage(e),
+        preview: previewImage(e),
         pos: PREVIEW_POS[e.id],
       })
     } else {

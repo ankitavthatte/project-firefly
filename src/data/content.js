@@ -258,6 +258,9 @@ export const experiments = [
     note: 'Reimagining India’s busiest booking flow with calm defaults.',
     intro:
       'India’s train booking app, redesigned end to end — starting with a heuristic evaluation of the existing experience, then rebuilding the flows for the millions who book in a hurry.',
+    // Works-page display image — the project's title banner, shown as the
+    // hover preview instead of a crop from the middle of the tall board.
+    coverImage: 'projects/irctc/cover.jpg',
     media: [
       { type: 'board', label: 'The redesign', srcs: Array.from({ length: 6 }, (_, i) => `projects/irctc/redesign-${i + 1}.jpg`) },
       { type: 'board', label: 'The heuristic evaluation', srcs: Array.from({ length: 3 }, (_, i) => `projects/irctc/heuristic-${i + 1}.jpg`) },
