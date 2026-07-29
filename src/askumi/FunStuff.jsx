@@ -57,38 +57,33 @@ export default function FunStuff() {
     <section id="fun" className="relative overflow-hidden py-24">
       <FunMotionStyles />
       <div className="wrap relative">
-        {/* the collage stage — heading centered, cards scattered around it */}
-        <div className="relative lg:min-h-[44rem]">
-          {/* heading + blurb (centered on desktop, in-flow on mobile) */}
-          <div className="flex flex-col items-center justify-center text-center lg:absolute lg:inset-0">
-            <div className="display text-3xl text-[color:var(--color-orange)] sm:text-4xl">
-              <span className="mono align-middle text-2xl">٩(^ᴗ^)۶</span> Fun stuff{' '}
-              <span className="mono align-middle text-2xl">(๑&gt;ᴗ&lt;)๑</span>
-            </div>
-            <p className="mono mx-auto mt-4 max-w-md text-[0.85rem] leading-relaxed text-[color:var(--color-ink-soft)]">
-              What happens when I’m left alone with my laptop — the traveling,
-              building, sketching and eleven-cat chaos. Projects that exist purely
-              because I said “what if?”
-            </p>
-          </div>
-
-          {/* the butterfly, fluttering across the collage */}
+        {/* heading + blurb, with the butterfly fluttering around it */}
+        <div className="relative flex flex-col items-center justify-center text-center">
           <Butterfly />
-
-          {/* the media cards — a scroll rail on mobile, a seamless marquee on desktop that
-              runs continuously from right to left */}
-          <div className="mt-10 lg:mt-0">
-            <div className="fun-cards-wrap">
-              {/* Duplicate the COLLAGE in the DOM to create a seamless loop */}
-              <div className="fun-cards-track mt-2 flex snap-x gap-4 pb-2 overflow-x-auto lg:block lg:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                {[...COLLAGE, ...COLLAGE].map((item, i) => (
-                  <FloatCard key={`${item.src}-${i}`} item={item} i={i} />
-                ))}
-              </div>
-            </div>
+          <div className="display text-3xl text-[color:var(--color-orange)] sm:text-4xl">
+            <span className="mono align-middle text-2xl">٩(^ᴗ^)۶</span> Fun stuff{' '}
+            <span className="mono align-middle text-2xl">(๑&gt;ᴗ&lt;)๑</span>
           </div>
+          <p className="mono mx-auto mt-4 max-w-md text-[0.85rem] leading-relaxed text-[color:var(--color-ink-soft)]">
+            What happens when I’m left alone with my laptop — the traveling,
+            building, sketching and eleven-cat chaos. Projects that exist purely
+            because I said “what if?”
+          </p>
         </div>
+      </div>
 
+      {/* the media cards — a seamless marquee that runs edge to edge across the
+          whole viewport, right to left, pausing on hover. COLLAGE is duplicated
+          so the -50% loop point is seamless. */}
+      <div className="fun-cards mt-10">
+        <div className="fun-cards__track">
+          {[...COLLAGE, ...COLLAGE].map((item, i) => (
+            <FloatCard key={`${item.src}-${i}`} item={item} i={i} />
+          ))}
+        </div>
+      </div>
+
+      <div className="wrap relative">
         {/* tag stickers + daily-doodle link */}
         <div className="relative mt-12 flex flex-wrap items-center justify-center gap-2.5">
           {identity.tags.map((t, i) => (
@@ -120,7 +115,7 @@ function FloatCard({ item, i }) {
   const floatCls = i % 2 ? 'float-b' : 'float-a'
   return (
     <figure
-      className={`group relative w-44 shrink-0 snap-center rounded-[18px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-2 pb-3 shadow-[0_16px_34px_-14px_rgba(0,0,0,0.4] ${floatCls} ${item.cls}`}
+      className={`group relative w-44 shrink-0 snap-center rounded-[18px] border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] p-2 pb-3 shadow-[0_16px_34px_-14px_rgba(0,0,0,0.42)] sm:w-48 ${floatCls}`}
       style={{ '--r': `${item.rot}deg`, transform: `rotate(${item.rot}deg)` }}
     >
       <div className="overflow-hidden rounded-[12px]">
@@ -210,27 +205,9 @@ function FunMotionStyles() {
         100% { transform: translate(0, 0) rotate(-6deg); }
       }
 
-      /* Marquee-style edge-to-edge animation for the fun-stuff cards on large screens */
-      .fun-cards-wrap { width: 100vw; max-width: 100vw; margin: 0 auto; overflow: hidden; box-sizing: border-box; }
-      .fun-cards-track { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); white-space: nowrap; flex-wrap: nowrap; will-change: transform; }
-      .fun-cards-track:hover { animation-play-state: paused; }
-      .fun-cards-track > * { flex: 0 0 auto; }
-
-      /* With duplicated content we animate by half the track width to loop seamlessly */
-      @keyframes fun-scroll {
-        0% { transform: translateX(0%); }
-        100% { transform: translateX(-50%); }
-      }
-
-      /* Apply animation only on large screens (match Tailwind lg breakpoint: 1024px) */
-      @media (min-width: 1024px) {
-        .fun-cards-track { animation: fun-scroll 28s linear infinite; }
-      }
-
       /* Respect reduced-motion preference */
       @media (prefers-reduced-motion: reduce) {
         .bfly, .bfly-body, .bfly-wing--l, .bfly-wing--r { animation: none !important; }
-        .fun-cards-track { animation: none !important; overflow-x: auto; -webkit-overflow-scrolling: touch; }
       }
     `}</style>
   )

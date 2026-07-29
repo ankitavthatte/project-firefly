@@ -266,6 +266,33 @@ body {
   }
 }
 
+/* ---- Fun Stuff home collage — full-bleed seamless marquee ---- */
+.fun-cards {
+  overflow: hidden;
+  /* room for the cards' tilt, float bob and drop shadows */
+  padding-top: 20px;
+  padding-bottom: 32px;
+}
+.fun-cards__track {
+  display: inline-flex;
+  gap: 1rem;
+  /* trailing gap so the -50% loop point aligns with the duplicated set */
+  padding-right: 1rem;
+  animation: marquee 60s linear infinite;
+  will-change: transform;
+}
+.fun-cards:hover .fun-cards__track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fun-cards {
+    overflow-x: auto;
+  }
+  .fun-cards__track {
+    animation: none;
+  }
+}
+
 /* ---- Barcode strip for the ID badge ----------------------- */
 .barcode {
   height: 34px;
