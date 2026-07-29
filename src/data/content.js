@@ -518,11 +518,10 @@ export const funStuff = [
     img: 'fun/ferris-build.jpg',
   },
   {
-    title: 'Farm Days',
-    tint: '#74cca0',
-    desc: 'Off the grid with the animals — the antidote to a week of screens, and the best kind of field research.',
-    video: 'fun/farm.mp4',
-    img: 'fun/farm.jpg',
+    title: 'Magic Hands',
+    tint: '#8fb2ff',
+    desc: 'A camera-driven AR playground you control with your bare hands — no headset, no install. Wave to leave sparkle trails, pinch to paint mid-air, pop bubbles and bend a field of stars, all hand-tracked in the browser with MediaPipe.',
+    href: 'https://github.com/ankitavthatte/Fun-AR-project',
   },
   {
     title: 'Tried the Future',
