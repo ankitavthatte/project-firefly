@@ -487,12 +487,6 @@ export const funStuff = [
     fit: 'contain',
   },
   {
-    title: 'Sketchbook Stories',
-    tint: '#74cca0',
-    desc: 'Handcrafted little worlds — characters, lettering and scenes, drawn on location wherever I happen to be.',
-    img: 'fun/sketching.jpg',
-  },
-  {
     title: 'Magic Hands',
     tint: '#8fb2ff',
     desc: 'A camera-driven AR playground you control with your bare hands — no headset, no install. Wave to leave sparkle trails, pinch to paint mid-air, pop bubbles and bend a field of stars, all hand-tracked in the browser with MediaPipe.',
