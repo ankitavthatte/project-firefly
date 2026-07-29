@@ -22,7 +22,8 @@ const ICONS = {
   ),
 }
 
-// Tappable sign-offs — the line cycles through these on click.
+// Tappable sign-offs — the line cycles through these on click, and each one
+// has its own little hand-drawn doodle (see DOODLES below, matched by index).
 const SIGNOFFS = [
   contact.goodbye,
   'Still scrolling? I already like you.',
@@ -30,6 +31,64 @@ const SIGNOFFS = [
   'Coffee’s on me if you’re ever in Pune.',
   'Eleven rescue cats say hi, by the way.',
 ]
+
+// Loose, hand-drawn line doodles — one per sign-off, in the same order. Wobbly
+// single-weight strokes with round caps so they read as quick marker sketches
+// rather than crisp icons. They inherit the card's white via currentColor.
+function CardDoodle({ idx, size = 72 }) {
+  const s = {
+    width: size,
+    height: size,
+    viewBox: '0 0 64 64',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 2.4,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    'aria-hidden': true,
+  }
+  const dot = { fill: 'currentColor', stroke: 'none' }
+  const doodles = [
+    // 0 · winking, waving hello
+    <svg key="d0" {...s}>
+      <path d="M32 10.5c11.6 0 20.5 9.2 20.5 20.5S43.6 51.5 32 51.5 11.5 42.3 11.5 31 20.4 10.5 32 10.5Z" />
+      <circle cx="24.5" cy="28" r="1.6" {...dot} />
+      <path d="M34.5 28c1.8 2 4.2 2 6 0" />
+      <path d="M23 37c5 6.5 13 6.5 18 0" />
+      <path d="M55 14v6M52 17h6" />
+    </svg>,
+    // 1 · a heart
+    <svg key="d1" {...s}>
+      <path d="M32 49C13 36 12 22 21.5 18.5c5-1.9 9 1.4 10.5 5 1.5-3.6 5.5-6.9 10.5-5C52 22 51 36 32 49Z" />
+      <path d="M47 13v6M44 16h6" />
+      <circle cx="15" cy="20" r="1.3" {...dot} />
+    </svg>,
+    // 2 · a paper plane
+    <svg key="d2" {...s}>
+      <path d="M55 11 8 32l19 4 4 17Z" />
+      <path d="M27 36 55 11" />
+    </svg>,
+    // 3 · a steaming coffee cup
+    <svg key="d3" {...s}>
+      <path d="M15 27h29v10a11 11 0 0 1-11 11h-7a11 11 0 0 1-11-11Z" />
+      <path d="M44 30h4a6 6 0 0 1 0 12h-4" />
+      <path d="M23 10c-2.5 3.5 0 6.5 0 10M31 10c-2.5 3.5 0 6.5 0 10M39 10c-2.5 3.5 0 6.5 0 10" />
+      <path d="M13 53h34" />
+    </svg>,
+    // 4 · a cat face (for the eleven rescue cats)
+    <svg key="d4" {...s}>
+      <path d="M16 25C16 41 24 50 32 50s16-9 16-25" />
+      <path d="M16 25 12 12 27 20" />
+      <path d="M48 25 52 12 37 20" />
+      <circle cx="25" cy="31" r="1.5" {...dot} />
+      <circle cx="39" cy="31" r="1.5" {...dot} />
+      <path d="M30 37h4l-2 3Z" {...dot} />
+      <path d="M32 40c-1.5 2-4 2-5 0M32 40c1.5 2 4 2 5 0" />
+      <path d="M19 34 8 32M19 38 9 41M45 34 56 32M45 38 55 41" />
+    </svg>,
+  ]
+  return doodles[idx % doodles.length]
+}
 
 // Live local time in Pune, refreshed every half-minute — a small "I'm a real
 // person, currently awake-ish" signal next to the availability line.
@@ -92,9 +151,9 @@ export default function SiteFooter() {
                 animate={{ scale: 1, opacity: 1, rotate: 0 }}
                 exit={{ scale: 0.5, opacity: 0, rotate: 12 }}
                 transition={{ type: 'spring', stiffness: 420, damping: 16 }}
-                className="transition-transform group-hover:scale-110"
+                className="text-white transition-transform group-hover:scale-110"
               >
-                <Asterisk size={44} className="text-white" />
+                <CardDoodle idx={idx} />
               </motion.div>
             </AnimatePresence>
 
