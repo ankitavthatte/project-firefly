@@ -487,12 +487,6 @@ export const funStuff = [
     fit: 'contain',
   },
   {
-    title: 'Daily Doodles',
-    tint: '#8fb2ff',
-    desc: 'Small drawings and design bits, posted (almost) daily over at @punedoodlerr.',
-    href: 'https://www.instagram.com/punedoodlerr',
-  },
-  {
     title: 'Sketchbook Stories',
     tint: '#74cca0',
     desc: 'Handcrafted little worlds — characters, lettering and scenes, drawn on location wherever I happen to be.',
@@ -504,13 +498,6 @@ export const funStuff = [
     desc: 'Design breaks powered by eleven very opinionated rescue cats. They approve most of my colour palettes.',
   },
   {
-    title: 'Flea-Market Finds',
-    tint: '#f6a15a',
-    desc: 'Sunday-morning treasure hunts through tables of brass — every worn little object is a lesson in form and craft.',
-    video: 'fun/flea-market.mp4',
-    img: 'fun/flea-market.jpg',
-  },
-  {
     title: 'Weekend Builds',
     tint: '#9d4edd',
     desc: 'A wooden mechanical Ferris wheel, assembled gear by gear. Building physical things keeps my hands honest.',
@@ -518,11 +505,10 @@ export const funStuff = [
     img: 'fun/ferris-build.jpg',
   },
   {
-    title: 'Farm Days',
-    tint: '#74cca0',
-    desc: 'Off the grid with the animals — the antidote to a week of screens, and the best kind of field research.',
-    video: 'fun/farm.mp4',
-    img: 'fun/farm.jpg',
+    title: 'Magic Hands',
+    tint: '#8fb2ff',
+    desc: 'A camera-driven AR playground you control with your bare hands — no headset, no install. Wave to leave sparkle trails, pinch to paint mid-air, pop bubbles and bend a field of stars, all hand-tracked in the browser with MediaPipe.',
+    href: 'https://github.com/ankitavthatte/Fun-AR-project',
   },
   {
     title: 'Tried the Future',
