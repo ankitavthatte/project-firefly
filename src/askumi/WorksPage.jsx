@@ -6,8 +6,8 @@ const asset = (p) => `${import.meta.env.BASE_URL}${p}`
 const behance = identity.links.find((l) => l.label === 'Behance')?.href
 
 // The full works index, in the reference's list style. Each row links to its
-// case study; a few explorations stay locked. Hovering a row lights it up and
-// reveals a big preview image from that project, tracking the row's position.
+// case study. Hovering a row lights it up and reveals a big preview image from
+// that project, tracking the row's position.
 const CATEGORY = {
   evalix: 'Enterprise AI · UX',
   moneyminds: 'Gamified Product Design',
@@ -21,10 +21,6 @@ const TITLE = {
   evalix: 'REDESIGNING EVALIX AI, END TO END',
   moneyminds: 'GAMIFYING FINANCIAL LITERACY',
   shiftcare: 'SCHEDULING HEALTHCARE WITHOUT THE CHAOS',
-}
-const LOCKED_CATEGORY = {
-  Vfort: 'Product Exploration',
-  Niyantrac: 'Dashboard Concepts',
 }
 // Where to anchor the preview crop. MoneyMinds' first image is a tall board
 // whose cover (the phone mockup) sits at the very top, so anchor it there.
@@ -63,21 +59,13 @@ function buildRows() {
     }),
   )
   experiments.forEach((e) => {
-    if (e.id) {
-      rows.push({
-        id: e.id,
-        title: e.name.toUpperCase(),
-        category: CATEGORY[e.id] || 'Case study',
-        preview: previewImage(e),
-        pos: PREVIEW_POS[e.id],
-      })
-    } else {
-      rows.push({
-        title: e.name.toUpperCase(),
-        category: LOCKED_CATEGORY[e.name] || 'Exploration',
-        locked: true,
-      })
-    }
+    rows.push({
+      id: e.id,
+      title: e.name.toUpperCase(),
+      category: CATEGORY[e.id] || 'Case study',
+      preview: previewImage(e),
+      pos: PREVIEW_POS[e.id],
+    })
   })
   return rows
 }
@@ -142,7 +130,7 @@ export default function WorksPage() {
           </a>
         )}
         <a href={`mailto:${identity.email}`} className="pill pill-orange">
-          Ask about a locked one ↗
+          Get in touch ↗
         </a>
       </div>
     </div>
@@ -153,40 +141,17 @@ function WorkRow({ row, onHover }) {
   const inner = (
     <div className="wrap flex flex-col items-start gap-3 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-6">
       <div className="flex min-w-0 items-center gap-3 sm:gap-6">
-        {row.locked ? <LockIcon /> : <ArrowIcon />}
-        <span
-          className={`mono text-[1.05rem] font-bold tracking-tight sm:truncate sm:text-[1.35rem] ${
-            row.locked
-              ? 'text-[color:var(--color-ink-soft)] group-hover:text-[color:var(--color-ink-soft)]'
-              : 'text-[color:var(--color-ink)] group-hover:text-[#161116]'
-          }`}
-        >
+        <ArrowIcon />
+        <span className="mono text-[1.05rem] font-bold tracking-tight text-[color:var(--color-ink)] group-hover:text-[#161116] sm:truncate sm:text-[1.35rem]">
           {row.title}
         </span>
       </div>
 
-      <span
-        className={`mono ml-11 shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-[0.72rem] transition-opacity sm:ml-0 ${
-          row.locked
-            ? 'border-[color:var(--color-line)] text-[color:var(--color-ink-soft)]'
-            : 'border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] text-[color:var(--color-ink)] group-hover:opacity-0'
-        }`}
-      >
+      <span className="mono ml-11 shrink-0 whitespace-nowrap rounded-full border border-[color:var(--color-line)] bg-[color:var(--color-card-hi)] px-4 py-2 text-[0.72rem] text-[color:var(--color-ink)] transition-opacity group-hover:opacity-0 sm:ml-0">
         {row.category}
       </span>
     </div>
   )
-
-  if (row.locked) {
-    return (
-      <li
-        className="group block cursor-not-allowed border-t border-[color:var(--color-line)] opacity-70"
-        title="Under wraps for now — ask me about it"
-      >
-        {inner}
-      </li>
-    )
-  }
 
   return (
     <li className="group block border-t border-[color:var(--color-line)] transition-colors hover:bg-[color:var(--color-orange)]">
@@ -232,17 +197,6 @@ function ArrowIcon() {
       <span className="absolute bottom-0 right-0 h-2 w-2 border-b border-r border-current opacity-70" />
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
         <path d="M8 8h8v8M16 8L7 17" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </span>
-  )
-}
-
-function LockIcon() {
-  return (
-    <span className="grid h-9 w-9 shrink-0 place-items-center text-[color:var(--color-ink-soft)]">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-        <rect x="5" y="11" width="14" height="9" rx="2" />
-        <path d="M8 11V8a4 4 0 0 1 8 0v3" strokeLinecap="round" />
       </svg>
     </span>
   )

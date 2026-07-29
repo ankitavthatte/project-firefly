@@ -320,8 +320,6 @@ export const experiments = [
       { type: 'board', label: 'The collection', srcs: Array.from({ length: 5 }, (_, i) => `projects/logofolio/board-${i + 1}.jpg`) },
     ],
   },
-  { name: 'Vfort', note: 'Security product exploration — trust as a visual language.' },
-  { name: 'Niyantrac', note: 'Control-and-monitoring dashboard concepts.' },
 ]
 
 // The architecture years. Items use the same media shapes as experiments —

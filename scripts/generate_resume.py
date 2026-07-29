@@ -223,10 +223,6 @@ for name, desc in [
      "mascot & brand design, research to visual design."),
     ("ShiftCare", "Healthcare staff scheduling: shift board readable at a "
      "glance, conflict alerts, end-to-end UX case study."),
-    ("Niyantrac", "Cloud infra platform: dashboards for CloudFront, "
-     "Route 53, WAF; config & versioning UX."),
-    ("VFort", "Web services: conversion-focused redesign for domains & "
-     "hosting, premium design system."),
 ]:
     R.text(f"{name} — {desc}", size=8.5, leading=11,
            space_after=3)
