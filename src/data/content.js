@@ -487,12 +487,6 @@ export const funStuff = [
     fit: 'contain',
   },
   {
-    title: 'Daily Doodles',
-    tint: '#8fb2ff',
-    desc: 'Small drawings and design bits, posted (almost) daily over at @punedoodlerr.',
-    href: 'https://www.instagram.com/punedoodlerr',
-  },
-  {
     title: 'Sketchbook Stories',
     tint: '#74cca0',
     desc: 'Handcrafted little worlds — characters, lettering and scenes, drawn on location wherever I happen to be.',
@@ -502,13 +496,6 @@ export const funStuff = [
     title: 'Eleven Art Directors',
     tint: '#f6a15a',
     desc: 'Design breaks powered by eleven very opinionated rescue cats. They approve most of my colour palettes.',
-  },
-  {
-    title: 'Flea-Market Finds',
-    tint: '#f6a15a',
-    desc: 'Sunday-morning treasure hunts through tables of brass — every worn little object is a lesson in form and craft.',
-    video: 'fun/flea-market.mp4',
-    img: 'fun/flea-market.jpg',
   },
   {
     title: 'Weekend Builds',
