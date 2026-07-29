@@ -272,6 +272,9 @@ export const experiments = [
     note: 'Food ordering flows, reduced to their happiest path.',
     intro:
       'A food delivery app crafted around one promise: order from different restaurants in one seamless flow. Branding, user flows, onboarding, and UI — the whole meal.',
+    // Works-page display image — the project's title banner, so the hover
+    // preview shows the branding rather than a crop from the tall board.
+    coverImage: 'projects/chownow/cover.jpg',
     media: [
       { type: 'video', src: 'projects/chownow/demo.mp4', caption: 'App walkthrough' },
       { type: 'board', label: 'The case study', srcs: Array.from({ length: 6 }, (_, i) => `projects/chownow/board-${i + 1}.jpg`) },
