@@ -493,18 +493,6 @@ export const funStuff = [
     img: 'fun/sketching.jpg',
   },
   {
-    title: 'Eleven Art Directors',
-    tint: '#f6a15a',
-    desc: 'Design breaks powered by eleven very opinionated rescue cats. They approve most of my colour palettes.',
-  },
-  {
-    title: 'Weekend Builds',
-    tint: '#9d4edd',
-    desc: 'A wooden mechanical Ferris wheel, assembled gear by gear. Building physical things keeps my hands honest.',
-    video: 'fun/ferris-build.mp4',
-    img: 'fun/ferris-build.jpg',
-  },
-  {
     title: 'Magic Hands',
     tint: '#8fb2ff',
     desc: 'A camera-driven AR playground you control with your bare hands — no headset, no install. Wave to leave sparkle trails, pinch to paint mid-air, pop bubbles and bend a field of stars, all hand-tracked in the browser with MediaPipe.',
