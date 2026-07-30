@@ -497,6 +497,8 @@ export const funStuff = [
     title: 'Magic Hands',
     tint: '#8fb2ff',
     desc: 'A camera-driven AR playground you control with your bare hands — no headset, no install. Wave to leave sparkle trails, pinch to paint mid-air, pop bubbles and bend a field of stars, all hand-tracked in the browser with MediaPipe.',
+    video: 'fun/magic-hands.mp4',
+    img: 'fun/magic-hands.jpg',
     href: 'https://github.com/ankitavthatte/Fun-AR-project',
   },
   {
