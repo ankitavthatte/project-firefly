@@ -69,6 +69,14 @@ const COLLAGE = [
     rot: -6,
     cls: 'lg:absolute lg:right-[30%] lg:top-[46%] lg:w-40',
   },
+  {
+    kind: 'video',
+    src: 'fun/marathon.mp4',
+    poster: 'fun/marathon.jpg',
+    cap: 'Marathon · medal earned',
+    rot: 4,
+    cls: 'lg:absolute lg:left-[24%] lg:top-[2%] lg:w-40',
+  },
 ]
 
 const doodle = nowBoard.items.find((i) => i.href)?.href
