@@ -12,62 +12,7 @@ const COLLAGE = [
     src: 'fun/sketching.jpg',
     cap: 'Sketchbook · on location',
     rot: -5,
-    cls: 'lg:absolute lg:left-[2%] lg:top-2 lg:w-52',
-  },
-  {
-    kind: 'video',
-    src: 'fun/market.mp4',
-    poster: 'fun/market.jpg',
-    cap: 'Flea-market field notes',
-    rot: 4,
-    cls: 'lg:absolute lg:right-[4%] lg:top-0 lg:w-48',
-  },
-  {
-    kind: 'video',
-    src: 'fun/ferris-build.mp4',
-    poster: 'fun/ferris-build.jpg',
-    cap: 'Weekend build',
-    rot: -3,
-    cls: 'lg:absolute lg:bottom-1 lg:right-[15%] lg:w-44',
-  },
-  {
-    kind: 'video',
-    src: 'fun/farm.mp4',
-    poster: 'fun/farm.jpg',
-    cap: 'Farm days',
-    rot: 3,
-    cls: 'lg:absolute lg:bottom-0 lg:left-[10%] lg:w-44',
-  },
-  {
-    kind: 'video',
-    src: 'fun/pottery.mp4',
-    poster: 'fun/pottery.jpg',
-    cap: 'Pottery · at the wheel',
-    rot: -4,
-    cls: 'lg:absolute lg:left-[1%] lg:top-[43%] lg:w-40',
-  },
-  {
-    kind: 'video',
-    src: 'fun/painting.mp4',
-    poster: 'fun/painting.jpg',
-    cap: 'Painting · on location',
-    rot: 5,
-    cls: 'lg:absolute lg:bottom-2 lg:left-[41%] lg:w-40',
-  },
-  {
-    kind: 'image',
-    src: 'fun/vr-expo.jpg',
-    cap: 'Tried the future',
-    rot: 6,
-    cls: 'lg:absolute lg:right-[1%] lg:top-[44%] lg:w-40',
-  },
-  {
-    kind: 'video',
-    src: 'fun/gamer.mp4',
-    poster: 'fun/gamer.jpg',
-    cap: 'Gamer mode · on',
-    rot: -6,
-    cls: 'lg:absolute lg:right-[30%] lg:top-[46%] lg:w-40',
+    cls: 'lg:absolute lg:left-[1%] lg:top-[3%] lg:w-48',
   },
   {
     kind: 'video',
@@ -75,7 +20,62 @@ const COLLAGE = [
     poster: 'fun/marathon.jpg',
     cap: 'Marathon · medal earned',
     rot: 4,
-    cls: 'lg:absolute lg:left-[24%] lg:top-[2%] lg:w-40',
+    cls: 'lg:absolute lg:left-[39%] lg:top-0 lg:w-40',
+  },
+  {
+    kind: 'video',
+    src: 'fun/market.mp4',
+    poster: 'fun/market.jpg',
+    cap: 'Flea-market field notes',
+    rot: 4,
+    cls: 'lg:absolute lg:right-[2%] lg:top-[2%] lg:w-44',
+  },
+  {
+    kind: 'video',
+    src: 'fun/pottery.mp4',
+    poster: 'fun/pottery.jpg',
+    cap: 'Pottery · at the wheel',
+    rot: -4,
+    cls: 'lg:absolute lg:left-[2%] lg:top-[42%] lg:w-40',
+  },
+  {
+    kind: 'image',
+    src: 'fun/vr-expo.jpg',
+    cap: 'Tried the future',
+    rot: 6,
+    cls: 'lg:absolute lg:right-[2%] lg:top-[40%] lg:w-40',
+  },
+  {
+    kind: 'video',
+    src: 'fun/farm.mp4',
+    poster: 'fun/farm.jpg',
+    cap: 'Farm days',
+    rot: 3,
+    cls: 'lg:absolute lg:bottom-[4%] lg:left-[2%] lg:w-44',
+  },
+  {
+    kind: 'video',
+    src: 'fun/painting.mp4',
+    poster: 'fun/painting.jpg',
+    cap: 'Painting · on location',
+    rot: 5,
+    cls: 'lg:absolute lg:bottom-[1%] lg:left-[30%] lg:w-40',
+  },
+  {
+    kind: 'video',
+    src: 'fun/ferris-build.mp4',
+    poster: 'fun/ferris-build.jpg',
+    cap: 'Weekend build',
+    rot: -3,
+    cls: 'lg:absolute lg:bottom-[3%] lg:right-[26%] lg:w-44',
+  },
+  {
+    kind: 'video',
+    src: 'fun/gamer.mp4',
+    poster: 'fun/gamer.jpg',
+    cap: 'Gamer mode · on',
+    rot: -6,
+    cls: 'lg:absolute lg:bottom-[2%] lg:right-[3%] lg:w-40',
   },
 ]
 
@@ -87,7 +87,7 @@ export default function FunStuff() {
       <FunMotionStyles />
       <div className="wrap relative">
         {/* the collage stage — heading centered, cards scattered around it */}
-        <div className="relative lg:min-h-[44rem]">
+        <div className="relative lg:min-h-[52rem]">
           {/* heading + blurb (centered on desktop, in-flow on mobile) */}
           <div className="flex flex-col items-center justify-center text-center lg:absolute lg:inset-0">
             <div className="display text-3xl text-[color:var(--color-orange)] sm:text-4xl">
@@ -96,8 +96,7 @@ export default function FunStuff() {
             </div>
             <p className="mono mx-auto mt-4 max-w-md text-[0.85rem] leading-relaxed text-[color:var(--color-ink-soft)]">
               What happens when I’m left alone with my laptop — the traveling,
-              building, sketching and eleven-cat chaos. Projects that exist purely
-              because I said “what if?”
+              building, sketching and eleven-cat chaos.
             </p>
           </div>
 
